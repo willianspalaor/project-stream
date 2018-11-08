@@ -1,0 +1,25 @@
+
+
+<div class="container container-animes">
+    <div class="row text-center text-lg-left">
+        <?php foreach ($animes as $anime) : ?>
+            <div class="card-anime col-lg-3 col-md-4 col-xs-6">
+                <a href="#" class="d-block mb-4 h-100">
+                    <img class="img-fluid img-thumbnail miniature" src="<?= !$anime->img? 'http://placehold.it/250x200' : $anime->img ?>" alt="">
+               		<!--<div class="top-card-anime">
+                		<h3><?= $anime->title ?></h3>
+  					</div> -->
+                  	<div class="middle-card-anime">
+                		<img class="anime-play" src="<?= $this->basePath('img/Anime/icons/play-anime.png')?>">
+  					</div>
+                </a>
+
+            </div> 
+        <?php endforeach ?>
+  </div>
+</div>
+<script>
+
+</script>
+
+

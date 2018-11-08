@@ -1,0 +1,57 @@
+<video data-start="<?= $episode->open_start ?>" data-end="<?= $episode->open_end ?>" id="video-anime" src="<?= $video->url ?>"  muted>
+  Seu navegador não suporta o elemento <code>video</code>.
+</video>
+
+<div class="video-actions">
+    <div class="video-return" data-toggle="tooltip" data-placement="right" title="Retornar para navegação">
+        <a id="btnReturn">
+            <i class="far fa-arrow-alt-circle-left"></i>
+        </a>
+    </div>
+    <div class="video-skip">
+        <span class="no-select" id="btnSkip" >Pular Abertura<i class="fas fa-angle-double-right"></i></span>
+    </div>
+</div>
+<div class="video-bottom">
+
+    <div class="progress video-progress">
+        <div id="video-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <!--<div class="progressTime">
+        Current play time: <span class="current"></span>
+        Video duration: <span class="duration"></span>
+    </div> -->
+    <div class="video-controllers">
+        <div class="video-play">
+            <a id="btnPlay">
+                <i class="fas fa-pause icon-play"></i>
+            </a>
+        </div>
+        <div class="video-mute">
+            <a id="btnMute">
+                <i class="fas fa-volume-up icon-mute"></i>
+            </a>
+        </div>
+        <div class="video-fullscreen">
+            <a id="btnFullScreen">
+                <i class="fas fa-expand"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+    $(document).ready(function(){
+        (new App()).start();
+    });
+
+    $(window).on('load', function() {
+        (new Player()).start();
+    });
+</script>
