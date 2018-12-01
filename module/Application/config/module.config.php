@@ -19,16 +19,6 @@ return [
                 'options' => [
                     'route'    => '/',
                     'defaults' => [
-                        'controller' => Controller\AppController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-            'application' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/application[/:action]',
-                    'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
                     ],
@@ -44,11 +34,21 @@ return [
                     ],
                 ],
             ],
+            'player' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/player[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\PlayerController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
+          //  Controller\IndexController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

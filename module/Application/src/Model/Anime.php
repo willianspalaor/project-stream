@@ -17,6 +17,7 @@ class Anime implements InputFilterAwareInterface
     public $title;
     public $img;
     public $route;
+    public $track;
 
    	private $inputFilter;
 
@@ -26,6 +27,7 @@ class Anime implements InputFilterAwareInterface
         $this->title = !empty($data['title']) ? $data['title'] : null;
         $this->img = !empty($data['img']) ? $data['img'] : null;
         $this->route = !empty($data['route']) ? $data['route'] : null;
+        $this->track = !empty($data['track']) ? $data['track'] : null;
     }
 
     public function getArrayCopy()
@@ -34,7 +36,8 @@ class Anime implements InputFilterAwareInterface
             'id'      => $this->id,
             'title'   => $this->title,
             'img' => $this->img,
-            'route' => $this->route
+            'route' => $this->route,
+            'track' => $this->track
         ];
     }
 

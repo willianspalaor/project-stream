@@ -4,6 +4,7 @@ namespace Application\Model;
 
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
+use Zend\Db\Sql\Expression;
 
 class AnimeTable
 {
@@ -22,13 +23,12 @@ class AnimeTable
         return $resultSet;
     }
 
-    public function getAnime($id)
+    public function getAnime($id = null, $name = null)
     {
-        if(gettype($id) == 'string'){
-            $rowset = $this->tableGateway->select(['name' => $id]);
+        if($id){
+            $rowset = $this->tableGateway->select(['track' => $id]);
         }else{
-            $id = (int) $id;
-            $rowset = $this->tableGateway->select(['id_anime' => $id]);
+            $rowset = $this->tableGateway->select(['name' => $name]);
         }
 
         $row = $rowset->current();
@@ -41,4 +41,5 @@ class AnimeTable
 
         return $row;
     }
+
 }

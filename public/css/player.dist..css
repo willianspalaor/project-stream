@@ -1,0 +1,583 @@
+
+body{
+    margin:0;
+    padding: 0 !important;
+}
+.content{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    background-size: cover;
+    overflow: hidden;
+}
+
+#video-viewport {
+    position: absolute;
+    left: 0;
+    /* bottom: 50px; */
+    z-index: -1;
+    width: 100%;
+}
+
+#video-viewport > video{
+    width: 80%;
+    position: fixed;
+    z-index: 99;
+    left: 10%;
+    top: 5%;
+}
+
+.player-controls{
+    position: fixed;
+    padding: 20px;
+    background-color: #383838;
+    width: 64%;
+    height: 50px;
+    bottom: 25%;
+    border-radius: 10px;
+    left: 18%;
+    opacity: 0;
+}
+
+.player-controls > .player-play{
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    box-shadow: 1px 0 0 #000;
+    /*border-right: 1px solid #000;*/
+    padding-right: 20px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+}
+
+.player-controls > .player-play > a > i{
+    font-size: 28px;
+    color: #dadada;
+    margin-top: 13px;
+}
+
+.player-controls > .player-volume{
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    left: 65px;
+    top: 0;
+    padding-top: 10px;
+    box-shadow: 1px 0 0 #000;
+    /*border-right: 1px solid #000;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 75px;
+}
+
+.player-controls > .player-volume > a > i{
+    font-size: 33px;
+    color: #dadada;
+    margin-bottom: 7px;
+}
+
+.player-controls > .player-volume >.slider-volume{
+    position: absolute;
+    width: 38px;
+    height: 125px;
+    background-color: #383838;
+    bottom: 60px;
+    border-radius: 2px;
+    z-index: 99;
+    display: none;
+    opacity: 0.9;
+}
+
+.player-controls > .player-volume >.slider-volume > .tr-slider{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #383838;
+    z-index: 0;
+    left: 9px;
+    position: absolute;
+    opacity: 1;
+    bottom: -10px;
+}
+
+.player-controls > .player-title{
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    left: 140px;
+    top: 0;
+    padding-left: 20px;
+    padding-bottom: 28px;
+}
+
+.player-controls > .player-title > h4{
+    color: #fff;
+    top: 16px;
+    position: relative;
+    display: inline;
+    padding-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.player-controls > .player-title > span{
+    padding-right: .5em;
+    color: #adadad;
+    top: 16px;
+    position: relative;
+    font-size: 15px;
+}
+
+.player-fullscreen {
+
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    padding-right: 20px;
+    right: 0;
+    top: 0;
+    padding-left: 20px;
+    padding-bottom: 18px;
+
+}
+
+.player-forward {
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    padding-right: 20px;
+    right: 67px;
+    top: 0;
+    border-right: 1px solid #000;
+    padding-bottom: 6px;
+}
+
+.player-forward > a > i{
+    font-size: 32px;
+    color: #dadada;
+    margin-top: 11px;
+}
+
+
+.player-next-video{
+    position: absolute;
+    width: 400px;
+    height: 130px;
+    background-color: #383838;
+    top: -147px;
+    opacity: 0.9;
+    z-index: 99;
+    display: none;
+    border-radius: 8px;
+    border: 7px solid #383838;
+    right: 0;
+    text-overflow: ellipsis;
+}
+
+.player-next-video > img{
+    width: 140px;
+    margin-top: 20px;
+    display: inherit;
+}
+
+.player-next-video > span{
+    color: #fff;
+    font-weight: bold;
+    top: 0;
+    position: absolute;
+}
+
+.player-next-video > h5{
+    position: absolute;
+    top: 0;
+    left: 40%;
+    color: #fff;
+    font-weight: bold;
+}
+
+.player-next-video > em{
+    position: absolute;
+    top: 25%;
+    left: 40%;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 70%;
+    text-align: justify;
+    font-size: 12px;
+}
+
+
+.player-next-video > .tr-next{
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #383838;
+    z-index: 0;
+    left: 87%;
+    position: absolute;
+    bottom: -20%;
+}
+
+.player-seasons {
+    position: absolute;
+    cursor: pointer;
+    z-index: 99;
+    padding-right: 20px;
+    right: 133px;
+    top: 0;
+    border-right: 1px solid #000;
+    padding-bottom: 8px;
+}
+
+.player-seasons > .seasons{
+    position: absolute;
+    width: 300px;
+    height: 360px;
+    background-color: #383838;
+    top: -376px;
+    z-index: 99;
+    border-radius: 8px;
+    right: 0;
+    display: none;
+    overflow-y: auto;
+}
+
+.player-seasons > .tr-seasons{
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #383838;
+    z-index: 0;
+    left: 0;
+    position: absolute;
+    bottom: 52px;
+    display: none;
+}
+
+.player-seasons > .seasons > .head{
+    border-bottom: 1px solid #000;
+    height: 45px;
+}
+
+.player-seasons > .seasons > .head > span{
+    color: #fff;
+    font-weight: bold;
+    font-size: 15px;
+    padding-top: 15px;
+    position: absolute;
+    padding-left: 18px;
+    /* padding-bottom: 5px; */
+    padding-top: 12px;
+}
+
+.player-seasons > a > i{
+    font-size: 32px;
+    color: #dadada;
+    margin-top: 9px;
+}
+
+.list-season{
+    background-color: #383838 !important;
+    color: #fff !important;
+    border: 1px solid #272626 !important;
+}
+
+.list-season:hover{
+    background-color: #565555 !important;
+}
+
+.list-seasons > span{
+    font-size: 16px;
+}
+
+.list-season > i{
+    font-size: 20px;
+    right: 5%;
+    position: absolute;
+    top: 30%;
+}
+
+/**** */
+.player-seasons > .episodes{
+    position: absolute;
+    width: 300px;
+    height: 360px;
+    background-color: #383838;
+    top: -376px;
+    z-index: 99;
+    border-radius: 8px;
+    right: 0;
+    display: none;
+    overflow-y: auto;
+}
+
+.player-seasons > .episodes > .head{
+    border-bottom: 1px solid #000;
+    height: 45px;
+    background-color: #383838;
+}
+
+.player-seasons > .episodes > .head:hover{
+    background-color: #565656;
+}
+
+.player-seasons > .episodes > .head > span{
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    height: 59px;
+    width: 230px;
+    left: 50px;
+    position: absolute;
+    top: 0;
+    padding-top: 13px;
+    padding-left: 20px;
+}
+
+.btnReturnSeason{
+    height: 100%;
+    padding-top: 5px;
+    width: 50px;
+    padding-left: 15px;
+    border-right: 1px solid #000;
+}
+
+.btnReturnSeason > i {
+    font-size: 35px;
+    color: #fff;
+}
+
+.list-episode{
+    background-color: #383838 !important;
+    color: #fff !important;
+    border: 1px solid #272626 !important;
+}
+
+.list-episode:hover{
+    background-color: #565555 !important;
+}
+
+.list-episode> i{
+    font-size: 20px;
+    right: 5%;
+    position: absolute;
+    top: 30%;
+}
+
+/**** */
+.player-fullscreen > a > i{
+    font-size: 32px;
+    color: #dadada;
+    margin-top: 10px;
+}
+
+.player-return {
+    position: fixed;
+    padding: 20px;
+    top: 5%;
+    left: 2%;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.player-return > a > i{
+    font-size:50px;
+    color: #636363;
+}
+
+.player-return:hover > a > i{
+    color: #fff;
+}
+
+.player-progress{
+    width: 100%;
+    position: relative;
+    top: -45px;
+    opacity:0;
+    cursor: pointer;
+}
+
+.progress-time > span{
+    right: 0;
+    position: absolute;
+    color: #fff;
+    font-weight: bold;
+    margin-right: -30px;
+    font-size: 15px;
+    margin-top: -3px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+#progress-bar{
+    -webkit-transition: none; !important;
+    transition: none;
+}
+
+.player-skip {
+    position: fixed;
+    padding: 5px 18px 5px 18px;
+    right: 15%;
+    background-color: #383838;
+    cursor: pointer;
+    opacity: 0.1;
+    filter: alpha(opacity=50);
+    border-radius: 5px;
+    display: none;
+    top: 9%;
+}
+
+.player-skip:hover{
+    background-color: #2b2727;
+}
+
+.player-skip > span{
+    font-size: 20px;
+    color: #fff;
+    font-family: Impact, Charcoal, sans-serif;
+}
+
+.player-skip > span > i{
+    font-size: 20px;
+    color: #fff;
+    padding-left: 15px;
+}
+
+/* Slider */
+#slider-vertical{
+    height: 80px !important;
+    margin-top: 70%;
+    margin-left: 31%;
+}
+
+.ui-slider {
+    position: relative;
+    text-align: left;
+}
+
+.ui-slider .ui-slider-handle {
+    position: absolute;
+    z-index: 2;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.ui-slider-vertical .ui-slider-range {
+    position: absolute;
+    z-index: 1;
+    font-size: .7em;
+    display: block;
+    border: 0;
+    background-position: 0 0;
+    background-color: #fff;
+    width: 70% !important;
+}
+/* For IE8 - See #6727 */
+.ui-slider.ui-state-disabled .ui-slider-handle, .ui-slider.ui-state-disabled .ui-slider-range {
+    filter: inherit;
+}
+
+.ui-slider-vertical {
+    width: 1.5em;
+    height: 100px;
+}
+.ui-slider-vertical .ui-slider-handle {
+    right: 13%;
+    margin-left: 0;
+    margin-bottom: -.6em;
+    background-color: #797979;
+    border-radius: 15px;
+    outline: 0;
+}
+.ui-slider-vertical .ui-slider-range {
+    left: 0;
+    width: 100%;
+}
+.ui-slider-vertical .ui-slider-range-min {
+    bottom: 0;
+}
+.ui-slider-vertical .ui-slider-range-max {
+    top: 0;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-radius: 0px;
+}
+.ui-slider-range, .ui-widget-header, .ui-slider-range-min, .ui-slider, .ui-slider-vertical, .ui-widget, .ui-widget-content {
+    border-radius: 10px;
+}
+
+.ui-slider-horizontal .ui-slider-range-min {
+    bottom: 0;
+}
+.ui-slider-horizontal .ui-slider-range-max {
+    top: 0;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+    right: 18%;
+    margin-left: 0;
+    margin-bottom: -.6em;
+    background-color: #fff;
+    border-radius: 15px;
+    outline: 0;
+    bottom: -9px;
+    z-index: 99;
+    transition: none 0s ease 0s;
+}
+.ui-slider-horizontal .ui-slider-range {
+    left: 0;
+    width: 100%;
+    transition: none 0s ease 0s;
+}
+
+.slider-progress{
+    position: absolute;
+    width: 100%;
+    height: 15px;
+    background-color: #383838;
+    /* bottom: 180%; */
+    border-radius: 8px;
+    z-index: 99;
+    left: -18px;
+}
+
+.aux-progress{
+    position: absolute;
+    width: 0;
+    height: 15px;
+    background-color: #ff0e0e;
+    border-radius: 8px;
+    z-index: 99;
+    opacity: 0.5;
+    transition: none 0s ease 0s;
+}
+
+*:fullscreen
+*:-ms-fullscreen,
+*:-webkit-full-screen,
+*:-moz-full-screen {
+    overflow: auto !important;
+}
+
+.no-select{
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+

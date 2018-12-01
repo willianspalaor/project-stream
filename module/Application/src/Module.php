@@ -12,6 +12,10 @@ class Module implements ConfigProviderInterface
 
     const VERSION = '3.0.3-dev';
 
+    public function __construct()
+    {
+    }
+
     public function getConfig()
     {
         return include __DIR__ . '/../config/module.config.php';
@@ -70,15 +74,29 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Controller\AppController::class => function($container) {
-                     return new Controller\AppController(
-                        $container->get(Model\AnimeTable::class)
+
+                Controller\IndexController::class => function($container) {
+                    return new Controller\IndexController(
+                        $container->get(Model\AnimeTable::class),
+                        $container->get(Model\SeasonTable::class),
+                        $container->get(Model\EpisodeTable::class),
+                        $container->get(Model\VideoTable::class)
+
                     );
                 },
                 Controller\AnimeController::class => function($container) {
                      return new Controller\AnimeController(
                         $container->get(Model\AnimeTable::class),
-                         $container->get(Model\SeasonTable::class),
+                        $container->get(Model\SeasonTable::class),
+                        $container->get(Model\EpisodeTable::class),
+                        $container->get(Model\VideoTable::class)
+
+                    );
+                },
+                Controller\PlayerController::class => function($container) {
+                    return new Controller\PlayerController(
+                        $container->get(Model\AnimeTable::class),
+                        $container->get(Model\SeasonTable::class),
                         $container->get(Model\EpisodeTable::class),
                         $container->get(Model\VideoTable::class)
 

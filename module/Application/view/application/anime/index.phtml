@@ -1,57 +1,81 @@
-<video data-start="<?= $episode->open_start ?>" data-end="<?= $episode->open_end ?>" id="video-anime" src="<?= $video->url ?>"  muted>
-  Seu navegador não suporta o elemento <code>video</code>.
-</video>
-
+<div class="video-viewport">
+    <video id="video" data-track="<?= $anime->track ?>">
+        Your browser does not support the video tag.
+    </video>
+</div>
+<div class="video-progress">
+    <div id="progress-aux"></div>
+</div>
+<div class="video-controls">
+    <button id="btnPlay" class="btn-control">
+        <i class="fas fa-pause"></i>
+    </button>
+    <button id="btnVolume" class="btn-control">
+        <i class="fas fa-volume-up"></i>
+    </button>
+    <button id="btnEpisodes" class="btn-control">
+        <i class="fas fa-clone"></i>
+    </button>
+    <span class="control-title"></span>
+    <button id="btnBackward" class="btn-control">
+        <i class="fas fa-step-backward"></i>
+    </button>
+    <button id="btnForward" class="btn-control">
+        <i class="fas fa-step-forward"></i>
+    </button>
+    <button id="btnFullScreen" class="btn-control">
+        <i class="fas fa-expand"></i>
+    </button>
+    <button id="btnSkipSeconds" class="btn-control skip-secs">
+        <i class="fas fa-arrow-circle-right"></i>
+        <span id="tooltip-skip-secs" class="control-tooltip skip-secs">
+            <span></span>
+            <h5> Pular 5 segundos</h5>
+        </span>
+    </button>
+    <button id="btnBackSeconds" class="btn-control back-secs">
+        <i class="fas fa-arrow-circle-left"></i>
+        <span id="tooltip-back-secs" class="control-tooltip back-secs">
+            <span></span>
+            <h5> Voltar 5 segundos</h5>
+        </span>
+    </button>
+    <div class="control-volume-slider"></div>
+    <div class="control-next-episode"></div>
+    <div class="control-previous-episode"></div>
+    <div class="control-episodes">
+        <div class="head"></div>
+        <div class="body"></div>
+    </div>
+</div>
 <div class="video-actions">
-    <div class="video-return" data-toggle="tooltip" data-placement="right" title="Retornar para navegação">
-        <a id="btnReturn">
-            <i class="far fa-arrow-alt-circle-left"></i>
-        </a>
-    </div>
-    <div class="video-skip">
-        <span class="no-select" id="btnSkip" >Pular Abertura<i class="fas fa-angle-double-right"></i></span>
-    </div>
-</div>
-<div class="video-bottom">
+    <button id="btnReturn" class="btn-action return">
+        <i class="far fa-arrow-alt-circle-left"></i>
+        <span id="tooltip-return" class="control-tooltip return">
+            <span></span>
+            <h5> Voltar a nevegação</h5>
+        </span>
+    </button>
+    <button id="btnSkip" class="btn-action skip">
+        <span>Pular Abertura<i class="fas fa-angle-double-right"></i></span>
+    </button>
+    <button id="btnNextEpisode" class="btn-action next">
+        <span>O próximo episódio começará em <span id="next-episode-time"></span></span>
+    </button>
 
-    <div class="progress video-progress">
-        <div id="video-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-
-    <!--<div class="progressTime">
-        Current play time: <span class="current"></span>
-        Video duration: <span class="duration"></span>
-    </div> -->
-    <div class="video-controllers">
-        <div class="video-play">
-            <a id="btnPlay">
-                <i class="fas fa-pause icon-play"></i>
-            </a>
-        </div>
-        <div class="video-mute">
-            <a id="btnMute">
-                <i class="fas fa-volume-up icon-mute"></i>
-            </a>
-        </div>
-        <div class="video-fullscreen">
-            <a id="btnFullScreen">
-                <i class="fas fa-expand"></i>
-            </a>
-        </div>
-    </div>
 </div>
 
-
-
-
-
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
 <script>
-
-    $(document).ready(function(){
-        (new App()).start();
-    });
-
     $(window).on('load', function() {
-        (new Player()).start();
+
+        let video = document.getElementById('video');
+        let track = $(video).attr('data-track');
+
+        (new Player()).start(track);
     });
 </script>

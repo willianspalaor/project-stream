@@ -21,6 +21,10 @@ class Episode implements InputFilterAwareInterface
     public $episode;
     public $open_start;
     public $open_end;
+    public $end_start;
+    public $title;
+    public $description;
+    public $track;
 
     private $inputFilter;
 
@@ -31,6 +35,10 @@ class Episode implements InputFilterAwareInterface
         $this->episode = !empty($data['episode']) ? $data['episode'] : null;
         $this->open_start = !empty($data['open_start']) ? $data['open_start'] : null;
         $this->open_end = !empty($data['open_end']) ? $data['open_end'] : null;
+        $this->end_start = !empty($data['end_start']) ? $data['end_start'] : null;
+        $this->title = !empty($data['title']) ? $data['title'] : null;
+        $this->description = !empty($data['description']) ? $data['description'] : null;
+        $this->track = !empty($data['track']) ? $data['track'] : null;
     }
 
     public function getArrayCopy()
@@ -40,7 +48,11 @@ class Episode implements InputFilterAwareInterface
             'id_season' => $this->id_season,
             'episode' => $this->episode,
             'open_start' => $this->open_start,
-            'open_end' => $this->open_end
+            'open_end' => $this->open_end,
+            'end_start' => $this->end_start,
+            'title' => $this->title,
+            'description' => $this->description,
+            'track' => $this->track
         ];
     }
 

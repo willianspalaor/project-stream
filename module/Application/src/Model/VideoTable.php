@@ -43,14 +43,14 @@ class VideoTable
         return $row;
     }
 
-    public function getVideoByEpisode($id_episode, $episode){
+    public function getVideoByEpisode($id_episode, $track){
 
         $id_episode = (int) $id_episode;
         $sqlSelect = $this->tableGateway->getSql()->select();
         $sqlSelect->columns(array('*'));
         $sqlSelect->join('episode', 'video.id_episode = episode.id_episode', array(), 'inner');
         $sqlSelect->where(array('video.id_episode' => $id_episode));
-        $sqlSelect->where(array('episode.episode' => $episode));
+        $sqlSelect->where(array('episode.track' => $track));
         $sqlSelect->order('episode.episode');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
@@ -64,6 +64,25 @@ class VideoTable
 
         return $row;
     }
+
+    public function getVideosByEpisode($id_episode)
+    {
+        $id_episode = (int) $id_episode;
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->where(array('video.id_episode' => $id_episode));
+
+
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+        $rows = [];
+
+        foreach ($rowset as $key => $value) {
+            $rows[(int)$key] = $value;
+        }
+
+        return $rows;
+    }
+
 
 
 }

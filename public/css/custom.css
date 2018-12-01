@@ -19,8 +19,9 @@ ul{
 }
 
 #wrapper{
-    max-width:100%;
-    position:relative;
+    max-width: 80%;
+    position: relative;
+    left: 20%;
 }
 
 .clearfix {

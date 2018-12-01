@@ -42,27 +42,55 @@ class EpisodeTable
         return $row;
     }
 
-
-    public function getEpisodeBySeason($id_season, $episode)
+    public function getEpisodeByAnime($id_anime, $track)
     {
-        $id_season = (int) $id_season;
+        $id_anime = (int) $id_anime;
         $sqlSelect = $this->tableGateway->getSql()->select();
         $sqlSelect->columns(array('*'));
         $sqlSelect->join('season', 'episode.id_season = season.id_season', array(), 'inner');
-        $sqlSelect->where(array('season.id_season' => $id_season));
-        $sqlSelect->where(array('episode.episode' => $episode));
+        $sqlSelect->join('anime', 'season.id_anime = anime.id_anime', array(), 'inner');
+        $sqlSelect->where(array('anime.id_anime' => $id_anime));
+        $sqlSelect->where(array('episode.track' => $track));
         $sqlSelect->order('episode.episode');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
         $row = $rowset->current();
         if (! $row) {
-            throw new RuntimeException(sprintf(
-                'Could not find row with identifier %d',
-                $id_season
-            ));
+           return null;
         }
 
         return $row;
-
     }
+
+    public function getEpisodesBySeason($id_season)
+    {
+        $id_season = (int) $id_season;
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->where(array('episode.id_season' => $id_season));
+        $sqlSelect->order('episode.id_season');
+
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+        $rows = [];
+
+        foreach ($rowset as $key => $value) {
+            $rows[(int)$key] = $value;
+        }
+
+        return $rows;
+    }
+
+
+    public function getEpisodeByTrack($track)
+    {
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->where(array('episode.track' => $track));
+
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+        return $rowset->current();
+    }
+
+
+
 }
