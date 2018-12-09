@@ -2,13 +2,16 @@
     <video id="video" data-track="<?= $anime->track ?>">
         Your browser does not support the video tag.
     </video>
+    <div class="video-notification">
+        <i class="fas fa-volume-up"></i>
+    </div>
 </div>
 <div class="video-progress">
     <div id="progress-aux"></div>
 </div>
 <div class="video-controls">
     <button id="btnPlay" class="btn-control">
-        <i class="fas fa-pause"></i>
+        <i class="fas fa-play"></i>
     </button>
     <button id="btnVolume" class="btn-control">
         <i class="fas fa-volume-up"></i>
@@ -53,7 +56,7 @@
         <i class="far fa-arrow-alt-circle-left"></i>
         <span id="tooltip-return" class="control-tooltip return">
             <span></span>
-            <h5> Voltar a nevegação</h5>
+            <h5> Voltar à nevegação</h5>
         </span>
     </button>
     <button id="btnSkip" class="btn-action skip">
@@ -62,7 +65,6 @@
     <button id="btnNextEpisode" class="btn-action next">
         <span>O próximo episódio começará em <span id="next-episode-time"></span></span>
     </button>
-
 </div>
 
 <div id="loader-wrapper">
@@ -79,3 +81,7 @@
         (new Player()).start(track);
     });
 </script>
+
+<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/player.css') ?>">
+<script src="<?= $this->basePath('js/module/Application/Player/xhr/Anime.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Player/Helper.js') ?>"></script>

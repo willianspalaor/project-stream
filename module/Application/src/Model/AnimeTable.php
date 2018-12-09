@@ -3,8 +3,11 @@
 namespace Application\Model;
 
 use RuntimeException;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGatewayInterface;
-use Zend\Db\Sql\Expression;
+use Zend\Paginator\Adapter\DbSelect;
+use Zend\Paginator\Paginator;
 
 class AnimeTable
 {
@@ -15,12 +18,30 @@ class AnimeTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll()
+    public function fetchAll($paginated = false)
     {
-        $resultSet =  $this->tableGateway->select();
-        //$resultSet->buffer();
-       // $resultSet->next();
-        return $resultSet;
+        if ($paginated) {
+
+            $select = new Select($this->tableGateway->getTable());
+            return $this->fetchPaginatedResults($select);
+        }
+
+        return $this->tableGateway->select()->toArray();
+    }
+
+    private function fetchPaginatedResults($select)
+    {
+        $resultSetPrototype = new ResultSet();
+        $resultSetPrototype->setArrayObjectPrototype(new Anime());
+
+        $paginatorAdapter = new DbSelect(
+            $select,
+            $this->tableGateway->getAdapter(),
+            $resultSetPrototype
+        );
+
+        $paginator = new Paginator($paginatorAdapter);
+        return $paginator;
     }
 
     public function getAnime($id = null, $name = null)
@@ -42,4 +63,25 @@ class AnimeTable
         return $row;
     }
 
+    public function getCurrentAnimes($id_client){
+
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->join('client_anime', 'client_anime.id_anime = anime.id_anime', array(), 'inner');
+        $sqlSelect->where(array('client_anime.id_client' => $id_client));
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+
+        return $rowset->toArray();
+    }
+
+    public function getAnimesByCategory($id_category)
+    {
+        $select = $this->tableGateway->getSql()->select();
+        $select->columns(array('*'));
+        $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
+        $select->where(array('anime_category.id_category' => $id_category));
+
+        return $this->fetchPaginatedResults($select);
+
+    }
 }

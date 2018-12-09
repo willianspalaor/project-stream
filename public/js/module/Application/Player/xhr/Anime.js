@@ -1,4 +1,4 @@
-let Anime = new (function () {
+let Player_Anime = new (function () {
 
     let data = null;
     let currentSeason = null;
@@ -11,7 +11,7 @@ let Anime = new (function () {
             data = response.anime;
 
             if(typeof(callback) === 'function'){
-                callback();
+                callback(data);
             }
         });
     }
@@ -20,28 +20,39 @@ let Anime = new (function () {
         return data;
     }
 
+    function _setCurrentData(){
+
+        data.client_anime.current_season = currentSeason.season;
+        data.client_anime.current_episode = currentEpisode.episode;
+        _saveClientAnime(data.client_anime);
+    }
+
     function _setCurrentSeason(season){
         currentSeason = season;
     }
 
-    function _getCurrentSeason(){
+    function _getCurrentSeason(first = false){
+
+        if(first){
+            return data.client_anime.current_season;
+        }
+
         return currentSeason;
     }
 
-    function _setCurrentEpisode(episode){
-
-        currentEpisode = episode;
-
-        let data = {
-            percentage : '30%',
-            trackAnime : 'c4ca4238a0b923820dcc509a6f75849b',
-            trackEpisode : 'c4ca4238a0b923820dcc509a6f75849b'
-        };
-
-        Anime.saveCache(data)
+    function _setCurrentEpisode(episode)
+    {
+        _setEpisodeProgress(function(){
+            currentEpisode = episode;
+        });
     }
 
-    function _getCurrentEpisode(){
+    function _getCurrentEpisode(first = false){
+
+        if(first){
+            return data.client_anime.current_episode;
+        }
+
         return currentEpisode;
     }
 
@@ -61,6 +72,20 @@ let Anime = new (function () {
 
     function _getSeason(index){
         return data.seasons['season ' + index];
+    }
+
+    function _getSeasonById(id){
+
+        let season = null;
+
+        $.each(data.seasons, function( index, value ) {
+            if(parseInt(value.id) === parseInt(id)){
+                season = value;
+                return false;
+            }
+        });
+
+        return season;
     }
 
     function _getNumberSeasons(){
@@ -96,7 +121,7 @@ let Anime = new (function () {
 
         $.ajax({
             type : 'GET',
-            url  :'/player/getAnime?trackId=' + track,
+            url  :'/anime/getAnime?trackId=' + track,
             success: function(response){
 
                 let data = JSON.parse(response);
@@ -116,7 +141,7 @@ let Anime = new (function () {
 
         $.ajax({
             type : 'POST',
-            url  :'/player/saveCache',
+            url  :'/anime/saveCache',
             data: data,
             success: function(response){
 
@@ -130,11 +155,91 @@ let Anime = new (function () {
         });
     }
 
+    function _saveClientAnime(data, callback){
+
+        $.ajax({
+            type : 'POST',
+            url  :'/anime/saveClientAnime',
+            data: data,
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+
+    }
+
+    function _saveClientEpisode(data, callback){
+
+        data.id_anime =  _getData().id;
+
+        $.ajax({
+            type : 'POST',
+            url  :'/anime/saveClientEpisode',
+            data: data,
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+    function _getClientData(track, callback){
+
+        $.ajax({
+            type : 'GET',
+            url  :'/anime/getClientData?trackId=' + track,
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+    function _setEpisodeProgress(callback){
+
+        let percentage = Player_Helper.getProgressPercentage();
+
+        if(currentEpisode && percentage !== 0){
+            currentEpisode.progress = percentage;
+            _saveClientEpisode(currentEpisode);
+        }
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
+    }
+
     return {
         setData : _setData,
         getData : _getData,
         getSeasons: _getSeasons,
         getSeason: _getSeason,
+        getSeasonById : _getSeasonById,
         getNumberSeasons :_getNumberSeasons,
         getEpisodes : _getEpisodes,
         getEpisode: _getEpisode,
@@ -148,7 +253,11 @@ let Anime = new (function () {
         getCurrentEpisode : _getCurrentEpisode,
         getNextEpisode : _getNextEpisode,
         getPreviousEpisode : _getPreviousEpisode,
-        saveCache : _saveCache
+        saveCache : _saveCache,
+        saveClientEpisode : _saveClientEpisode,
+        getClientData : _getClientData,
+        setEpisodeProgress : _setEpisodeProgress,
+        setCurrentData : _setCurrentData
     }
 
 });

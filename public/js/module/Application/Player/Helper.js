@@ -1,7 +1,9 @@
-let Helper = new (function () {
+
+let Player_Helper = new (function () {
 
     let _video = null;
     let _viewPort = null;
+    let _videoNotification = null;
     let _volumeSlider = null;
     let _progressSlider = null;
     let _progressTime = null;
@@ -26,6 +28,7 @@ let Helper = new (function () {
 
     function _assignElements(){
         _viewPort = $('.video-viewport');
+        _videoNotification = $('.video-notification');
         _controlsContainer = $('.video-controls');
         _progressContainer = $('.video-progress');
         _volumeSlider = $('#volume-slider');
@@ -52,12 +55,19 @@ let Helper = new (function () {
         return $(name);
     }
 
-    function _play(el){
+    function _play(el, key){
+
+        if(key)
+            _showNotification('fas fa-play', 'play');
+
         _video.play();
         $(el).find('i').attr('class', 'fas fa-pause');
     }
 
-    function _pause(el){
+    function _pause(el, key){
+
+        if(key)
+            _showNotification('fas fa-pause', 'pause');
 
         _video.pause();
         $(el).find('i').attr('class', 'fas fa-play');
@@ -76,6 +86,53 @@ let Helper = new (function () {
         _video.muted = false;
         _volumeSlider.slider('option', 'value', _volumeSlider.attr('data-volume'));
         $(el).find('i').attr('class', 'fas fa-volume-up');
+    }
+
+    function _showNotification(className, action){
+
+        let icon = _videoNotification.find('i');
+        icon.removeAttr('class');
+        icon.addClass(className);
+
+        _videoNotification.removeAttr('class');
+        _videoNotification.addClass('video-notification ' + action);
+        _videoNotification.css('display', 'block');
+        _videoNotification.fadeTo( 2000 , 0, function() {
+            _videoNotification.css({
+                'display' : 'none',
+                'opacity' : '0.5'
+            });
+        });
+    }
+
+    function _volumeUp(key){
+
+        if(key)
+            _showNotification('fas fa-volume-up', 'up');
+
+        let volume = _volumeSlider.slider('option', 'value') + 10;
+
+        if(volume > 100){
+            volume = 100;
+        }
+
+        _volumeSlider.slider('option', 'value', volume);
+        _video.volume = volume / 100;
+    }
+
+    function _volumeDown(key){
+
+        if(key)
+            _showNotification('fas fa-volume-down', 'down');
+
+        let volume = _volumeSlider.slider('option', 'value') - 10;
+
+        if(volume < 0){
+            volume = 0;
+        }
+
+        _volumeSlider.slider('option', 'value', volume);
+        _video.volume = volume / 100;
     }
 
     function _createSliders(){
@@ -179,10 +236,10 @@ let Helper = new (function () {
         _unbindControls();
         _hideControls();
 
-        let nextEpisode = Anime.getNextEpisode();
-        let videoEpisode = Anime.getVideo(nextEpisode, 1);
+        let nextEpisode = Player_Anime.getNextEpisode();
+        let videoEpisode = Player_Anime.getVideo(nextEpisode, 1);
 
-        Anime.setCurrentEpisode(nextEpisode);
+        Player_Anime.setCurrentEpisode(nextEpisode);
 
         _progressSlider.slider( "option", "value", 0);
         _progressAux.css({'width' :'0'});
@@ -196,10 +253,10 @@ let Helper = new (function () {
         _unbindControls();
         _hideControls();
 
-        let previousEpisode = Anime.getPreviousEpisode();
-        let videoEpisode = Anime.getVideo(previousEpisode, 1);
+        let previousEpisode = Player_Anime.getPreviousEpisode();
+        let videoEpisode = Player_Anime.getVideo(previousEpisode, 1);
 
-        Anime.setCurrentEpisode(previousEpisode);
+        Player_Anime.setCurrentEpisode(previousEpisode);
 
         _progressSlider.slider( "option", "value", 0);
         _progressAux.css({'width' :'0'});
@@ -210,10 +267,10 @@ let Helper = new (function () {
 
     function _playCurrentEpisode(){
 
-        Helper.hideControls();
+        _hideControls();
 
-        let currentEpisode = Anime.getCurrentEpisode();
-        let videoEpisode = Anime.getVideo(currentEpisode, 1);
+        let currentEpisode = Player_Anime.getCurrentEpisode();
+        let videoEpisode = Player_Anime.getVideo(currentEpisode, 1);
 
         _video = document.getElementById('video');
         _video.src = videoEpisode.url;
@@ -223,7 +280,7 @@ let Helper = new (function () {
 
     function _showPreviousEpisode(){
 
-        let previousEpisode = Anime.getPreviousEpisode();
+        let previousEpisode = Player_Anime.getPreviousEpisode();
 
         if(previousEpisode){
             _progressContainer.css('display', 'none');
@@ -251,7 +308,7 @@ let Helper = new (function () {
 
     function _showNextEpisode(){
 
-        let nextEpisode = Anime.getNextEpisode();
+        let nextEpisode = Player_Anime.getNextEpisode();
 
         if(nextEpisode){
             _progressContainer.css('display', 'none');
@@ -306,13 +363,14 @@ let Helper = new (function () {
 
     function _setCurrentData(){
 
-        let anime = Anime.getData();
-        let episode = Anime.getCurrentEpisode();
-        let nextEpisode = Anime.getNextEpisode();
-        let previousEpisode = Anime.getPreviousEpisode();
+        let anime = Player_Anime.getData();
+        let episode = Player_Anime.getCurrentEpisode();
+        let nextEpisode = Player_Anime.getNextEpisode();
+        let previousEpisode = Player_Anime.getPreviousEpisode();
 
         _episodeTitle.empty();
         _boxNextEpisode.empty();
+        _boxPreviousEpisode.empty();
 
         $('<h4>').text(anime.title).appendTo(_episodeTitle);
         $('<span>').text(episode.title).appendTo(_episodeTitle);
@@ -369,7 +427,7 @@ let Helper = new (function () {
                 'position' : 'relative'
             });
 
-            if(_btnNext.css('display') != 'none'){
+            if(_btnNext.css('display') !== 'none'){
 
                 _btnNext.css({
                     'margin-top' : '11.5%'
@@ -407,16 +465,16 @@ let Helper = new (function () {
 
     function _createVideoActions(){
         _createActionSkip();
-        _createActionNext();
+      //  _createActionNext();
     }
 
     function _skipVideo(){
-        _video.currentTime =  Anime.getCurrentEpisode().open_end;
+        _video.currentTime =  Player_Anime.getCurrentEpisode().open_end;
     }
 
     function _createActionSkip(){
 
-        let episode = Anime.getCurrentEpisode();
+        let episode = Player_Anime.getCurrentEpisode();
         let startTime = episode.open_start;
         let endTime = episode.open_end;
         let btnSkip = $('#btnSkip');
@@ -447,10 +505,10 @@ let Helper = new (function () {
 
     function _createActionNext(){
 
-        let episode = Anime.getCurrentEpisode();
+        let episode = Player_Anime.getCurrentEpisode();
         let endTime = episode.end_start;
         let timeStart = $('#next-episode-time');
-        let time = 12;
+        let time = 20;
 
         checkTimeEnding();
 
@@ -488,6 +546,11 @@ let Helper = new (function () {
                 clearTimeout(timeout);
                 _maximizeVideo();
                 _btnNext.css('display', 'none');
+            });
+
+            _btnNext.bind('click', function(){
+                clearTimeout(timeout);
+                _playNextEpisode();
             });
 
             _btnPlay.bind('click', function(){
@@ -575,21 +638,22 @@ let Helper = new (function () {
 
     function _manageProgressBar(){
 
-        let currentTime = _video.currentTime; //Get currenttime
-        let maxduration = _video.duration; //Get video duration
-        let percentage = 100 * currentTime / maxduration; //in %
-        _progressAux.css({'width' : parseInt(percentage + 0.5) + '%'});
-        _progressSlider.slider( "option", "value", percentage);
+        if(_controlsContainer.css('display') !== 'none'){
 
-        if(_progressTime){
-            _progressTime.text(_getTime(_video.currentTime));
+            let percentage = _getProgressPercentage();
+            _progressAux.css({'width' : parseInt(percentage + 0.5) + '%'});
+            _progressSlider.slider( "option", "value", percentage);
+
+            if(_progressTime){
+                _progressTime.text(_getTime(_video.currentTime));
+            }
         }
     }
 
     function _listSeasons(){
 
-        let seasons = Anime.getSeasons();
-        let currentSeason = Anime.getCurrentSeason();
+        let seasons = Player_Anime.getSeasons();
+        let currentSeason = Player_Anime.getCurrentSeason();
         let containerHead = _controlEpisodes.find('.head');
         let containerBody = _controlEpisodes.find('.body');
 
@@ -605,18 +669,11 @@ let Helper = new (function () {
             let season = $('<div>')
                 .addClass('season')
                 .on('click', function(){
-
-                    _setCurrentSeason(value.season);
-
-                    if(!$(this).hasClass('active')){
-                        _setCurrentEpisode(1);
-                    }
-
-                    _listEpisodes();
+                    _listEpisodes(value.season);
                 })
                 .appendTo(containerBody);
 
-            if(value.season === currentSeason.season){
+            if(value.id === currentSeason.id){
                 season.removeAttr('class');
                 season.addClass('season active');
             }
@@ -631,11 +688,19 @@ let Helper = new (function () {
         });
 
     }
-    function _listEpisodes() {
+    function _listEpisodes(season) {
 
-        let currentSeason = Anime.getCurrentSeason();
-        let currentEpisode = Anime.getCurrentEpisode();
-        let episodes = Anime.getEpisodes(currentSeason);
+        let currentSeason = null;
+
+        if(season){
+            currentSeason = Player_Anime.getSeason(season);
+        }else{
+            currentSeason = Player_Anime.getCurrentSeason();
+        }
+
+        let currentEpisode = Player_Anime.getCurrentEpisode();
+        let episodes = Player_Anime.getEpisodes(currentSeason);
+
         let containerHead = _controlEpisodes.find('.head');
         let containerBody = _controlEpisodes.find('.body');
 
@@ -658,21 +723,27 @@ let Helper = new (function () {
             let episode = $('<div>')
                 .addClass('episode')
                 .on('click', function(){
+
+                    _setCurrentSeason(currentSeason.season);
                     _setCurrentEpisode(value.episode);
                     _listEpisodes();
                     _playCurrentEpisode();
                 })
                 .appendTo(containerBody);
 
-            console.log(currentSeason);
-            if(value.episode === currentEpisode.episode){
-                episode.removeAttr('class');
-                episode.addClass('episode active');
-            }
+                if(value.id === currentEpisode.id){
+                    episode.removeAttr('class');
+                    episode.addClass('episode active');
+                }
 
             $('<h5>')
                 .text('Episódio ' + value.episode)
                 .appendTo(episode);
+
+            let progressWidth = 0;
+            if(value.progress > 0){
+                progressWidth = 165 * parseInt(value.progress) / 100;
+            }
 
             $('<div>')
                 .addClass('aux-progress')
@@ -680,6 +751,9 @@ let Helper = new (function () {
                     'data-toggle': 'tooltip',
                     'data-placement': 'top',
                     'title': '50%'
+                })
+                .css({
+                    'width' : progressWidth + 'px'
                 })
                 .appendTo(episode);
 
@@ -704,32 +778,24 @@ let Helper = new (function () {
 
     function _getProgressPercentage(){
 
-        let maxduration = _video.duration;
-        let currentPos = _video.currentTime; //Get currenttime
-        let percentage = 100 / (maxduration / currentPos);
+        let currentTime = _video.currentTime; //Get currenttime
+        let maxduration = _video.duration; //Get video duration
 
-        if (percentage > 100) {
-            percentage = 100;
-        }
-        if (percentage < 0) {
-            percentage = 0;
-        }
-
-        return percentage;
+        return 100 * currentTime / maxduration; //in %
     }
 
     function _setCurrentEpisode(index){
 
-        let currentSeason = Anime.getCurrentSeason();
-        let episode = Anime.getEpisode(currentSeason, index);
+        let currentSeason = Player_Anime.getCurrentSeason();
+        let episode = Player_Anime.getEpisode(currentSeason, index);
 
-        Anime.setCurrentEpisode(episode);
+        Player_Anime.setCurrentEpisode(episode);
     }
 
     function _setCurrentSeason(index){
 
-        let season = Anime.getSeason(index);
-        Anime.setCurrentSeason(season);
+        let season = Player_Anime.getSeason(index);
+        Player_Anime.setCurrentSeason(season);
     }
 
     function _showControls(){
@@ -769,6 +835,10 @@ let Helper = new (function () {
 
         _controlsContainer.bind("mouseleave", function () {
             clearIddleInterval(true);
+        });
+
+        _controlEpisodes.bind("mouseover", function () {
+            clearIddleInterval();
         });
 
         _progressContainer.bind("mouseover", function () {
@@ -815,6 +885,8 @@ let Helper = new (function () {
         _viewPort.unbind('keypress');
         _controlsContainer.unbind('mouseover');
         _controlsContainer.unbind('mouseleave');
+        _controlEpisodes.unbind('mouseover');
+        _controlEpisodes.unbind('mouseleave');
         _progressContainer.unbind('mouseover');
         _progressContainer.unbind('mouseleave');
         _btnReturn.unbind('mouseover');
@@ -851,12 +923,38 @@ let Helper = new (function () {
         $('#tooltip-' + tooltip).css('display', 'none');
     }
 
-    function _skipSeconds(){
+    function _skipSeconds(key){
+
+        if(key)
+            _showNotification('fas fa-angle-double-right', 'skip');
+
         _video.currentTime = _video.currentTime + 5;
     }
 
-    function _backSeconds(){
+    function _backSeconds(key){
+
+        if(key)
+            _showNotification('fas fa-angle-double-left', 'back');
+
         _video.currentTime = _video.currentTime - 5;
+    }
+
+    function _setStartTime(callback){
+
+        let currentEpisode = Player_Anime.getCurrentEpisode();
+        let progress =  currentEpisode.progress;
+        let maxduration = _video.duration; //Get video duration
+        _video.currentTime = (maxduration * progress) / 100;
+
+        let currentPos = _video.currentTime;
+        let percentAux = 100 * currentPos / maxduration; //in %
+
+        _progressSlider.slider( "option", "value", Math.round(percentAux));
+        _progressAux.css({'width' : percentAux+ 0.5 + '%'});
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
     }
 
     return {
@@ -866,6 +964,8 @@ let Helper = new (function () {
         pause: _pause,
         mute: _mute,
         unMute : _unMute,
+        volumeUp : _volumeUp,
+        volumeDown : _volumeDown,
         showVolume : _showVolume,
         hideVolume : _hideVolume,
         playNextEpisode: _playNextEpisode,
@@ -897,7 +997,8 @@ let Helper = new (function () {
         hideTooltip : _hideTooltip,
         skipSeconds : _skipSeconds,
         backSeconds : _backSeconds,
-        getProgressPercentage : _getProgressPercentage
+        getProgressPercentage : _getProgressPercentage,
+        setStartTime : _setStartTime
     }
 
 });

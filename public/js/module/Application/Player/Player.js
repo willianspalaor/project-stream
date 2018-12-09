@@ -4,31 +4,32 @@ class Player{
 
        let self = this;
 
-        Anime.setData(track, function(){
+        Player_Anime.setData(track, function(data){
 
-            Helper.setVideo(document.getElementById('video'));
-            Helper.assignElements();
+            Player_Helper.setVideo(document.getElementById('video'));
+            Player_Helper.assignElements();
 
-            let season = Anime.getSeason(1);
-            let episode = Anime.getEpisode(season, 1);
+            let currentSeason = Player_Anime.getCurrentSeason(true);
+            let currentEpisode = Player_Anime.getCurrentEpisode(true);
 
-            Anime.setCurrentSeason(season);
-            Anime.setCurrentEpisode(episode);
+            let season = Player_Anime.getSeason(currentSeason);
+            let episode = Player_Anime.getEpisode(season, currentEpisode);
+
+            Player_Anime.setCurrentSeason(season);
+            Player_Anime.setCurrentEpisode(episode);
 
             self.play(episode);
-
+            console.log(data);
         });
     }
 
     play(episode){
 
         let self = this;
-        let video = Helper.getVideo();
-        let videoEpisode = Anime.getVideo(episode, 1);
+        let video = Player_Helper.getVideo();
+        let videoEpisode = Player_Anime.getVideo(episode, 1);
 
         video.src = videoEpisode.url;
-        video.load();
-        video.play();
 
         self.bindButtonEvents();
         self.bindProgressEvents();
@@ -38,24 +39,36 @@ class Player{
     bindVideoEvents(video){
 
         video.onloadstart = function() {
-            Helper.showLoader();
+            Player_Helper.showLoader();
         };
 
         video.onloadedmetadata = function() {
-            Helper.setCurrentData();
-            Helper.createVideoActions();
-            Helper.createSliders();
-            Helper.listEpisodes();
+            Player_Helper.setCurrentData();
+            Player_Helper.createVideoActions();
+            Player_Helper.createSliders();
+            Player_Helper.listEpisodes();
         };
 
         video.onloadeddata = function() {
-            Helper.hideLoader();
-            Helper.showControls();
-            Helper.checkControls();
+
+            Player_Helper.setStartTime(function(){
+
+                Player_Helper.showControls();
+                Player_Helper.checkControls();
+            });
+
+        };
+
+        video.oncanplay = function() {
+            Player_Helper.hideLoader();
         };
 
         video.ontimeupdate = function() {
-            Helper.manageProgressBar();
+            Player_Helper.manageProgressBar();
+        };
+
+        video.onabort = function() {
+            alert("Video load aborted");
         };
     }
 
@@ -66,26 +79,32 @@ class Player{
 
         container.mousedown(function (e) {
             timeDrag = true;
-            Helper.updateProgressBar(e.pageX);
-            Helper.createActionSkip();
+            Player_Helper.updateProgressBar(e.pageX);
+            Player_Helper.createActionSkip();
         });
 
         $(document).mouseup(function (e) {
             if (timeDrag) {
                 timeDrag = false;
-                Helper.updateProgressBar(e.pageX);
+                Player_Helper.updateProgressBar(e.pageX);
             }
         });
+
         $(document).mousemove(function (e) {
             if (timeDrag) {
-                Helper.updateProgressBar(e.pageX);
+                Player_Helper.updateProgressBar(e.pageX);
             }
+        });
+
+        $(window).on('beforeunload', function(ev) {
+            Player_Anime.setEpisodeProgress();
+            Player_Anime.setCurrentData();
         });
     }
 
     bindButtonEvents(){
 
-        let video = Helper.getVideo();
+        let video = Player_Helper.getVideo();
         let btnPlay = $('#btnPlay');
         let btnVolume = $('#btnVolume');
         let btnForward = $('#btnForward');
@@ -99,88 +118,88 @@ class Player{
         let interval = null;
 
         btnPlay.bind('click', function(){
-            video.paused ? Helper.play(this) : Helper.pause(this);
+            video.paused ? Player_Helper.play(this) : Player_Helper.pause(this);
         });
 
         btnVolume.bind('click', function(){
-            video.muted ? Helper.unMute(this) : Helper.mute(this);
+            video.muted ? Player_Helper.unMute(this) : Player_Helper.mute(this);
         });
 
         btnVolume.bind('mouseover', function(){
-            Helper.showVolume();
+            Player_Helper.showVolume();
         });
 
         btnVolume.bind('mouseleave', function(e){
-            Helper.hideVolume(this, e.pageX, e.pageY);
+            Player_Helper.hideVolume(this, e.pageX, e.pageY);
         });
 
         btnForward.bind('click', function(){
-            Helper.playNextEpisode();
+            Player_Helper.playNextEpisode();
         });
 
         btnForward.bind('mouseover', function(){
-            Helper.showNextEpisode();
+            Player_Helper.showNextEpisode();
         });
 
         btnForward.bind('mouseleave', function(e){
-            Helper.hideNextEpisode(this, e.pageX, e.pageY);
+            Player_Helper.hideNextEpisode(this, e.pageX, e.pageY);
         });
 
         btnBackward.bind('click', function(){
-            Helper.playPreviousEpisode();
+            Player_Helper.playPreviousEpisode();
         });
 
         btnBackward.bind('mouseover', function(){
-            Helper.showPreviousEpisode();
+            Player_Helper.showPreviousEpisode();
         });
 
         btnBackward.bind('mouseleave', function(e){
-            Helper.hidePreviousEpisode(this, e.pageX, e.pageY);
+            Player_Helper.hidePreviousEpisode(this, e.pageX, e.pageY);
         });
 
         btnEpisodes.bind('mouseover', function(){
-            Helper.showEpisodes();
+            Player_Helper.showEpisodes();
         });
 
         btnEpisodes.bind('mouseleave', function(e){
-            Helper.hideEpisodes(this, e.pageX, e.pageY);
+            Player_Helper.hideEpisodes(this, e.pageX, e.pageY);
         });
 
         btnReturn.bind('click', function(){
-            Helper.returnListAnimes();
+            Player_Helper.returnListAnimes();
         });
 
         btnReturn.bind('mouseover', function(){
-            Helper.showTooltip('return');
+            Player_Helper.showTooltip('return');
         });
 
         btnReturn.bind('mouseleave', function(){
-            Helper.hideTooltip('return');
+            Player_Helper.hideTooltip('return');
         });
 
         btnSkip.bind('click', function(){
-            Helper.skipVideo();
+            Player_Helper.skipVideo();
         });
 
         btnFullScreen.bind('click', function(){
-            Helper.toggleFullScreen(document.body);
+            Player_Helper.toggleFullScreen(document.body);
         });
 
         btnSkipSeconds.bind('click', function(){
-            Helper.skipSeconds();
+            Player_Helper.skipSeconds();
         });
 
         btnSkipSeconds.bind('mouseover', function(){
-            Helper.showTooltip('skip-secs');
+            Player_Helper.showTooltip('skip-secs');
         });
 
         btnSkipSeconds.bind('mouseleave', function(){
-            Helper.hideTooltip('skip-secs');
+            Player_Helper.hideTooltip('skip-secs');
         });
 
         btnSkipSeconds.mousedown(function (e) {
             interval = setInterval(function(){
-                Helper.skipSeconds();
+                Player_Helper.skipSeconds();
             }, 200);
             return false;
         });
@@ -191,20 +210,20 @@ class Player{
         });
 
         btnBackSeconds.bind('click', function(){
-            Helper.backSeconds();
+            Player_Helper.backSeconds();
         });
 
         btnBackSeconds.bind('mouseover', function(){
-            Helper.showTooltip('back-secs');
+            Player_Helper.showTooltip('back-secs');
         });
 
         btnBackSeconds.bind('mouseleave', function(){
-            Helper.hideTooltip('back-secs');
+            Player_Helper.hideTooltip('back-secs');
         });
 
         btnBackSeconds.mousedown(function (e) {
             interval = setInterval(function(){
-                Helper.backSeconds();
+                Player_Helper.backSeconds();
             }, 200);
             return false;
         });
@@ -214,9 +233,32 @@ class Player{
             return false;
         });
 
-        document.addEventListener('fullscreenchange', Helper.fullScreenVideo);
-        document.addEventListener('webkitfullscreenchange', Helper.fullScreenVideo);
-        document.addEventListener('mozfullscreenchange', Helper.fullScreenVideo);
-        document.addEventListener('MSFullscreenChange', Helper.fullScreenVideo);
+        $(video).click(function (e) {
+            video.paused ? Player_Helper.play(btnPlay) : Player_Helper.pause(btnPlay);
+        });
+
+        $(document).keyup(function (e) {
+
+            if(video){
+
+                switch(e.keyCode){
+                    case 37 : Player_Helper.backSeconds(true); break;
+                    case 38: Player_Helper.volumeUp(true); break;
+                    case 39: Player_Helper.skipSeconds(true); break;
+                    case 40: Player_Helper.volumeDown(true); break;
+                    case 32 :
+                        video.paused ?
+                            Player_Helper.play(btnPlay, true) :
+                            Player_Helper.pause(btnPlay, true);
+                        return false;
+                }
+            }
+        });
+
+
+        document.addEventListener('fullscreenchange', Player_Helper.fullScreenVideo);
+        document.addEventListener('webkitfullscreenchange', Player_Helper.fullScreenVideo);
+        document.addEventListener('mozfullscreenchange', Player_Helper.fullScreenVideo);
+        document.addEventListener('MSFullscreenChange', Player_Helper.fullScreenVideo);
     }
 }

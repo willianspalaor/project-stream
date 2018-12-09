@@ -44,7 +44,7 @@ body{
 
 .btn-control{
     height: 100%;
-    width: 8%;
+    width: 7%;
     position: relative;
     border: none;
     background-color: transparent;
@@ -61,7 +61,7 @@ body{
 
 .control-title{
     position: relative;
-    padding-right: 470px;
+    padding-right: 55%;
     box-shadow: 3px 1px 1px -2px #000;
     padding-bottom: 29px;
     bottom: 18px;
@@ -95,7 +95,7 @@ body{
 
 .control-volume-slider{
     bottom: 56px;
-    left: 10%;
+    left: 9%;
     position: absolute;
     width: 40px;
     height: 150px;
@@ -118,7 +118,7 @@ body{
 
 .control-episodes{
     bottom: 56px;
-    left: 19%;
+    left: 16.5%;
     position: absolute;
     background-color: #262626;
     width: 320px;
@@ -212,10 +212,10 @@ body{
 .control-episodes > .body > .episode > .aux-progress{
     background-color: #b13b3b;
     position: absolute;
-    width: 50px;
+    width: 0;
     height: 10px;
     z-index: 99;
-    right: 165px;
+    left: 105px;
     margin-top: 13px;
     margin-bottom: 13px;
 }
@@ -278,7 +278,7 @@ body{
 
 .control-next-episode{
     bottom: 56px;
-    right: 10%;
+    right: 8.5%;
     position: absolute;
     background-color: #262626;
     border-radius: 10px;
@@ -342,7 +342,7 @@ body{
 
 .control-previous-episode{
     bottom: 56px;
-    right: 18.3%;
+    right: 16%;
     position: absolute;
     background-color: #262626;
     border-radius: 10px;
@@ -514,7 +514,7 @@ body{
     border: none;
     user-select: none;
     outline: 0;
-    right: 250px;
+    right: 16%;
     opacity: 0.7;
     position: fixed;
     bottom: 184px;
@@ -537,7 +537,7 @@ body{
     border: none;
     user-select: none;
     outline: 0;
-    left: 250px;
+    left: 16%;
     opacity: 0.7;
     position: fixed;
     bottom: 184px;
@@ -583,7 +583,7 @@ body{
 
 #progress-time{
     position: absolute;
-    right: -60px;
+    right: -55px;
     top: -3px;
     font-size: 15px;
     font-weight: bold;
@@ -643,138 +643,6 @@ body{
     z-index: 99;
     top: -6px;
     margin-left: -8px;
-}
-
-
-/************************* SCROLL BAR **************************/
-
-/* width */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #555;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #888;
-}
-
-/************************* LOADER **************************/
-
-#loader-wrapper {
-    background: #000 none repeat scroll 0 0;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    transition: all 0.4s ease-out 0s;
-    width: 100%;
-    z-index: 1000;
-    display: none;
-}
-#loader {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    animation: 2s linear 0s normal none infinite running spin;
-    border-color: #969696 transparent transparent;
-    border-image: none;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 3px;
-    display: block;
-    height: 80px;
-    left: 50%;
-    margin: -40px 0 0 -40px;
-    position: relative;
-    top: 50%;
-    width: 80px;
-    z-index: 1001;
-}
-#loader::before {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    animation: 3s linear 0s normal none infinite running spin;
-    border-color: #9f9f9f transparent transparent;
-    border-image: none;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 3px;
-    bottom: 5px;
-    content: "";
-    left: 5px;
-    position: absolute;
-    right: 5px;
-    top: 5px;
-}
-#loader::after {
-    -moz-border-bottom-colors: none;
-    -moz-border-left-colors: none;
-    -moz-border-right-colors: none;
-    -moz-border-top-colors: none;
-    animation: 1.5s linear 0s normal none infinite running spin;
-    border-color: #c6c6c6 transparent transparent;
-    border-image: none;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 3px;
-    bottom: 15px;
-    content: "";
-    left: 15px;
-    position: absolute;
-    right: 15px;
-    top: 15px;
-}
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-#loader-wrapper .loader-section {
-    background: #fff none repeat scroll 0 0;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    width: 51%;
-    z-index: 1000;
-}
-#loader-wrapper .loader-section.section-left {
-    display: none;
-    left: 0;
-}
-#loader-wrapper .loader-section.section-right {
-    display: none;
-    right: 0;
-}
-.loaded #loader-wrapper .loader-section.section-left {
-    background: transparent none repeat scroll 0 0;
-    transition: all 0.9s ease-out 0s;
-}
-.loaded #loader-wrapper .loader-section.section-right {
-    background: transparent none repeat scroll 0 0;
-    transition: all 0.9s ease-out 0s;
-}
-.loaded #loader {
-    opacity: 0;
-}
-.loaded #loader-wrapper {
-    background: transparent none repeat scroll 0 0;
-    visibility: hidden;
 }
 
 /************************* TOOLTIP **************************/
@@ -845,3 +713,66 @@ body{
     top: 25px;
     right: 10px;
 }
+
+/*********************** VIDEO NOTIFICATION ************************/
+
+.video-notification {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+    opacity: 0.5;
+    display: none;
+    box-shadow: rgb(0, 0, 0) 0 2px 56px 4px;
+    background-color: #fff;
+
+}
+
+.video-notification > i{
+    color: #000;
+    font-size: 40px;
+}
+
+
+.video-notification.back{
+    top: 40%;
+    left: 50px;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+
+.video-notification.skip{
+    top: 40%;
+    right:50px;
+    padding-top: 16px;
+    padding-left: 18px;
+}
+
+.video-notification.up{
+    top: 5%;
+    left: 48%;
+    padding-top: 16px;
+    padding-left: 10px;
+}
+
+.video-notification.down{
+    top: 5%;
+    left: 48%;
+    padding-top: 16px;
+    padding-left: 20px;
+}
+
+.video-notification.pause{
+    top: 5%;
+    left: 48%;
+    padding-top: 15px;
+    padding-left: 17px;
+}
+
+.video-notification.play{
+    top: 5%;
+    left: 48%;
+    padding-top: 15px;
+    padding-left: 20px;
+}
+

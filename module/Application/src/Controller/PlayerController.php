@@ -8,26 +8,17 @@
 
 namespace Application\Controller;
 
+use Zend\View\Model\ViewModel;
 
 class PlayerController extends AbstractController
 {
-    public function getAnimeAction()
+    public function indexAction()
     {
-        $id_md5 = $this->params()->fromQuery('trackId');
-        $anime = $this->animeTable->getAnime($id_md5);
-        $seasons = $this->seasonTable->getSeasonByAnime($anime->id);
+        $name = $this->params()->fromRoute('id', -1);
+        $anime = $this->animeTable->getAnime(null, $name);
 
-        $data = $this->prepareData($anime, $seasons);
-        die(json_encode(array('anime' => $data)));
+        return new ViewModel([
+            'anime' => $anime
+        ]);
     }
-
-    public function saveCacheAction()
-    {
-        $data = $this->params()->fromPost();
-        //$this->storeCache($data);
-       // die(json_encode(array('cache' => $this->getCache())));
-        die(json_encode(array('cache' => $this->getIp())));
-    }
-
-
 }

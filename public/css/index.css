@@ -1,0 +1,205 @@
+
+body {
+    background-color: #141414;
+    color: #fff;
+    overflow-x : hidden;
+}
+
+img { max-width:100%; }
+
+
+.content{
+    margin-top: 50px;
+}
+
+.container{
+    margin-left: 0;
+    width: 100%;
+}
+
+
+/********************************************** CAROUSEL **********************************************/
+
+#container-carousel{
+    margin-top: 50px;
+}
+
+.carousel-inner{
+    margin-left: 10px;
+}
+
+.thumbnails li> .card .caption {
+    background:#fff !important;
+    padding:10px
+}
+
+.thumbnails li{
+    width: 16%;
+    padding: 10px;
+}
+
+.thumbnail{
+    padding: 0 !important;
+    border: none !important;
+}
+
+.page-header h3 {
+    line-height: 0.88rem;
+    color: #000;
+}
+
+.carousel-header h4{
+    left: 55px;
+    position: relative;
+}
+
+ul.thumbnails {
+    margin-bottom: 0;
+}
+
+.caption h4 {
+    color: #444;
+}
+
+.caption p {
+    color: #999;
+}
+
+.thumbnail > a img{
+    height: 130px;
+}
+
+/* Mobile Only */
+@media (max-width: 767px) {
+    .page-header, .control-box {
+        text-align: center;
+    }
+}
+@media (max-width: 479px) {
+    .caption {
+        word-break: break-all;
+    }
+}
+
+li { list-style-type:none;}
+
+
+/********************************************** CAROUSEL CONTROLS**********************************************/
+
+.carousel-controls{
+    position: absolute;
+    background-color: transparent!important;
+    border: none!important;
+    opacity: 0.5;
+    border: 0;
+    border-radius: 0;
+    display: inline-block;
+    font-size: 34px;
+    font-weight: 200;
+    line-height: 18px;
+    padding: 4px 10px 0;
+    height: 30px;
+    width: 15px;
+}
+
+.carousel-controls:hover{
+    opacity: 0.8;
+}
+
+.carousel-controls i{
+    font-size: 30px;
+    color: #fff;
+}
+
+.carousel-controls.prev{
+    left: 0;
+}
+
+.carousel-controls.next{
+    right: 70px;
+}
+
+.control-box{
+    width: 100%;
+    top: 36%;
+    position: absolute;
+    text-align: right;
+    left: 20px;
+    display: none;
+}
+
+
+
+/********************************************** NAVBAR  **********************************************/
+.navbar-default{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    background-color: #141414;
+    border: none;
+    background-image: unset;
+    border-radius: 0;
+    z-index: 99;
+    box-shadow: 1px 1px 10px 0px #000;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #dedede;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+    color: #fff;
+}
+
+.btn-default{
+    background-color: #fff;
+    padding: 6px;
+    margin-top: 8px;
+    width: 400px;
+}
+
+.btn-default i {
+    margin-right: 300px;
+}
+
+.search-bar{
+    margin-top: 10px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    right: 50px;
+    position: fixed;
+}
+
+.search-filter{
+    position: fixed;
+    right: 0;
+    padding: 13px;
+    font-size: 20px;
+    cursor:pointer;
+}
+
+.search-input{
+    color: black;
+    border: 0;
+    outline: 0;
+    background: none;
+    line-height: 30px;
+    padding: 0 10px;
+    width: 350px;
+}
+
+.search-icon{
+    height: 30px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #000;
+}
+
+
+

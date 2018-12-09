@@ -27,7 +27,7 @@ return [
             'anime' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/anime[/:id]',
+                    'route' => '/anime[/:action]',
                     'defaults' => [
                         'controller' => Controller\AnimeController::class,
                         'action'     => 'index',
@@ -37,7 +37,7 @@ return [
             'player' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/player[/:action]',
+                    'route'    => '/watch[/:id]',
                     'defaults' => [
                         'controller' => Controller\PlayerController::class,
                         'action'     => 'index',

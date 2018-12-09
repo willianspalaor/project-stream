@@ -1,1 +1,63 @@
-index
+<div class="container-fluid">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbar-collapse-3">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Works</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li>
+                        <div class="search-bar">
+                            <input class="search-input" type="text" name="" placeholder="Procurar...">
+                            <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="search-filter">
+                            <i class="fas fa-th"></i>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" id="container-carousel">
+        <div class="col-xs-12">
+            <div class="carousel slide" id="carousel-animes">
+                <div class="carousel-header">
+                    <h4>Continuar Assistindo</h4>
+                </div>
+                <div class="carousel-inner"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/index.css') ?>">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css">
+<script src="<?= $this->basePath('js/module/Application/Index/xhr/Anime.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Index/Helper.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+<script>
+
+    $(window).on('load', function() {
+        (new App()).start();
+    });
+
+
+
+</script>
+
+
