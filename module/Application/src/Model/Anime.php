@@ -18,6 +18,11 @@ class Anime implements InputFilterAwareInterface
     public $img;
     public $route;
     public $track;
+    public $year;
+    public $author;
+    public $episodes;
+    public $genre;
+    public $status;
 
    	private $inputFilter;
 
@@ -28,6 +33,11 @@ class Anime implements InputFilterAwareInterface
         $this->img = !empty($data['img']) ? $data['img'] : null;
         $this->route = !empty($data['route']) ? $data['route'] : null;
         $this->track = !empty($data['track']) ? $data['track'] : null;
+        $this->year = !empty($data['year']) ? $data['year'] : null;
+        $this->author = !empty($data['author']) ? $data['author'] : null;
+        $this->episodes = !empty($data['episodes']) ? $data['episodes'] : null;
+        $this->genre = !empty($data['genre']) ? $data['genre'] : null;
+        $this->status = !empty($data['status']) ? $data['status'] : null;
     }
 
     public function getArrayCopy()
@@ -37,7 +47,12 @@ class Anime implements InputFilterAwareInterface
             'title'   => $this->title,
             'img' => $this->img,
             'route' => $this->route,
-            'track' => $this->track
+            'track' => $this->track,
+            'year' => $this->track,
+            'author' => $this->track,
+            'episodes' => $this->episodes,
+            'genre' => $this->genre,
+            'status' => $this->status
         ];
     }
 

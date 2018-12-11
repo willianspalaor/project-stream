@@ -13,6 +13,7 @@
     <!-- Le styles -->
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/select2.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
         ->prependStylesheet($this->basePath('css/fontawesome-free-5.5.0-web/css/all.min.css'))
@@ -22,6 +23,7 @@
     <?= $this->headScript()
         ->prependFile($this->basePath('js/module/Application/Player/Player.js'))
         ->prependFile($this->basePath('js/module/Application/Index/App.js'))
+        ->prependFile($this->basePath('js/select2.min.js'))
         ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery-ui.js'))
         ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))

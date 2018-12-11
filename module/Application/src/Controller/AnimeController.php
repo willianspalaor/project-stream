@@ -20,6 +20,13 @@ class AnimeController extends AbstractController
 
         $client = $this->getCurrentClient();
         $animes = $this->animeTable->getCurrentAnimes($client->id);
+
+        foreach($animes as $key => $value){
+            $categories = $this->categoryTable->getCategoryByAnime($value['id']);
+            $value['categories'] = $this->prepareJsonData($categories, 'category');
+            $animes[$key] = $value;
+        }
+
         $data = $this->prepareJsonData($animes, 'anime');
 
         die(json_encode(array('current_animes' => $data)));
@@ -28,12 +35,18 @@ class AnimeController extends AbstractController
 
     public function getAnimesAction(){
 
-        $paginator = $this->animeTable->fetchAll(true);
+        $params = $this->params()->fromPost();
+        $paginator = $this->animeTable->fetchAll(true, $params);
         $paginator->setCurrentPageNumber(1);
-        $paginator->setItemCountPerPage(24);
+        $paginator->setItemCountPerPage(25);
         $items = $this->prepareJsonData($paginator->getCurrentItems(), 'anime');
 
-        die(json_encode(array('animes' => $items)));
+        foreach($items as $key => $value){
+            $categories = $this->categoryTable->getCategoryByAnime($items->$key->id);
+            $items->$key->categories = $this->prepareJsonData($categories, 'category');
+        }
+
+        die(json_encode(array('animes' =>$items)));
     }
 
     public function getAnimesByCategoryAction(){
@@ -43,6 +56,11 @@ class AnimeController extends AbstractController
         $paginator->setCurrentPageNumber(1);
         $paginator->setItemCountPerPage(20);
         $items = $this->prepareJsonData($paginator->getCurrentItems(), 'anime');
+
+        foreach($items as $key => $value){
+            $categories = $this->categoryTable->getCategoryByAnime($items->$key->id);
+            $items->$key->categories = $this->prepareJsonData($categories, 'category');
+        }
 
         die(json_encode(array('animes' => $items)));
     }

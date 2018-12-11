@@ -17,15 +17,31 @@ img { max-width:100%; }
     width: 100%;
 }
 
+.thumbnails > .col-sm-3:hover{
+    /* transform: scale(1.2);
+     transition-duration: 0.3s;
+    margin-right: 20px;
+    margin-left: 20px*/
+}
 
 /********************************************** CAROUSEL **********************************************/
 
 #container-carousel{
     margin-top: 50px;
+    -webkit-transition: opacity 1000ms, visibility 1000ms;
+    transition: opacity 1000ms, visibility 1000ms;
+}
+
+#container-carousel > .col-xs-12{
+    margin-bottom: 30px;
 }
 
 .carousel-inner{
-    margin-left: 10px;
+    margin-left: 18px;
+}
+
+.card{
+    box-shadow: 1px 1px 10px 1px #000;
 }
 
 .thumbnails li> .card .caption {
@@ -34,13 +50,69 @@ img { max-width:100%; }
 }
 
 .thumbnails li{
-    width: 16%;
+    width: 230px;
     padding: 10px;
+}
+
+.card-info{
+    width: 210px;
+    background-color: #141414;
+    z-index: 99;
+    position: absolute;
+    top: 10px;
+    height: 130px;
+    opacity: 0;
+    cursor: pointer;
+    -webkit-transition: opacity 500ms;
+}
+
+.card-info > h5{
+    background-color: #000;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card-info > h5 > .status{
+    top: 0;
+    width: 10px;
+    height: 10px;
+    margin-top: 12px;
+    margin-left: 8px;
+    border-radius: 20px;
+    background-color: #39e80d;
+    position: absolute;
+}
+
+.card-info > h5 > span{
+    margin-left: 25px;
+}
+
+.card-info > span{
+    margin-left: 10px;
+    margin-top: 10px;
+    display: table;
+    display: -webkit-box;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+.card-info > .play{
+    position: absolute;
+    right: 10%;
+    bottom: 10%;
+    border-radius: 100px;
+}
+
+.card-info > .play > i{
+    font-size: 35px;
+    color: #ffffff;
 }
 
 .thumbnail{
     padding: 0 !important;
     border: none !important;
+    margin: 0 !important;
 }
 
 .page-header h3 {
@@ -120,11 +192,10 @@ li { list-style-type:none;}
 }
 
 .control-box{
-    width: 100%;
+    width: 99%;
     top: 36%;
     position: absolute;
     text-align: right;
-    left: 20px;
     display: none;
 }
 
@@ -202,4 +273,29 @@ li { list-style-type:none;}
 }
 
 
+/********************************************** CONTAINER SEARCH  **********************************************/
 
+.container-search{
+    margin-top: 100px;
+    width: 80%;
+    left: 11.5%;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 1000ms, visibility 1000ms;
+    transition: opacity 1000ms, visibility 1000ms;
+    position: absolute;
+}
+
+.container-search > li{
+    width: 230px;
+    padding: 10px;
+}
+
+.container-search > .card{
+    width: 210px;
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/********************************************** TOOLTIP  **********************************************/

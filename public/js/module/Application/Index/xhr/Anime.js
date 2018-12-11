@@ -1,10 +1,11 @@
 let App_Anime = new (function () {
 
-    function _getAnimes(callback){
+    function _getAnimes(params = null, callback){
 
         $.ajax({
-            type : 'GET',
+            type : 'POST',
             url  :'/anime/getAnimes',
+            data : params,
             success: function(response){
 
                 let data = JSON.parse(response);
@@ -65,7 +66,7 @@ let App_Anime = new (function () {
 
         $.ajax({
             type : 'GET',
-            url  :'/anime/getAnimeCategories',
+            url  : '/anime/getAnimeCategories',
             success: function(response){
 
                 let data = JSON.parse(response);

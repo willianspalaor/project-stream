@@ -18,11 +18,23 @@ class AnimeTable
         $this->tableGateway = $tableGateway;
     }
 
-    public function fetchAll($paginated = false)
+    public function fetchAll($paginated = false, $params = [])
     {
         if ($paginated) {
 
-            $select = new Select($this->tableGateway->getTable());
+            $select = $this->tableGateway->getSql()->select();
+            $select->columns(array('*'));
+            $select->join('genre', 'anime.id_genre = genre.id_genre', array('genre' => 'title'), 'left');
+
+
+            if(!empty($params)){
+                if($params['text']){
+                    $select->where(array('anime.title LIKE ?' => '%' . $params['text'] . '%'));
+                }
+            }
+
+            // $select = new Select($this->tableGateway->getTable());
+
             return $this->fetchPaginatedResults($select);
         }
 
@@ -68,6 +80,7 @@ class AnimeTable
         $sqlSelect = $this->tableGateway->getSql()->select();
         $sqlSelect->columns(array('*'));
         $sqlSelect->join('client_anime', 'client_anime.id_anime = anime.id_anime', array(), 'inner');
+        $sqlSelect->join('genre', 'anime.id_genre = genre.id_genre', array('genre' => 'title'), 'left');
         $sqlSelect->where(array('client_anime.id_client' => $id_client));
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
@@ -79,7 +92,10 @@ class AnimeTable
         $select = $this->tableGateway->getSql()->select();
         $select->columns(array('*'));
         $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
+        $select->join('category', 'anime_category.id_category = category.id_category', array(), 'inner');
+        $select->join('genre', 'anime.id_genre = genre.id_genre', array('genre' => 'title'), 'left');
         $select->where(array('anime_category.id_category' => $id_category));
+        $select->order('category.order ASC');
 
         return $this->fetchPaginatedResults($select);
 

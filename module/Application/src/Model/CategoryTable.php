@@ -22,8 +22,12 @@ class CategoryTable
 
     public function fetchAll()
     {
-        $resultSet =  $this->tableGateway->select();
-        return $resultSet->toArray();
+        $select = $this->tableGateway->getSql()->select();
+        $select->columns(array('*'));
+        $select->order('order');
+        $rowset = $this->tableGateway->selectWith($select);
+
+        return $rowset->toArray();
     }
 
     public function getCategory($id)
@@ -31,6 +35,17 @@ class CategoryTable
         $id = (int)$id;
         $rowset = $this->tableGateway->select(['id_category' => $id]);
         return $rowset->current();
+    }
+
+    public function getCategoryByAnime($id_anime){
+
+        $select = $this->tableGateway->getSql()->select();
+        $select->columns(array('*'));
+        $select->join('anime_category', 'anime_category.id_category = category.id_category', array(), 'inner');
+        $select->where(array('anime_category.id_anime' => $id_anime));
+        $rowset = $this->tableGateway->selectWith($select);
+
+        return $rowset->toArray();
     }
 
 }
