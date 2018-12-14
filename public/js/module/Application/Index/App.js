@@ -9,6 +9,7 @@ class App{
         App_Helper.listCurrentAnimes(function(){
             App_Helper.listAnimes(function(){
                 App_Helper.hideLoader();
+                App_Helper.prepareSearch();
             });
         });
 
@@ -35,11 +36,17 @@ class App{
 
             }else{
 
-                App_Helper.showCarousel();
-                App_Helper.hideSearch();
+                App_Helper.showLoader(function(){
+
+                    App_Helper.hideWrapper();
+                    App_Helper.hideSearch();
+                    App_Helper.showCarousel();
+
+                   setTimeout(function(){
+                       App_Helper.hideLoader();
+                    }, 300);
+                });
             }
-
-
         });
 
 

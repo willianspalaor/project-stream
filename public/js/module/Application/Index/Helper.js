@@ -13,13 +13,18 @@ let App_Helper = new (function () {
     let _searchInput = null;
     let _searchFilter = null;
     let _containerSearch = null;
+    let _sidebarNav = null;
+    let _sidebarWrapper = null;
+    let _wrapperContent = null;
 
     function _assignElements(){
 
-        _container = $('.container-fluid');
-        _containerCarousel = $('#container-carousel');
         _carousel = $('#carousel-animes');
         _loader = $('#loader-wrapper');
+        _sidebarWrapper = $('#sidebar-wrapper');
+        _wrapperContent = $('#page-content-wrapper');
+        _containerCarousel = $('#container-carousel');
+        _container = $('.container-fluid');
         _column = $('.col-xs-12');
         _carouselInner = $('.carousel-inner');
         _navbar = $('.navbar');
@@ -27,6 +32,8 @@ let App_Helper = new (function () {
         _searchInput = $('.search-input');
         _searchFilter = $('.search-filter');
         _containerSearch = $('.container-search');
+        _sidebarNav = $('.sidebar-nav');
+
 
         _carouselId = _carousel.attr('id');
     }
@@ -45,7 +52,7 @@ let App_Helper = new (function () {
 
             $.each(data.current_animes, function (key, value) {
 
-                if((i % 5) === 0){
+                if((i % 6) === 0){
                     item = _createCarouselItem(first);
                     first = false;
                 }
@@ -54,7 +61,7 @@ let App_Helper = new (function () {
                 i++;
             });
 
-            if(i > 5){
+            if(i > 6){
                 _createCarouselControl();
             }
 
@@ -132,6 +139,7 @@ let App_Helper = new (function () {
 
         App_Helper.hideCarousel();
         App_Helper.showSearch();
+        App_Helper.showWrapper();
         App_Helper.showLoader();
 
         _containerSearch.empty();
@@ -149,13 +157,11 @@ let App_Helper = new (function () {
                 return false;
             }
 
-
             $.each(data.animes, function (key, value) {
                 _createCarouselList(_containerSearch, value);
             });
 
             App_Helper.hideLoader();
-
         });
     }
 
@@ -163,7 +169,11 @@ let App_Helper = new (function () {
 
         let card = $('<div>')
             .addClass('card')
-            .attr('data-route', data.route)
+            .attr({
+                'data-route' : data.route,
+                'data-track' : data.track,
+                'data-id' : data.id
+            })
             .appendTo(el);
 
         let thumb = $('<div>')
@@ -180,45 +190,277 @@ let App_Helper = new (function () {
             })
             .appendTo(link);
 
-        let info = $('<div>')
-            .addClass('card-info')
+        $('<div>')
+            .addClass('overlay')
             .appendTo(card);
 
-        let title = $('<h5>')
-            .appendTo(info);
+        $('<video muted>')
+            .attr({
+                'src' : '/videos/trailers/boruto_next_generations.mp4',
+                'type' : 'video/mp4'
+            }).appendTo(card);
 
-        $('<span>')
+
+        _createCardInfo(card, data);
+        _createCardButtons(card, data);
+        _bindCardEvents(card);
+    }
+
+    function _createCardInfo(el, data){
+
+        let info = $('<div>')
+            .addClass('info')
+            .appendTo(el);
+
+        $('<h6>')
             .text(data.title)
-            .appendTo(title);
-
-        $('<span>')
-            .text('Gênero: ' + data.genre)
+            .addClass('title')
             .appendTo(info);
 
-        let episodes = $('<span>')
-            .appendTo(info);
-
-        let status = $('<div>')
+        let status = $('<h6>')
             .addClass('status')
-            .appendTo(title);
-
-        let categories = $('<span>')
             .appendTo(info);
 
-        _setEpisodes(episodes, data);
+        $('<h6>')
+            .addClass('seasons')
+            .text(data.seasons + ' Temporadas')
+            .appendTo(info);
+
+        $('<p>')
+            .addClass('description')
+            .text(data.description)
+            .appendTo(info);
+
+
+        info.bind('click', function(){
+            window.location.href = $(this).parent().attr('data-route');
+        });
+
         _setStatus(status, data.status);
-        _setCategories(categories, data.categories);
+    }
 
-        card.bind('mouseover', function(){
-            info.css('opacity', '0.9');
+    function _createCardButtons(el){
+
+        let buttons = $('<div>')
+            .addClass('icons')
+            .appendTo(el);
+
+        let btnPlay = $('<div>')
+            .addClass('icon play')
+            .on('click', function(){
+                let card = $(this).parent().parent();
+                window.location.href = card.attr('data-route');
+            })
+            .appendTo(buttons);
+
+        $('<i>')
+            .addClass('fas fa-play')
+            .appendTo(btnPlay);
+
+        let btnVolume = $('<div>')
+            .addClass('icon volume')
+            .on('click', function(){
+                _setCardVolume($(this));
+            })
+            .appendTo(buttons);
+
+        $('<i>')
+            .addClass('fas fa-volume-mute')
+            .appendTo(btnVolume);
+
+        let btnThumbUp = $('<div>')
+            .addClass('icon thumb-up')
+            .on('click', function(){
+                _setAnimeThumb($(this), 'up');
+            })
+            .appendTo(buttons);
+
+        $('<i>')
+            .addClass('fas fa-thumbs-up')
+            .appendTo(btnThumbUp);
+
+        let btnThumbDown = $('<div>')
+            .addClass('icon thumb-down')
+            .on('click', function(){
+                _setAnimeThumb($(this), 'down');
+            })
+            .appendTo(buttons);
+
+        $('<i>')
+            .addClass('fas fa-thumbs-down')
+            .appendTo(btnThumbDown);
+
+        let btnPlus = $('<div>')
+            .addClass('icon plus')
+            .on('click', function(){
+                _setClientList($(this));
+            })
+            .appendTo(buttons);
+
+        $('<i>')
+            .addClass('fas fa-plus')
+            .appendTo(btnPlus);
+    }
+
+    function _setCardVolume(el){
+
+        let icons = el.parent();
+        let icon = el.find('i');
+        let card = icons.parent();
+        let video = card.find('video');
+
+        icon.removeClass();
+
+        if(video[0].muted){
+            icon.addClass('fas fa-volume-up');
+            video[0].muted = false;
+        }else{
+            icon.addClass('fas fa-volume-mute');
+            video[0].muted = true;
+        }
+    }
+
+    function _setAnimeThumb(el, thumb){
+
+        let card = el.parent().parent();
+        let track = card.attr('data-track');
+        let thumbs = 0;
+
+        App_Anime.getAnime(track, function(data){
+
+            if(thumb === 'up'){
+                if(data.anime.thumb_up){
+                    thumbs = data.anime.thumb_up;
+                }
+                data.anime.thumb_up = parseInt(thumbs) + 1;
+            }else{
+                if(data.anime.thumb_down){
+                    thumbs = data.anime.thumb_down;
+                }
+                data.anime.thumb_down = parseInt(thumbs)+ 1;
+            }
+
+            App_Anime.saveAnime(data.anime, function(teste){
+                console.log(teste);
+            })
+        });
+    }
+
+    function _setClientList(el){
+
+        let card = el.parent().parent();
+        let id = card.attr('data-id');
+
+        App_Anime.saveClientList(id, function(data){
+            console.log(data);
+        })
+    }
+
+    function _bindCardEvents(el){
+
+        let enter = false;
+        let timeoutVideo = null;
+        let timeoutInfo = null;
+        let timeoutMove = null;
+
+        el.bind('mouseenter', function(){
+
+            enter = true;
+
+            let element = $(this);
+            let video = element.find('video');
+
+            _checkCards(element, true);
+            element.find('.overlay').css('display', 'block');
+            element.find('.info, .icons').css('opacity', '1');
+
+            timeoutVideo = setTimeout(function(){
+
+                if(enter){
+
+                    element.find('img').css('display', 'none');
+                    video.css('opacity', '1');
+
+                    video[0].load();
+                    video[0].play();
+
+                    timeoutInfo = setTimeout(function(){
+                        element.find('.info, .icons').css('opacity', '0');
+                    }, 3000);
+                }
+
+            }, 3000);
+
         });
 
-        card.bind('mouseleave', function(){
-            info.css('opacity', '0');
+        el.bind('mouseleave', function(){
+
+            enter = false;
+            clearTimeout(timeoutVideo);
+
+            let element = $(this);
+            let video = element.find('video');
+
+            _checkCards(element, false);
+
+            element.find('img').css('display', 'block');
+            element.find('.overlay').css('display', 'none');
+            element.find('.info, .icons').css('opacity', '0');
+            video.css('opacity', '0');
+
+             video[0].pause();
         });
 
-        card.bind('click', function(){
-            window.location.href = $(this).data('route');
+
+        el.bind('mousemove', function(){
+
+            clearTimeout(timeoutMove);
+            let element = $(this);
+
+            element.find('.info, .icons').css('opacity', '1');
+
+            timeoutMove = setTimeout(function(){
+
+                clearTimeout(timeoutInfo);
+
+                timeoutInfo = setTimeout(function(){
+                    element.find('.info, .icons').css('opacity', '0');
+                }, 3000);
+
+            }, 50);
+        });
+
+    }
+
+    function _checkCards(el, show){
+
+        let active = false;
+        let container = el.parent().parent();
+
+        if(show){
+            el.parent().addClass('active');
+        }else{
+            el.parent().removeClass('active');
+        }
+
+        container.find('li').each(function() {
+
+            let li = $(this);
+
+            if(!li.hasClass('active')){
+                if(show){
+                    if(active){
+                        li.css('transform', 'translate(80px, 0)');
+                    }else{
+                        li.css('transform', 'translate(-80px, 0)');
+                    }
+                }else{
+                    li.removeAttr('style');
+                }
+
+            }else{
+                active = true;
+            }
         });
     }
 
@@ -303,29 +545,16 @@ let App_Helper = new (function () {
         switch(parseInt(status)){
 
             case 1 :
-
-                el.css('background-color', '#39e80d');
-                el.attr({
-                    'data-toggle' : 'tooltip',
-                    'title' : 'Anime em andamento'
-                });
-                break;
-
+                    el.css('color', '#36ff3e').text('Anime em andamento');
+                    break;
             case 2 :
 
-                el.css('background-color', '#ffa80a');
-                el.attr({
-                    'data-toggle' : 'tooltip',
-                    'title' : 'Anime completo'
-                });
+                el.css('color', '#ffa80a').text('Anime completo');
                 break;
 
             case 3 :
-                el.css('background-color', '#5f5b54')
-                el.attr({
-                    'data-toggle' : 'tooltip',
-                    'title' : 'Anime encerrado'
-                });
+                el.css('color', '#ff3636').text('Anime cancelado');
+                break;
         }
     }
 
@@ -424,9 +653,8 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('glyphicon glyphicon-chevron-left')
+            .addClass('fa fa-chevron-left')
             .appendTo(a);
-
     }
 
     function _createBtnNext(ul){
@@ -446,7 +674,7 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('glyphicon glyphicon-chevron-right')
+            .addClass('fa fa-chevron-right')
             .appendTo(a);
 
     }
@@ -462,8 +690,12 @@ let App_Helper = new (function () {
         }, 600);
     }
 
-    function _showLoader(){
+    function _showLoader(callback){
         _loader.css('display', 'block');
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
     }
 
     function _hideLoader(){
@@ -486,6 +718,16 @@ let App_Helper = new (function () {
             'opacity' : '0',
             'display' : 'table-column'
         });
+    }
+
+    function _showWrapper(){
+        _sidebarWrapper.css('display', 'block');
+        _wrapperContent.css('display', 'block');
+    }
+
+    function _hideWrapper(){
+        _sidebarWrapper.css('display', 'none');
+        _wrapperContent.css('display', 'none');
     }
 
     function _showSearch(){
@@ -516,6 +758,23 @@ let App_Helper = new (function () {
         };
     }
 
+    function _prepareSearch(){
+
+        App_Anime.getCategories(function(categories) {
+
+            $.each(categories.categorias, function (key, value) {
+
+                let li = $('<li>')
+                    .appendTo(_sidebarNav);
+
+                $('<a>')
+                    .attr('href', '#')
+                    .text(value.title)
+                    .appendTo(li);
+            });
+        });
+    }
+
     return {
         assignElements: _assignElements,
         listAnimes : _listAnimes,
@@ -526,8 +785,11 @@ let App_Helper = new (function () {
         showCarousel: _showCarousel,
         hideCarousel : _hideCarousel,
         showSearch: _showSearch,
+        showWrapper : _showWrapper,
+        hideWrapper : _hideWrapper,
         hideSearch : _hideSearch,
-        getSearch : _getSearch
+        getSearch : _getSearch,
+        prepareSearch : _prepareSearch
 
     }
 

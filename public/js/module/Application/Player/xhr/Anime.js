@@ -121,7 +121,7 @@ let Player_Anime = new (function () {
 
         $.ajax({
             type : 'GET',
-            url  :'/anime/getAnime?trackId=' + track,
+            url  :'/anime/getPlayerAnime?trackId=' + track,
             success: function(response){
 
                 let data = JSON.parse(response);

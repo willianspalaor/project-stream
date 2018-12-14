@@ -100,4 +100,17 @@ class AnimeTable
         return $this->fetchPaginatedResults($select);
 
     }
+
+    public function saveAnime(Anime $anime)
+    {
+        $id = (int) $anime->id;
+
+        if ($id === 0) {
+            $this->tableGateway->insert($anime->getArrayCopy());
+            return;
+        }
+
+        $data = $anime->getData();
+        $this->tableGateway->update($data, ['id_anime' => $id]);
+    }
 }

@@ -10,16 +10,23 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\AnimeTable;
+use Application\Model\Anime;
 use Application\Model\SeasonTable;
+use Application\Model\Season;
 use Application\Model\EpisodeTable;
+use Application\Model\Episode;
 use Application\Model\VideoTable;
+use Application\Model\Video;
 use Application\Model\ClientTable;
 use Application\Model\Client;
 use Application\Model\ClientAnimeTable;
 use Application\Model\ClientAnime;
 use Application\Model\ClientEpisodeTable;
-use Application\Model\CategoryTable;
 use Application\Model\ClientEpisode;
+use Application\Model\ClientListTable;
+use Application\Model\ClientList;
+use Application\Model\CategoryTable;
+use Application\Model\Category;
 use Application\Utils\RemoteAddress;
 
 class AbstractController extends AbstractActionController
@@ -33,13 +40,14 @@ class AbstractController extends AbstractActionController
     public $remoteAddress;
     public $clientAnimeTable;
     public $clientEpisodeTable;
+    public $clientListTable;
     public $categoryTable;
 
     private $_client;
 
     public function __construct(AnimeTable $animeTable, SeasonTable $seasonTable, EpisodeTable $episodeTable,
                                 VideoTable $videoTable, ClientTable $clientTable, ClientAnimeTable $clientAnimeTable,
-                                ClientEpisodeTable $clientEpisodeTable, CategoryTable $categoryTable)
+                                ClientEpisodeTable $clientEpisodeTable, CategoryTable $categoryTable, ClientListTable $clientListTable)
     {
         $this->animeTable = $animeTable;
         $this->seasonTable = $seasonTable;
@@ -48,6 +56,7 @@ class AbstractController extends AbstractActionController
         $this->clientTable = $clientTable;
         $this->clientAnimeTable = $clientAnimeTable;
         $this->clientEpisodeTable = $clientEpisodeTable;
+        $this->clientListTable = $clientListTable;
         $this->categoryTable = $categoryTable;
 
         $this->setClient();
@@ -79,6 +88,12 @@ class AbstractController extends AbstractActionController
         }
 
         return $client;
+    }
+
+    public function getAnime($track){
+
+        return $this->animeTable->getAnime($track);
+
     }
 
     public function saveClientAnime($data = null, $anime = null){
@@ -131,6 +146,30 @@ class AbstractController extends AbstractActionController
         $this->clientEpisodeTable->saveClientEpisode($clientEpisode);
 
         return $clientEpisode;
+    }
+
+
+    function saveAnime($data){
+
+        $anime = new Anime();
+        $anime->exchangeArray($data);
+        $this->animeTable->saveAnime($anime);
+
+        return $anime->getArrayCopy();
+    }
+
+    function saveClientList($idAnime){
+
+        $data = [
+            'id_anime' =>$idAnime,
+            'id_client'=> $this->getClient()->id
+        ];
+
+        $clientList = new ClientList();
+        $clientList->exchangeArray($data);
+        $this->clientListTable->saveClientList($clientList);
+
+        return $clientList->getArrayCopy();
     }
 
     public function storeCache($data){

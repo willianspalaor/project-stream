@@ -1,41 +1,9 @@
+
+<?php include('sidebar.phtml') ?>
+
 <div class="container-fluid">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="collapse navbar-collapse" id="navbar-collapse-3">
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Works</a></li>
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li>
-                        <div class="search-bar">
-                            <input class="search-input" type="text" name="" placeholder="Procurar...">
-                            <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="search-filter">
-                            <i class="fas fa-th"></i>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container" id="container-carousel">
-        <div class="col-xs-12">
-            <div class="carousel slide" id="carousel-animes">
-                <div class="carousel-header">
-                    <h4>Continuar Assistindo</h4>
-                </div>
-                <div class="carousel-inner"></div>
-            </div>
-        </div>
-    </div>
-    <ul class="container-search"></ul>
+    <?php include('navbar.phtml') ?>
+    <?php include('carousel.phtml') ?>
 </div>
 
 <div id="loader-wrapper">
@@ -53,7 +21,33 @@
 
     $(window).on('load', function() {
         (new App()).start();
+
+        var videos = document.querySelectorAll("video");
+        for (var i = 0, l = videos.length; i < l; i++) {
+            var video = videos[i];
+            var src = video.src || (function () {
+                var sources = video.querySelectorAll("source");
+                for (var j = 0, sl = sources.length; j < sl; j++) {
+                    var source = sources[j];
+                    var type = source.type;
+                    var isMp4 = type.indexOf("mp4") != -1;
+                    if (isMp4) return source.src;
+                }
+                return null;
+            })();
+            if (src) {
+                var isYoutube = src && src.match(/(?:youtu|youtube)(?:\.com|\.be)\/([\w\W]+)/i);
+                if (isYoutube) {
+                    var id = isYoutube[1].match(/watch\?v=|[\w\W]+/gi);
+                    id = (id.length > 1) ? id.splice(1) : id;
+                    id = id.toString();
+                    var mp4url = "http://www.youtubeinmp4.com/redirect.php?video=";
+                    video.src = mp4url + id;
+                }
+            }
+        }
     });
+
 
 
 

@@ -9,6 +9,13 @@ class AnimeController extends AbstractController
     {
         $id_md5 = $this->params()->fromQuery('trackId');
         $anime = $this->animeTable->getAnime($id_md5);
+        die(json_encode(array('anime' => $anime)));
+    }
+
+
+    public function getPlayerAnimeAction(){
+        $id_md5 = $this->params()->fromQuery('trackId');
+        $anime = $this->animeTable->getAnime($id_md5);
         $this->saveClientAnime(null, $anime);
         $seasons = $this->seasonTable->getSeasonByAnime($anime->id);
         $data = $this->prepareAnimeData($anime, $seasons);
@@ -102,6 +109,20 @@ class AnimeController extends AbstractController
         $data = $this->prepareClientData($anime);
 
         die(json_encode(array('client' => $data)));
+    }
+
+    public function saveAnimeAction()
+    {
+        $data = $this->params()->fromPost();
+        $anime = $this->saveAnime($data);
+        die(json_encode(array('data' => $anime)));
+    }
+
+    public function saveClientListAction(){
+
+        $data = $this->params()->fromPost();
+        $clientList = $this->saveClientList($data['id_anime']);;
+        die(json_encode(array('data' => $clientList)));
     }
 }
 

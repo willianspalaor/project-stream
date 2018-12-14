@@ -106,6 +106,17 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\Category());
                     return new TableGateway('category', $dbAdapter, null, $resultSetPrototype);
                 },
+                Model\ClientListTable::class => function($container) {
+                    $tableGateway = $container->get(Model\ClientListTableGateway::class);
+                    return new Model\ClientListTable($tableGateway);
+                },
+                Model\ClientListTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\ClientList());
+                    return new TableGateway('client_list', $dbAdapter, null, $resultSetPrototype);
+                },
+
             ],
         ];
     }
@@ -124,7 +135,8 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientTable::class),
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
-                        $container->get(Model\CategoryTable::class)
+                        $container->get(Model\CategoryTable::class),
+                        $container->get(Model\ClientListTable::class)
                     );
                 },
                 Controller\AnimeController::class => function($container) {
@@ -136,7 +148,8 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientTable::class),
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
-                         $container->get(Model\CategoryTable::class)
+                         $container->get(Model\CategoryTable::class),
+                         $container->get(Model\ClientListTable::class)
                     );
                 },
                 Controller\PlayerController::class => function($container) {
@@ -148,7 +161,8 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientTable::class),
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
-                        $container->get(Model\CategoryTable::class)
+                        $container->get(Model\CategoryTable::class),
+                        $container->get(Model\ClientListTable::class)
                     );
                 },
             ],
