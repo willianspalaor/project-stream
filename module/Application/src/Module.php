@@ -116,7 +116,36 @@ class Module implements ConfigProviderInterface
                     $resultSetPrototype->setArrayObjectPrototype(new Model\ClientList());
                     return new TableGateway('client_list', $dbAdapter, null, $resultSetPrototype);
                 },
-
+                Model\EpisodeReportTable::class => function($container) {
+                    $tableGateway = $container->get(Model\EpisodeReportTableGateway::class);
+                    return new Model\EpisodeReportTable($tableGateway);
+                },
+                Model\EpisodeReportTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\EpisodeReport());
+                    return new TableGateway('episode_report', $dbAdapter, null, $resultSetPrototype);
+                },
+                Model\GenreTable::class => function($container) {
+                    $tableGateway = $container->get(Model\GenreTableGateway::class);
+                    return new Model\GenreTable($tableGateway);
+                },
+                Model\GenreTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Genre());
+                    return new TableGateway('genre', $dbAdapter, null, $resultSetPrototype);
+                },
+                Model\AuthorTable::class => function($container) {
+                    $tableGateway = $container->get(Model\AuthorTableGateway::class);
+                    return new Model\AuthorTable($tableGateway);
+                },
+                Model\AuthorTableGateway::class => function ($container) {
+                    $dbAdapter = $container->get(AdapterInterface::class);
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Author());
+                    return new TableGateway('author', $dbAdapter, null, $resultSetPrototype);
+                }
             ],
         ];
     }
@@ -136,7 +165,11 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
                         $container->get(Model\CategoryTable::class),
-                        $container->get(Model\ClientListTable::class)
+                        $container->get(Model\ClientListTable::class),
+                        $container->get(Model\EpisodeReportTable::class),
+                        $container->get(Model\GenreTable::class),
+                        $container->get(Model\AuthorTable::class)
+
                     );
                 },
                 Controller\AnimeController::class => function($container) {
@@ -148,8 +181,11 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientTable::class),
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
-                         $container->get(Model\CategoryTable::class),
-                         $container->get(Model\ClientListTable::class)
+                        $container->get(Model\CategoryTable::class),
+                        $container->get(Model\ClientListTable::class),
+                        $container->get(Model\EpisodeReportTable::class),
+                        $container->get(Model\GenreTable::class),
+                        $container->get(Model\AuthorTable::class)
                     );
                 },
                 Controller\PlayerController::class => function($container) {
@@ -162,7 +198,10 @@ class Module implements ConfigProviderInterface
                         $container->get(Model\ClientAnimeTable::class),
                         $container->get(Model\ClientEpisodeTable::class),
                         $container->get(Model\CategoryTable::class),
-                        $container->get(Model\ClientListTable::class)
+                        $container->get(Model\ClientListTable::class),
+                        $container->get(Model\EpisodeReportTable::class),
+                        $container->get(Model\GenreTable::class),
+                        $container->get(Model\AuthorTable::class)
                     );
                 },
             ],

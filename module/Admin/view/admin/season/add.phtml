@@ -1,0 +1,46 @@
+<?php
+
+$title = 'Add new season';
+$this->headTitle($title);
+?>
+<div class="content-admin">
+    <p>
+        <a href="<?= $this->url('admin/season', ['action' => 'index', 'id_anime' => $id_anime])?>"><i class="fas fa-arrow-left"></i> Voltar Lista Temporadas</a>
+    </p>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <?php
+    // This provides a default CSS class and placeholder text for the title element:
+    $season = $form->get('season');
+    $season->setAttribute('class', 'form-control');
+    $season->setAttribute('placeholder', 'Season');
+
+    $episodes = $form->get('episodes');
+    $episodes->setAttribute('class', 'form-control');
+    $episodes->setAttribute('placeholder', 'Episodes');
+
+    $submit = $form->get('submit');
+    $submit->setAttribute('class', 'btn btn-primary');
+
+    $form->setAttribute('action', $this->url('admin/season', ['action' => 'add', 'id' => $id_anime]));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    ?>
+
+    <?php // Wrap the elements in divs marked as form groups, and render the
+    // label, element, and errors separately within ?>
+    <div class="form-group">
+
+        <?= $this->formElement($season) ?>
+        <?= $this->formElementErrors()->render($season, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($episodes) ?>
+        <?= $this->formElementErrors()->render($episodes, ['class' => 'help-block']) ?>
+    </div>
+
+    <?php
+    echo $this->formSubmit($submit);
+    echo $this->formHidden($form->get('id_season'));
+    echo $this->form()->closeTag(); ?>
+</div>
+

@@ -1,0 +1,77 @@
+<?php
+
+$title = 'Add new episode';
+$this->headTitle($title);
+?>
+<div class="content-admin">
+    <p>
+        <a href="<?= $this->url('admin/episode', ['action' => 'index', 'id_season' => $id_season])?>"><i class="fas fa-arrow-left"></i> Voltar Lista episódios</a>
+    </p>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <?php
+
+    $title = $form->get('title');
+    $title->setAttribute('class', 'form-control');
+    $title->setAttribute('placeholder', 'Title');
+
+    $description = $form->get('description');
+    $description->setAttribute('class', 'form-control');
+    $description->setAttribute('placeholder', 'Description');
+
+    $episode = $form->get('episode');
+    $episode->setAttribute('class', 'form-control');
+    $episode->setAttribute('placeholder', 'Episode');
+
+    $open_start = $form->get('open_start');
+    $open_start->setAttribute('class', 'form-control');
+    $open_start->setAttribute('placeholder', 'Opening start');
+
+    $open_end = $form->get('open_end');
+    $open_end->setAttribute('class', 'form-control');
+    $open_end->setAttribute('placeholder', 'Opening end');
+
+    $end_start = $form->get('end_start');
+    $end_start->setAttribute('class', 'form-control');
+    $end_start->setAttribute('placeholder', 'Ending start');
+
+    $submit = $form->get('submit');
+    $submit->setAttribute('class', 'btn btn-primary');
+
+    $form->setAttribute('action', $this->url('admin/episode', ['action' => 'add', 'id' => $id_season]));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    ?>
+
+    <?php // Wrap the elements in divs marked as form groups, and render the
+    // label, element, and errors separately within ?>
+    <div class="form-group">
+
+        <?= $this->formElement($title) ?>
+        <?= $this->formElementErrors()->render($title, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($description) ?>
+        <?= $this->formElementErrors()->render($description, ['class' => 'help-block']) ?>
+    </div>
+
+    <div class="form-group">
+
+        <?= $this->formElement($episode) ?>
+        <?= $this->formElementErrors()->render($episode, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($open_start) ?>
+        <?= $this->formElementErrors()->render($open_start, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($open_end) ?>
+        <?= $this->formElementErrors()->render($open_end, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($end_start) ?>
+        <?= $this->formElementErrors()->render($end_start, ['class' => 'help-block']) ?>
+    </div>
+
+    <?php
+    echo $this->formSubmit($submit);
+    echo $this->formHidden($form->get('id_episode'));
+    echo $this->form()->closeTag(); ?>
+</div>
+

@@ -18,10 +18,18 @@
     </button>
     <button id="btnEpisodes" class="btn-control">
         <i class="fas fa-clone"></i>
+        <span id="tooltip-episode" class="control-tooltip episode">
+            <span></span>
+            <h5> Lista de episódios </h5>
+        </span>
     </button>
     <span class="control-title"></span>
-    <button id="btnBackward" class="btn-control">
-        <i class="fas fa-step-backward"></i>
+    <button id="btnReport" class="btn-control">
+        <i class="fas fa-question-circle"></i>
+        <span id="tooltip-report" class="control-tooltip report">
+            <span></span>
+            <h5> Encontrou algum problema? Relate aqui.</h5>
+        </span>
     </button>
     <button id="btnForward" class="btn-control">
         <i class="fas fa-step-forward"></i>
@@ -45,7 +53,7 @@
     </button>
     <div class="control-volume-slider"></div>
     <div class="control-next-episode"></div>
-    <div class="control-previous-episode"></div>
+    <!--<div class="control-previous-episode"></div> -->
     <div class="control-episodes">
         <div class="head"></div>
         <div class="body"></div>

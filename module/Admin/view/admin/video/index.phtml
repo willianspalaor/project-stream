@@ -1,0 +1,31 @@
+<?php
+$title = 'Videos';
+$this->headTitle($title);
+?>
+
+<div class="content-admin">
+    <p>
+        <a href="<?= $this->url('admin/episode', ['action' => 'edit', 'id' => $id_episode, 'id_episode' => $id_episode]) ?>"><i class="fas fa-arrow-left"></i> Voltar editar episódios </a>
+    </p>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <p>
+
+        <a href="<?= $this->url('admin/video', ['action' => 'add', 'id' => $id_episode])?>">Add new video</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($videos as $video) : $video = (object)$video ?>
+            <tr>
+                <td><?= 'Video ' . $video->server ?></td>
+                <td>
+                    <a href="<?= $this->url('admin/video', ['action' => 'edit', 'id' => $video->id_video, 'id_episode' => $id_episode]) ?>">Edit</a>
+                    <a href="<?= $this->url('admin/video', ['action' => 'delete', 'id' => $video->id_video, 'id_episode' => $id_episode]) ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+</div>

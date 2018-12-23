@@ -2,25 +2,22 @@
     <div class="container">
         <div class="collapse navbar-collapse" id="navbar-collapse-3">
             <ul class="nav navbar-nav navbar-left">
-                <li>
-                    <a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Works</a></li>
-                <li><a href="#">News</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a id="btnHome" href="#"><i class="fas fa-home"></i> Início</a></li>
+                <li><a id="btnAnimes" href="#"> Animes</a></li>
+                <!--<li><a href="#"><i class="fas fa-list-ul"></i> Minha Lista</a></li> -->
                 <li>
                     <div class="search-bar">
-                        <input class="search-input" type="text" name="" placeholder="Procurar...">
-                        <a href="#" class="search-icon"><i class="fas fa-search"></i></a>
+                        <input class="search-input" type="text" placeholder="Procurar por título, categoria, autor...">
+                        <a href="#" class="search-icon" data-toggle="toggle" title="Procurar"><i class="fas fa-search"></i></a>
                     </div>
                 </li>
                 <li>
-                    <div class="search-filter">
-                        <i class="fas fa-th"></i>
+                    <div class="search-return" data-toggle="toggle" title="Voltar início">
+                        <i class="fas fa-arrow-left"></i>Voltar
                     </div>
                 </li>
             </ul>
+
         </div>
     </div>
 </nav>

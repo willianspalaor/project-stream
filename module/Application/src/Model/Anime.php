@@ -16,10 +16,11 @@ class Anime implements InputFilterAwareInterface
     public $id;
     public $title;
     public $img;
+    public $trailer;
     public $route;
     public $track;
     public $year;
-    public $author;
+    public $id_author;
     public $episodes;
     public $seasons;
     public $genre;
@@ -40,10 +41,11 @@ class Anime implements InputFilterAwareInterface
 
         $this->title = !empty($data['title']) ? $data['title'] : null;
         $this->img = !empty($data['img']) ? $data['img'] : null;
+        $this->trailer = !empty($data['trailer']) ? $data['trailer'] : null;
         $this->route = !empty($data['route']) ? $data['route'] : null;
         $this->track = !empty($data['track']) ? $data['track'] : null;
         $this->year = !empty($data['year']) ? $data['year'] : null;
-        $this->author = !empty($data['author']) ? $data['author'] : null;
+        $this->id_author = !empty($data['id_author']) ? $data['id_author'] : null;
         $this->episodes = !empty($data['episodes']) ? $data['episodes'] : null;
         $this->seasons = !empty($data['seasons']) ? $data['seasons'] : null;
         $this->genre = !empty($data['genre']) ? $data['genre'] : null;
@@ -59,10 +61,11 @@ class Anime implements InputFilterAwareInterface
             'id' => $this->id,
             'title' => $this->title,
             'img' => $this->img,
+            'trailer' => $this->trailer,
             'route' => $this->route,
             'track' => $this->track,
-            'year' => $this->track,
-            'author' => $this->track,
+            'year' => $this->year,
+            'id_author' => $this->id_author,
             'episodes' => $this->episodes,
             'seasons' => $this->seasons,
             'genre' => $this->genre,
@@ -78,10 +81,11 @@ class Anime implements InputFilterAwareInterface
         return [
             'title' => $this->title,
             'img' => $this->img,
+            'trailer' => $this->trailer,
             'route' => $this->route,
             'track' => $this->track,
-            'year' => $this->track,
-            'author' => $this->track,
+            'year' => $this->year,
+            'id_author' => $this->id_author,
             'episodes' => $this->episodes,
             'seasons' => $this->seasons,
             'status' => $this->status,

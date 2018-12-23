@@ -102,6 +102,46 @@ let App_Anime = new (function () {
         });
     }
 
+    function _getGenres(callback){
+
+        $.ajax({
+            type : 'GET',
+            url  : '/anime/getAnimeGenres',
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+    function _getAuthors(callback){
+
+        $.ajax({
+            type : 'GET',
+            url  : '/anime/getAnimeAuthors',
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
     function _saveAnime(data, callback){
 
         $.ajax({
@@ -150,6 +190,8 @@ let App_Anime = new (function () {
         getAnimesByCategory : _getAnimesByCategory,
         getCurrentAnimes : _getCurrentAnimes,
         getCategories : _getCategories,
+        getGenres : _getGenres,
+        getAuthors : _getAuthors,
         saveAnime : _saveAnime,
         saveClientList : _saveClientList
 

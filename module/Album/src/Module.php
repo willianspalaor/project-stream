@@ -19,15 +19,15 @@ class Module implements ConfigProviderInterface
     {
         return [
             'factories' => [
-                Model\AlbumTable::class => function($container) {
-                    $tableGateway = $container->get(Model\AlbumTableGateway::class);
-                    return new Model\AlbumTable($tableGateway);
+                Model\AnimeTable::class => function($container) {
+                    $tableGateway = $container->get(Model\AnimeTableGateway::class);
+                    return new Model\AnimeTable($tableGateway);
                 },
-                Model\AlbumTableGateway::class => function ($container) {
+                Model\AnimeTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Album());
-                    return new TableGateway('album', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Anime());
+                    return new TableGateway('anime', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];

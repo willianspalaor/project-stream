@@ -1,0 +1,31 @@
+<?php
+$title = 'Episodes';
+$this->headTitle($title);
+?>
+
+<div class="content-admin">
+    <p>
+        <a href="<?= $this->url('admin/season', ['action' => 'edit', 'id' => $id_season, 'id_season' => $id_season]) ?>"><i class="fas fa-arrow-left"></i> Voltar editar temporada</a>
+    </p>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <p>
+
+        <a href="<?= $this->url('admin/episode', ['action' => 'add', 'id' => $id_season])?>">Add new episode</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($episodes as $episode) : $episode = (object)$episode ?>
+            <tr>
+                <td><?= 'Episódio ' . $episode->episode ?></td>
+                <td>
+                    <a href="<?= $this->url('admin/episode', ['action' => 'edit', 'id' => $episode->id_episode, 'id_season' => $id_season]) ?>">Edit</a>
+                    <a href="<?= $this->url('admin/episode', ['action' => 'delete', 'id' => $episode->id_episode, 'id_season' => $id_season]) ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+</div>

@@ -2,6 +2,8 @@
 
 namespace Application\Controller;
 
+use Application\Model\Video;
+
 class AnimeController extends AbstractController
 {
 
@@ -75,9 +77,25 @@ class AnimeController extends AbstractController
     public function getAnimeCategoriesAction(){
 
         $categories = $this->categoryTable->fetchAll();
-        $data = $this->prepareJsonData($categories, 'categoria');
+        $data = $this->prepareJsonData($categories, 'category');
 
-        die(json_encode(array('categorias' => $data)));
+        die(json_encode(array('categories' => $data)));
+    }
+
+    public function getAnimeGenresAction(){
+
+        $genres = $this->genreTable->fetchAll();
+        $data = $this->prepareJsonData($genres, 'genre');
+
+        die(json_encode(array('genres' => $data)));
+    }
+
+    public function getAnimeAuthorsAction(){
+
+        $authors = $this->authorTable->fetchAll();
+        $data = $this->prepareJsonData($authors, 'author');
+
+        die(json_encode(array('authors' => $data)));
     }
 
     public function saveCacheAction()
@@ -123,6 +141,24 @@ class AnimeController extends AbstractController
         $data = $this->params()->fromPost();
         $clientList = $this->saveClientList($data['id_anime']);;
         die(json_encode(array('data' => $clientList)));
+    }
+
+    public function saveEpisodeReportAction(){
+
+        $data = $this->params()->fromPost();
+        $report = $this->saveEpisodeReport($data['id_anime'], $data['id_episode']);;
+        die(json_encode(array('data' => $report)));
+    }
+
+    public function saveVideoStatusAction(){
+
+        $data = $this->params()->fromPost();
+
+        foreach($data as $id_video){
+            $this->videoTable->changeStatus($id_video, 0);
+        }
+
+        die(json_encode(array('data' => $data)));
     }
 }
 

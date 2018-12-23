@@ -16,7 +16,7 @@ use Application\Model\Season;
 use Application\Model\EpisodeTable;
 use Application\Model\Episode;
 use Application\Model\VideoTable;
-use Application\Model\Video;
+
 use Application\Model\ClientTable;
 use Application\Model\Client;
 use Application\Model\ClientAnimeTable;
@@ -26,7 +26,11 @@ use Application\Model\ClientEpisode;
 use Application\Model\ClientListTable;
 use Application\Model\ClientList;
 use Application\Model\CategoryTable;
+use Application\Model\AuthorTable;
+use Application\Model\GenreTable;
 use Application\Model\Category;
+use Application\Model\EpisodeReportTable;
+use Application\Model\EpisodeReport;
 use Application\Utils\RemoteAddress;
 
 class AbstractController extends AbstractActionController
@@ -42,12 +46,16 @@ class AbstractController extends AbstractActionController
     public $clientEpisodeTable;
     public $clientListTable;
     public $categoryTable;
+    public $genreTable;
+    public $authorTable;
+    public $episodeReportTable;
 
     private $_client;
 
     public function __construct(AnimeTable $animeTable, SeasonTable $seasonTable, EpisodeTable $episodeTable,
                                 VideoTable $videoTable, ClientTable $clientTable, ClientAnimeTable $clientAnimeTable,
-                                ClientEpisodeTable $clientEpisodeTable, CategoryTable $categoryTable, ClientListTable $clientListTable)
+                                ClientEpisodeTable $clientEpisodeTable, CategoryTable $categoryTable, ClientListTable $clientListTable,
+                                EpisodeReportTable $episodeReportTable, GenreTable $genreTable, AuthorTable $authorTable)
     {
         $this->animeTable = $animeTable;
         $this->seasonTable = $seasonTable;
@@ -58,6 +66,9 @@ class AbstractController extends AbstractActionController
         $this->clientEpisodeTable = $clientEpisodeTable;
         $this->clientListTable = $clientListTable;
         $this->categoryTable = $categoryTable;
+        $this->episodeReportTable = $episodeReportTable;
+        $this->genreTable = $genreTable;
+        $this->authorTable = $authorTable;
 
         $this->setClient();
     }
@@ -158,10 +169,10 @@ class AbstractController extends AbstractActionController
         return $anime->getArrayCopy();
     }
 
-    function saveClientList($idAnime){
+    function saveClientList($id_anime){
 
         $data = [
-            'id_anime' =>$idAnime,
+            'id_anime' =>$id_anime,
             'id_client'=> $this->getClient()->id
         ];
 
@@ -170,6 +181,24 @@ class AbstractController extends AbstractActionController
         $this->clientListTable->saveClientList($clientList);
 
         return $clientList->getArrayCopy();
+    }
+
+    function saveEpisodeReport($id_anime, $id_episode){
+
+        $data = [
+            'id_episode' =>$id_episode,
+            'id_anime'=> $id_anime
+        ];
+
+        $episodeReport = new EpisodeReport();
+        $episodeReport->exchangeArray($data);
+        $result = $this->episodeReportTable->getEpisodeReportByAnime($id_anime, $id_episode);
+
+        if(empty($result)){
+            $this->episodeReportTable->saveEpisodeReport($episodeReport);
+        }
+
+        return $episodeReport->getArrayCopy();
     }
 
     public function storeCache($data){

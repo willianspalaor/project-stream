@@ -1,0 +1,44 @@
+.content-admin{
+    width: 70%;
+    position: absolute;
+    left: 15%;
+    background-color: #bdbdbd;
+    margin-top: 50px;
+    padding: 25px;
+}
+
+.content-admin > table{
+    background-color: #fff;
+}
+
+.content-admin > form >  button{
+    margin-left: 10px;
+}
+
+.content-admin > form > .form-group{
+    display: flex;
+}
+
+.content-admin > form > .form-group > input{
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.btn-logout{
+    float: right;
+    padding: 10px;
+    background-color: #bdbdbd;
+    margin: 10px;
+}
+
+.content-admin a{
+    padding: 5px;
+    background-color: #bdbdbd;
+
+}
+
+#btnAddSeason{
+    float: right;
+}
+
+

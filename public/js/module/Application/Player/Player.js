@@ -19,7 +19,6 @@ class Player{
             Player_Anime.setCurrentEpisode(episode);
 
             self.play(episode);
-            console.log(data);
         });
     }
 
@@ -27,13 +26,16 @@ class Player{
 
         let self = this;
         let video = Player_Helper.getVideo();
-        let videoEpisode = Player_Anime.getVideo(episode, 1);
 
-        video.src = videoEpisode.url;
+        Player_Anime.getVideo(episode, function(videoEpisode){
 
-        self.bindButtonEvents();
-        self.bindProgressEvents();
-        self.bindVideoEvents(video);
+            video.src = videoEpisode.url;
+
+            self.bindButtonEvents();
+            self.bindProgressEvents();
+            self.bindVideoEvents(video);
+
+        });
     }
 
     bindVideoEvents(video){
@@ -44,19 +46,16 @@ class Player{
 
         video.onloadedmetadata = function() {
             Player_Helper.setCurrentData();
-            Player_Helper.createVideoActions();
+          //  Player_Helper.createVideoActions();
             Player_Helper.createSliders();
             Player_Helper.listEpisodes();
         };
 
         video.onloadeddata = function() {
-
             Player_Helper.setStartTime(function(){
-
                 Player_Helper.showControls();
                 Player_Helper.checkControls();
             });
-
         };
 
         video.oncanplay = function() {
@@ -108,9 +107,9 @@ class Player{
         let btnPlay = $('#btnPlay');
         let btnVolume = $('#btnVolume');
         let btnForward = $('#btnForward');
-        let btnBackward = $('#btnBackward');
         let btnFullScreen = $('#btnFullScreen');
         let btnReturn = $('#btnReturn');
+        let btnReport = $('#btnReport');
         let btnSkip = $('#btnSkip');
         let btnEpisodes = $('#btnEpisodes');
         let btnSkipSeconds = $('#btnSkipSeconds');
@@ -118,6 +117,7 @@ class Player{
         let interval = null;
 
         btnPlay.bind('click', function(){
+          //  Player_Helper.hideTooltip('episode');
             video.paused ? Player_Helper.play(this) : Player_Helper.pause(this);
         });
 
@@ -126,6 +126,7 @@ class Player{
         });
 
         btnVolume.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showVolume();
         });
 
@@ -138,6 +139,7 @@ class Player{
         });
 
         btnForward.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showNextEpisode();
         });
 
@@ -145,19 +147,8 @@ class Player{
             Player_Helper.hideNextEpisode(this, e.pageX, e.pageY);
         });
 
-        btnBackward.bind('click', function(){
-            Player_Helper.playPreviousEpisode();
-        });
-
-        btnBackward.bind('mouseover', function(){
-            Player_Helper.showPreviousEpisode();
-        });
-
-        btnBackward.bind('mouseleave', function(e){
-            Player_Helper.hidePreviousEpisode(this, e.pageX, e.pageY);
-        });
-
         btnEpisodes.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showEpisodes();
         });
 
@@ -170,11 +161,28 @@ class Player{
         });
 
         btnReturn.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('return');
         });
 
         btnReturn.bind('mouseleave', function(){
             Player_Helper.hideTooltip('return');
+        });
+
+        btnReport.bind('click', function(){
+            Player_Helper.showAlertReport();
+            Player_Anime.sendEpisodeReport();
+        });
+
+        btnReport.bind('mouseover', function(){
+            Player_Helper.hideProgressBar();
+            Player_Helper.hideTooltip('episode');
+            Player_Helper.showTooltip('report');
+        });
+
+        btnReport.bind('mouseleave', function(){
+            Player_Helper.showProgressBar();
+            Player_Helper.hideTooltip('report');
         });
 
         btnSkip.bind('click', function(){
@@ -190,6 +198,7 @@ class Player{
         });
 
         btnSkipSeconds.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('skip-secs');
         });
 
@@ -214,6 +223,7 @@ class Player{
         });
 
         btnBackSeconds.bind('mouseover', function(){
+            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('back-secs');
         });
 
@@ -234,7 +244,7 @@ class Player{
         });
 
         $(video).click(function (e) {
-            video.paused ? Player_Helper.play(btnPlay) : Player_Helper.pause(btnPlay);
+            video.paused ? Player_Helper.play(btnPlay, true) : Player_Helper.pause(btnPlay, true);
         });
 
         $(document).keyup(function (e) {
@@ -243,9 +253,9 @@ class Player{
 
                 switch(e.keyCode){
                     case 37 : Player_Helper.backSeconds(true); break;
-                    case 38: Player_Helper.volumeUp(true); break;
+                    case 38: Player_Helper.volumeUp(btnVolume, true); break;
                     case 39: Player_Helper.skipSeconds(true); break;
-                    case 40: Player_Helper.volumeDown(true); break;
+                    case 40: Player_Helper.volumeDown(btnVolume, true); break;
                     case 32 :
                         video.paused ?
                             Player_Helper.play(btnPlay, true) :
@@ -260,5 +270,11 @@ class Player{
         document.addEventListener('webkitfullscreenchange', Player_Helper.fullScreenVideo);
         document.addEventListener('mozfullscreenchange', Player_Helper.fullScreenVideo);
         document.addEventListener('MSFullscreenChange', Player_Helper.fullScreenVideo);
+
+        Player_Helper.showTooltip('episode');
+
+        setTimeout(function(){
+            Player_Helper.hideTooltip('episode');
+        }, 5000);
     }
 }

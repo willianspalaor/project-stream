@@ -1,0 +1,29 @@
+<?php
+$title = 'My animes';
+$this->headTitle($title);
+?>
+<a class="btn-logout" href="<?= $this->url('admin/logout', ['action' => 'logout']) ?>">Logout</a>
+
+<div class="content-admin">
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <p>
+        <a href="<?= $this->url('admin/anime', ['action' => 'add']) ?>">Add new anime</a>
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>Title</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach ($animes as $anime) : $anime = (object)$anime ?>
+            <tr>
+                <td><?= $this->escapeHtml($anime->title) ?></td>
+                <td>
+                    <a href="<?= $this->url('admin/anime', ['action' => 'edit', 'id' => $anime->id_anime]) ?>">Edit</a>
+                    <a href="<?= $this->url('admin/anime', ['action' => 'delete', 'id' => $anime->id_anime]) ?>">Delete</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+</div>

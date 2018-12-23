@@ -26,16 +26,67 @@ class AnimeTable
             $select->columns(array('*'));
             $select->join('genre', 'anime.id_genre = genre.id_genre', array('genre' => 'title'), 'left');
 
-
             if(!empty($params)){
-                if($params['text']){
+
+                if(isset($params['category']) && !empty($params['category'])){
+                    $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
+                    $select->where(array('anime_category.id_category' => (int)$params['category']));
+                }
+
+                if(isset($params['text']) && !empty($params['text'])){
                     $select->where(array('anime.title LIKE ?' => '%' . $params['text'] . '%'));
+                }
+
+                if(isset($params['first_word']) && !empty($params['first_word'])){
+                    $select->where(array('SUBSTR(anime.title,1,1) = ?' =>  $params['first_word']));
+                }
+
+                if(isset($params['year']) && !empty($params['year'])){
+                    $select->where(array('anime.year = ?' => $params['year']));
+                }
+
+                if(isset($params['author']) && !empty($params['author'])){
+                    $select->where(array('anime.id_author = ?' => $params['author']));
+                }
+
+                if(isset($params['genre']) && !empty($params['genre'])){
+                    $select->where(array('anime.id_genre = ?' => $params['genre']));
+                }
+
+                if(isset($params['seasons']) && !empty($params['seasons'])){
+                    $select->where(array('anime.seasons <= ?' => $params['seasons']));
+                }
+
+                if(isset($params['episodes']) && !empty($params['episodes'])){
+                    $select->where(array('anime.seasons <= ?' => $params['episodes']));
                 }
             }
 
             // $select = new Select($this->tableGateway->getTable());
+            $result = $this->fetchPaginatedResults($select);
 
-            return $this->fetchPaginatedResults($select);
+            if(isset($params['search_all']) && isset($params['text'])){
+
+                if($result->count() <= 0){
+                    $select = $this->tableGateway->getSql()->select();
+                    $select->columns(array('*'));
+                    $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
+                    $select->join('category', 'anime_category.id_category = category.id_category', array(), 'inner');
+                    $select->where(array('category.title LIKE ?' => '%' . $params['text'] . '%'));
+                    $result = $this->fetchPaginatedResults($select);
+                }
+
+                if($result->count() <= 0){
+
+                    $select = $this->tableGateway->getSql()->select();
+                    $select->columns(array('*'));
+                    $select->join('author', 'author.id_author = anime.id_author', array(), 'inner');
+                    $select->where(array('author.name LIKE ?' => '%' . $params['text'] . '%'));
+                    $result = $this->fetchPaginatedResults($select);
+                }
+            }
+
+            return $result;
         }
 
         return $this->tableGateway->select()->toArray();

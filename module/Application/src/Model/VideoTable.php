@@ -8,7 +8,6 @@
 
 namespace Application\Model;
 
-
 use RuntimeException;
 use Zend\Db\TableGateway\TableGatewayInterface;
 
@@ -51,7 +50,8 @@ class VideoTable
         $sqlSelect->join('episode', 'video.id_episode = episode.id_episode', array(), 'inner');
         $sqlSelect->where(array('video.id_episode' => $id_episode));
         $sqlSelect->where(array('episode.track' => $track));
-        $sqlSelect->order('episode.episode');
+        //$sqlSelect->order('episode.episode');
+        $sqlSelect->order('video.server');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
         $row = $rowset->current();
@@ -71,8 +71,8 @@ class VideoTable
         $sqlSelect = $this->tableGateway->getSql()->select();
         $sqlSelect->columns(array('*'));
         $sqlSelect->where(array('video.id_episode' => $id_episode));
-
-
+        $sqlSelect->where(array('video.status' => 1));
+        $sqlSelect->order('video.server');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
         $rows = [];
 
@@ -81,6 +81,28 @@ class VideoTable
         }
 
         return $rows;
+    }
+
+    public function saveVideo(Video $video)
+    {
+        $id = (int) $video->id;
+
+        if ($id === 0) {
+            $this->tableGateway->insert($video->getArrayCopy());
+            return;
+        }
+
+        $data = $video->getData();
+        $this->tableGateway->update($data, ['id_video' => $id]);
+    }
+
+    public function deleteVideo($id)
+    {
+        $this->tableGateway->delete(['id_video' => (int) $id]);
+    }
+
+    public function changeStatus($id, $status){
+        $this->tableGateway->update(['status' => $status], ['id_video' => $id]);
     }
 
 

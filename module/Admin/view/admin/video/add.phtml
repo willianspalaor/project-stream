@@ -1,0 +1,46 @@
+<?php
+
+$title = 'Add new video';
+$this->headTitle($title);
+?>
+<div class="content-admin">
+    <p>
+        <a href="<?= $this->url('admin/video', ['action' => 'index', 'id_episode' => $id_episode])?>"><i class="fas fa-arrow-left"></i> Voltar Lista videos</a>
+    </p>
+    <h1><?= $this->escapeHtml($title) ?></h1>
+    <?php
+
+    $server = $form->get('server');
+    $server->setAttribute('class', 'form-control');
+    $server->setAttribute('placeholder', 'Server');
+
+    $urlEpisode = $form->get('url');
+    $urlEpisode->setAttribute('class', 'form-control');
+    $urlEpisode->setAttribute('placeholder', 'Url');
+
+    $submit = $form->get('submit');
+    $submit->setAttribute('class', 'btn btn-primary');
+
+    $form->setAttribute('action', $this->url('admin/video', ['action' => 'add', 'id' => $id_episode]));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    ?>
+
+    <?php // Wrap the elements in divs marked as form groups, and render the
+    // label, element, and errors separately within ?>
+    <div class="form-group">
+
+        <?= $this->formElement($server) ?>
+        <?= $this->formElementErrors()->render($server, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($urlEpisode) ?>
+        <?= $this->formElementErrors()->render($urlEpisode, ['class' => 'help-block']) ?>
+    </div>
+
+    <?php
+    echo $this->formSubmit($submit);
+    echo $this->formHidden($form->get('id_video'));
+    echo $this->form()->closeTag(); ?>
+</div>
+
