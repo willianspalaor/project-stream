@@ -118,13 +118,12 @@ body{
 
 .control-episodes{
     bottom: 56px;
-    left: 12%;
+    right: 11%;
     position: absolute;
     background-color: #262626;
-    width: 320px;
-    height: 320px;
+    width: 400px;
+    height: 350px;
     display: none;
-
 }
 
 .control-episodes > span{
@@ -134,7 +133,7 @@ body{
     border-right: 10px solid transparent;
     border-top: 10px solid #262626;
     z-index: 0;
-    left: 15%;
+    right: 18%;
     position: absolute;
     bottom: -7px;
 }
@@ -143,7 +142,7 @@ body{
     position: relative;
     top: 40px;
     width: 100%;
-    height: 290px;
+    /*height: 405px;*/
     overflow-y: auto;
 }
 
@@ -184,6 +183,53 @@ body{
     border-bottom: 1px solid #191919;
 }
 
+.control-episodes > .body > .episode-info{
+    position: relative;
+    height: 95px;
+    background-color: #000000b8;
+    cursor: pointer;
+    display: none;
+}
+
+.control-episodes > .body > .episode-info > img{
+    width: 130px;
+    height: 85px;
+    margin-left: 8px;
+}
+
+.control-episodes > .body > .episode-info > span{
+    height: 55px;
+    width: 55px;
+    background-color: #0000007a;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    left: 55px;
+    top: 21px;
+}
+
+.control-episodes > .body > .episode-info:hover span{
+    background-color: #0000008c;
+}
+.control-episodes > .body > .episode-info > span > i{
+    color: #fff;
+    position: relative;
+    left: 36%;
+    top: 30%;
+    font-size: 22px
+}
+
+.control-episodes > .body > .episode-info > p{
+    position: absolute;
+    top: 0;
+    width: 248px;
+    left: 145px;
+    color: #ddd;
+    font-size: 12px;
+    text-align: justify;
+    margin-top: 0;
+}
+
 .control-episodes > .body > .episode.active{
     background-color: #000;
 }
@@ -202,21 +248,21 @@ body{
 
 .control-episodes > .body > .episode > .progress{
     position: absolute;
-    width: 165px;
-    height: 10px;
-    right: 50px;
+    width: 160px;
+    height: 3px;
+    right: 30px;
     border-radius: 0;
-    margin-top: 13px;
+    margin-top: 15px;
     margin-bottom: 13px;
 }
 .control-episodes > .body > .episode > .aux-progress{
     background-color: #b13b3b;
     position: absolute;
     width: 0;
-    height: 10px;
+    height: 3px;
     z-index: 99;
-    left: 105px;
-    margin-top: 13px;
+    left: 210px;
+    margin-top: 15px;
     margin-bottom: 13px;
 }
 
@@ -285,6 +331,7 @@ body{
     width: 400px;
     height: 150px;
     display: none;
+    cursor: pointer;
 }
 
 .control-next-episode > i{
@@ -299,6 +346,7 @@ body{
     border-radius: 100px;
     cursor: pointer;
     padding: 5px;
+    display: none;
 }
 
 .control-next-episode > i:hover{
@@ -754,11 +802,10 @@ body{
 
 .control-tooltip.episode{
     top: -45px;
-    left: -75px;
+    left: -65px;
     width: 195px;
     height: 35px;
     border-radius: 5px;
-  /*  background-color: #5b1b1b;*/
 }
 .control-tooltip.episode > span{
     width: 0;
@@ -769,6 +816,7 @@ body{
     z-index: 0;
     position: absolute;
     bottom: -8px;
+    left: 90px;
 }
 
 /*********************** VIDEO NOTIFICATION ************************/
@@ -844,4 +892,45 @@ body{
     -moz-transition: all 3s ease;
     -o-transition: all 3s ease;
     transition: all 3s ease;
+}
+
+/*************** UTILS **************/
+
+.dot{
+    height: 55px;
+    width: 55px;
+    background-color: #0000007a;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    /* left: 55px; */
+    /* top: 21px; */
+    z-index: 99;
+}
+
+.dot > i{
+    color: #fff;
+    position: relative;
+    left: 36%;
+    top: 30%;
+    font-size: 22px
+}
+
+.dot.next-episode{
+    left: 55px;
+    top: 55px;
+}
+
+.control-next-episode:hover .dot{
+    background-color: #0000008c;
+}
+
+/******** TESTE ********/
+
+.control-episodes-2{
+    position: fixed;
+    top: 60px;
+    right: 180px;
+    height: 600px;
+    display: block;
 }

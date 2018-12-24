@@ -74,6 +74,22 @@ class EpisodeForm extends Form
         ]);
 
         $this->add([
+            'name' => 'key',
+            'type' => 'text',
+            'options' => [
+                'label' => 'Key',
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'image',
+            'type' => 'file',
+            'options' => [
+                'label' => 'Image'
+            ],
+        ]);
+
+        $this->add([
             'name' => 'add-video',
             'type' => 'button',
             'attributes' => [

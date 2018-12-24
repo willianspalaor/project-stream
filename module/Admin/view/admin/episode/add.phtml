@@ -34,6 +34,16 @@ $this->headTitle($title);
     $end_start->setAttribute('class', 'form-control');
     $end_start->setAttribute('placeholder', 'Ending start');
 
+    $key = $form->get('key');
+    $key->setAttribute('class', 'form-control');
+    $key->setAttribute('placeholder', 'Key');
+
+    $image = $form->get('image');
+    $image->setAttribute('class', 'form-control');
+    $image->setAttribute('placeholder', 'Image');
+    $image->setAttribute('data-toggle', 'tooltip');
+    $image->setAttribute('title', 'thumb episode');
+
     $submit = $form->get('submit');
     $submit->setAttribute('class', 'btn btn-primary');
 
@@ -52,6 +62,12 @@ $this->headTitle($title);
 
         <?= $this->formElement($description) ?>
         <?= $this->formElementErrors()->render($description, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($key) ?>
+        <?= $this->formElementErrors()->render($key, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($image) ?>
+        <?= $this->formElementErrors()->render($image, ['class' => 'help-block']) ?>
     </div>
 
     <div class="form-group">

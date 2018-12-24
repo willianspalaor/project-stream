@@ -30,12 +30,12 @@ class App{
         search.input.bind('click',function(e){
 
             let text = $(this).val();
-            $('.search-return').css('display', 'block');
 
             if(!text){
                 if(!App_Helper.hasSearch()){
-                    let select = App_Helper.getFilterSelects(0)
-                    select.val('A'.charCodeAt(0)).trigger('change');
+                 //   let select = App_Helper.getFilterSelects(0);
+                   // select.val('A'.charCodeAt(0)).trigger('change');
+                    App_Helper.listSearchAnimes();
                 }
             }
         });
@@ -63,6 +63,8 @@ class App{
 
             if(e.keyCode === 13){
 
+                $(this).attr('data-key-enter', 'true');
+
                 let text = $(this).val();
 
                 App_Helper.clearFilters(function(){
@@ -76,25 +78,29 @@ class App{
                         App_Helper.hideSearchAnimes();
                     }
                 });
+            }else{
+                $(this).attr('data-key-enter', 'false');
+            }
+        });
+
+        search.input.bind('keyup',function(e){
+
+            if(e.keyCode !== 13){
+                App_Helper.showAutoCompleteTags($(this));
             }
         });
 
         search.return.bind('click', function(){
             App_Helper.hideSearchAnimes();
-            $('.search-return').css('display', 'none');
-            $('.selected-filters').css('display', 'none');
         });
 
         btnHome.bind('click', function(){
             App_Helper.hideSearchAnimes();
-            $('.search-return').css('display', 'none');
-            $('.selected-filters').css('display', 'none');
         });
 
         btnAnimes.bind('click', function(){
-            let select = App_Helper.getFilterSelects(0);
-            select.val('A'.charCodeAt(0)).trigger('change');
-            $('.search-return').css('display', 'block');
+            App_Helper.listSearchAnimes();
+
         });
     }
 

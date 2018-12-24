@@ -23,6 +23,7 @@ let App_Helper = new (function () {
     let _sidebarRightWrapper = null;
     let _filterSelects = [];
     let _filterParams = {};
+    let _searchTimeout = null;
     let _filtersClear = false;
 
     function _assignElements(){
@@ -154,6 +155,8 @@ let App_Helper = new (function () {
         App_Helper.hideCarousel();
         App_Helper.showSearch();
         App_Helper.showWrapper();
+
+        $('.search-return').css('display', 'block');
 
         if(showloader)
             App_Helper.showLoader();
@@ -969,9 +972,9 @@ let App_Helper = new (function () {
                         'href' : '#'
                     })
                     .on('click', function(){
-                        let params = {};
-                        params.category = $(this).attr('data-id');
-                        _listSearchAnimes(params);
+                        App_Helper.clearFilters(function(){
+                            _listSearchAnimes({category :  $(this).attr('data-id')});
+                        });
                     })
                     .text(value.title)
                     .appendTo(li);
@@ -1014,6 +1017,7 @@ let App_Helper = new (function () {
                 .click(function(){
                     let select = $(this).parent().find('select');
                     select.select2('val', 'none');
+                    $(this).css('color', '#c3bfbf')
                 })
                 .appendTo(li);
 
@@ -1133,6 +1137,10 @@ let App_Helper = new (function () {
 
             let filter = $(this).attr('data-filter');
 
+            if($(this).val() != null) {
+                $(this).parent().find('.fa-trash-alt').css('color', '#0e900c');
+            }
+
             switch(filter){
 
                 case 'Ordem Alfabética' :
@@ -1227,6 +1235,10 @@ let App_Helper = new (function () {
             App_Helper.hideSearch();
             App_Helper.showCarousel();
 
+            $('.search-return').css('display', 'none');
+            $('.selected-filters').css('display', 'none');
+            $('#search-anime').val('');
+
             setTimeout(function(){
                 App_Helper.hideLoader();
             }, 300);
@@ -1246,7 +1258,7 @@ let App_Helper = new (function () {
         ];
 
         let image = $('.img-wall-anime');
-        let index = 0;
+        let index = Math.floor((Math.random() * images.length) + 1);
 
         function getImage(){
 
@@ -1288,6 +1300,39 @@ let App_Helper = new (function () {
         }
     }
 
+    function _showAutoCompleteTags(input){
+
+         clearTimeout(_searchTimeout);
+
+        let tags = [];
+
+        _searchTimeout = setTimeout(function(){
+
+            if(input.val()){
+                App_Anime.getAnimes({text : input.val()}, function(data){
+
+                    $.each(data.animes, function(index, value){
+                        tags.push(value.title);
+                    });
+
+                    _searchInput.autocomplete({
+                        source: tags,
+                         minLength: 1,
+                        select: function( event, ui ) {
+
+                            if(input.attr('data-key-enter') !== 'true'){
+                                _listSearchAnimes({text : ui.item.value});
+                            }
+
+                        }
+                    });
+                    _searchInput.autocomplete("search");
+                    _searchInput.attr('autocomplete', 'nope');
+                });
+            }
+        }, 150);
+    }
+
     return {
         assignElements: _assignElements,
         listAnimes : _listAnimes,
@@ -1308,7 +1353,8 @@ let App_Helper = new (function () {
         hideSearchAnimes : _hideSearchAnimes,
         showBackgroundImages : _showBackgroundImages,
         getFilterSelects : _getFilterSelects,
-        clearFilters : _clearFilters
+        clearFilters : _clearFilters,
+        showAutoCompleteTags : _showAutoCompleteTags
 
     }
 

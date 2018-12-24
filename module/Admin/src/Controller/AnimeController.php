@@ -222,13 +222,13 @@ class AnimeController extends AbstractController
 
         if($file['image']['size'] > 0){
 
-            if($anime->img){
+            if(file_exists ( 'public' . $anime->img)){
                 unlink('public' . $anime->img);
             }
 
             $imgName = $this->prepareKey($data['name'])  . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
             $anime->img = '/img/Anime/miniaturas/' . $imgName;
-            move_uploaded_file($file['image']['tmp_name'], 'public/' . $anime->img);
+            move_uploaded_file($file['image']['tmp_name'], 'public' . $anime->img);
         }
 
         if($file['video']['size'] > 0){

@@ -12,7 +12,6 @@ let Player_Helper = new (function () {
     let _progressAux = null;
     let _volumeContainer = null;
     let _boxNextEpisode = null;
-    let _boxPreviousEpisode = null;
     let _episodeTitle = null;
     let _controlEpisodes = null;
     let _loader = null;
@@ -48,7 +47,6 @@ let Player_Helper = new (function () {
         _progressAux = $('#progress-aux');
         _volumeContainer = $('.control-volume-slider');
         _boxNextEpisode =  $('.control-next-episode');
-       // _boxPreviousEpisode =  $('.control-previous-episode');
         _episodeTitle = $('.control-title');
         _controlEpisodes = $('.control-episodes');
         _loader = $('#loader-wrapper');
@@ -244,7 +242,6 @@ let Player_Helper = new (function () {
 
     function _hideVolume(el, x, y){
 
-        let timeout = null;
         let rect = el.getBoundingClientRect();
 
         if(y <= rect.top && (x >= rect.left && x <= rect.right)){
@@ -252,18 +249,9 @@ let Player_Helper = new (function () {
             _hideProgressBar();
 
             _volumeContainer.bind('mouseleave', function(){
-
-                let container = $(this);
-
-             //   timeout = setTimeout(function(){
-                    container.css('display', 'none');
-                    _showProgressBar();
-              //  }, 300);
+                $(this).css('display', 'none');
+                _showProgressBar();
             });
-
-            /*_volumeContainer.bind('mouseenter', function(){
-                clearTimeout(timeout);
-            });*/
 
         }else{
             _volumeContainer.css('display', 'none');
@@ -274,7 +262,6 @@ let Player_Helper = new (function () {
     function _playNextEpisode(play = false){
 
         _showLoader();
-        _unbindControls();
         _hideControls();
 
         Player_Anime.setEpisodeProgress();
@@ -304,9 +291,7 @@ let Player_Helper = new (function () {
 
         _video.pause();
         _showLoader();
-        _unbindControls();
         _hideControls();
-
 
         let currentEpisode = Player_Anime.getCurrentEpisode();
 
@@ -339,7 +324,6 @@ let Player_Helper = new (function () {
 
     function _hideNextEpisode(el, x, y){
 
-        let timeout = null;
         let rect = el.getBoundingClientRect();
 
         if(y <= rect.top && x >= rect.left){
@@ -347,17 +331,9 @@ let Player_Helper = new (function () {
             _hideProgressBar();
 
             _boxNextEpisode.bind('mouseleave', function(){
-                let container = $(this);
-               // timeout = setTimeout(function(){
-                    container.css('display', 'none');
-                    _showProgressBar();
-               // }, 300);
+                $(this).css('display', 'none');
+                _showProgressBar();
             });
-
-            /*_boxNextEpisode.bind('mouseenter', function(){
-                clearTimeout(timeout);
-            });*/
-
         }else{
             _boxNextEpisode.css('display', 'none');
             _showProgressBar();
@@ -373,8 +349,6 @@ let Player_Helper = new (function () {
 
         if(el){
 
-            let timeout = null;
-
             function hide(){
                 _showProgressBar();
                 _controlEpisodes.css('display', 'none');
@@ -382,42 +356,27 @@ let Player_Helper = new (function () {
 
             let rect = el.getBoundingClientRect();
 
-            console.log(x);
-            //console.log(rect.left);
-            console.log(rect.right);
-           // console.log(y);
-           // console.log(rect.top);
             if(y <= rect.top+10 && x <= rect.right+20){
-
-                _controlEpisodes.bind('mouseenter', function(){
-                   // clearTimeout(timeout);
-                });
 
                 _controlEpisodes.bind('mouseover', function(){
                     clearIddleInterval();
-                  //  clearTimeout(timeout);
                 });
 
                 _controlEpisodes.bind('mouseleave', function(){
-                    //timeout = setTimeout(hide, 500);
                     hide();
                     clearIddleInterval(true);
                 });
 
                 _btnEpisodes.bind('mouseover', function(){
                     clearIddleInterval();
-                   // clearTimeout(timeout);
                 });
 
                 _btnEpisodes.bind('mouseleave', function(){
-                  ///  timeout = setTimeout(hide, 500);
-                    //hide();
                     clearIddleInterval(true);
                 });
 
             }else{
                 hide();
-                //timeout = setTimeout(hide, 500);
             }
 
         }else{
@@ -435,37 +394,34 @@ let Player_Helper = new (function () {
         let anime = Player_Anime.getData();
         let episode = Player_Anime.getCurrentEpisode();
         let nextEpisode = Player_Anime.getNextEpisode();
-        //let previousEpisode = Player_Anime.getPreviousEpisode();
 
         _episodeTitle.empty();
         _boxNextEpisode.empty();
-        //_boxPreviousEpisode.empty();
 
         $('<h4>').text(anime.title).appendTo(_episodeTitle);
         $('<span>').text(episode.title).appendTo(_episodeTitle);
 
         if(nextEpisode) {
 
-            let icon = $('<i>').addClass('fas fa-play-circle').appendTo(_boxNextEpisode);
+            let circle = $('<div>')
+                .addClass('dot next-episode')
+                .appendTo(_boxNextEpisode);
+
+            $('<i>')
+                .addClass('fas fa-play')
+                .appendTo(circle);
+
             $('<h4>').text('Próximo Episódio').appendTo(_boxNextEpisode);
-            $('<img>').attr('src', anime.img).appendTo(_boxNextEpisode);
+            $('<img>').attr('src', nextEpisode.thumb).appendTo(_boxNextEpisode);
             $('<h5>').text(nextEpisode.title).appendTo(_boxNextEpisode);
             $('<em>').text(nextEpisode.description).appendTo(_boxNextEpisode);
             $('<span>').appendTo(_boxNextEpisode);
 
 
-            icon.bind('click', function(){
+            _boxNextEpisode.bind('click', function(){
                 Player_Helper.playNextEpisode();
             });
         }
-
-        /*if(previousEpisode) {
-            $('<h4>').text('Episódio Anterior').appendTo(_boxPreviousEpisode);
-            $('<img>').attr('src', anime.img).appendTo(_boxPreviousEpisode);
-            $('<h5>').text(previousEpisode.title).appendTo(_boxPreviousEpisode);
-            $('<em>').text(previousEpisode.description).appendTo(_boxPreviousEpisode);
-            $('<span>').appendTo(_boxPreviousEpisode);
-        }*/
     }
 
     function _toggleFullScreen(elem) {
@@ -539,7 +495,7 @@ let Player_Helper = new (function () {
 
     function _createVideoActions(){
         _createActionSkip();
-        _createActionNext2();
+        _createActionNext();
     }
 
     function _destroyVideoActions(){
@@ -605,7 +561,7 @@ let Player_Helper = new (function () {
         }
     }
 
-    function _createActionNext2(){
+    function _createActionNext(){
 
         let episode = Player_Anime.getCurrentEpisode();
         let endTime = episode.end_start;
@@ -652,67 +608,8 @@ let Player_Helper = new (function () {
                     _maximizeVideo();
                     _btnNext.css('display', 'none');
                     _video.pause();
-                    _playNextEpisode();
+                    _playNextEpisode(true);
                 }
-            }
-        }
-    }
-
-
-    function _createActionNext(){
-
-        let episode = Player_Anime.getCurrentEpisode();
-        let endTime = episode.end_start;
-
-        if(endTime){
-
-            checkTime();
-
-            function checkTime() {
-
-                if (_video.currentTime >= endTime && !_video.paused) {
-
-                    clearTimeout(_timeoutNext);
-                    _minimizeVideo();
-                    _countNextEpisode();
-
-                }else{
-
-                    if(_btnNext && _btnNext.css('display') !== 'none'){
-                        _maximizeVideo();
-                        _btnNext.css('display', 'none');
-                    }
-
-                    _timeoutNext = setTimeout(checkTime, 4000);
-                }
-            }
-        }
-    }
-
-    function _countNextEpisode(){
-
-        let timeStart = $('#next-episode-time');
-        let time = 10;
-
-        timeStart.text(time + ' segundos');
-
-        _btnNext.fadeIn('slow', function(){
-            _btnNext.css('display', 'block');
-        });
-
-        _timeoutCount = setTimeout(count, 1000);
-
-        function count(){
-
-            time-= 1;
-            timeStart.text(time + ' segundos');
-
-            if(time > 0){
-                _timeoutCount = setTimeout(count, 1000);
-            }else{
-                clearTimeout(_timeoutCount);
-                clearTimeout(_timeoutNext);
-                _playNextEpisode();
             }
         }
     }
@@ -820,8 +717,32 @@ let Player_Helper = new (function () {
                 .addClass('fas fa-arrow-right')
                 .appendTo(season);
         });
-
     }
+
+    function _getEpisodeInfo(el){
+
+        el.parent().find('.episode').each(function(){
+            $(this).css('background-color', 'transparent');
+            $(this).css('border-bottom', '1px solid #191919')
+        });
+
+        el.css('border-bottom', 'none');
+        el.css('background-color', '#000');
+
+        let episode = el.attr('data-episode');
+        let info = null;
+
+        el.parent().find('.episode-info').each(function(){
+            if($(this).attr('data-episode') === episode){
+                info = $(this);
+            }else{
+                $(this).css('display', 'none');
+            }
+        });
+
+        return info;
+    }
+
     function _listEpisodes(season) {
 
         let currentSeason = null;
@@ -856,24 +777,53 @@ let Player_Helper = new (function () {
 
             let episode = $('<div>')
                 .addClass('episode')
+                .attr('data-episode', value.episode)
                 .on('click', function(){
 
-                    Player_Anime.setEpisodeProgress();
-                    _setCurrentSeason(currentSeason.season);
-                    _setCurrentEpisode(value.episode);
-                    _listEpisodes();
-                    _playCurrentEpisode();
-                    _hideEpisodes();
+                    let info = _getEpisodeInfo($(this));
+
+                    if(info.css('display') === 'none'){
+                        info.css('display', 'block');
+                    }else{
+                        Player_Anime.setEpisodeProgress();
+                        _setCurrentSeason(currentSeason.season);
+                        _setCurrentEpisode(value.episode);
+                        _listEpisodes();
+                        _playCurrentEpisode();
+                        _hideEpisodes();
+                    }
                 })
                 .appendTo(containerBody);
 
-                if(value.id === currentEpisode.id){
-                    episode.removeAttr('class');
-                    episode.addClass('episode active');
-                }
+            let episodeInfo = $('<div>')
+                .attr('data-episode', value.episode)
+                .addClass('episode-info')
+                .appendTo(containerBody);
+
+            $('<img>')
+                .attr('src', value.thumb)
+                .appendTo(episodeInfo);
+
+            let circle = $('<span>')
+                .appendTo(episodeInfo);
+
+            $('<i>')
+                .addClass('fas fa-play')
+                .appendTo(circle);
+
+            $('<p>')
+                .text(value.description)
+                .appendTo(episodeInfo);
+
+            if(value.id === currentEpisode.id) {
+                let info = _getEpisodeInfo(episode);
+                info.css('display', 'block');
+                episode.css('background-color', '#000');
+                episode.css('border-bottom', 'none');
+            }
 
             $('<h5>')
-                .text('Episódio ' + value.episode)
+                .text(value.title)
                 .appendTo(episode);
 
             let progressWidth = 0;
@@ -883,11 +833,6 @@ let Player_Helper = new (function () {
 
             $('<div>')
                 .addClass('aux-progress')
-                .attr({
-                    'data-toggle': 'tooltip',
-                    'data-placement': 'top',
-                    'title': '50%'
-                })
                 .css({
                     'width' : progressWidth + 'px'
                 })
@@ -895,15 +840,6 @@ let Player_Helper = new (function () {
 
             $('<div>')
                 .addClass('progress')
-                .attr({
-                    'data-toggle': 'tooltip',
-                    'data-placement': 'top',
-                    'title': '50%'
-                })
-                .appendTo(episode);
-
-            $('<i>')
-                .addClass('fas fa-play-circle')
                 .appendTo(episode);
         });
 
@@ -950,14 +886,21 @@ let Player_Helper = new (function () {
     }
 
     function _hideControls(){
-        _controlsContainer.css('display', 'none');
         _progressContainer.css('display', 'none');
+        _controlsContainer.css('display', 'none');
         _btnReturn.css('display', 'none');
         _btnSkipSeconds.css('display', 'none');
         _btnBackSeconds.css('display', 'none');
+
+        _volumeContainer.css('display', 'none');
+        _controlEpisodes.css('display', 'none');
+        _boxNextEpisode.css('display', 'none');
     }
 
     function _manageControls() {
+
+        clearInterval(_interval);
+        clearInterval(_iddleInterval);
 
         _interval = 0;
         _iddleInterval = setInterval(timerIncrement, 500);
@@ -977,6 +920,7 @@ let Player_Helper = new (function () {
             _controlsContainer,
             _controlEpisodes,
             _progressContainer,
+            _volumeContainer,
             _btnPlay,
             _btnNext,
             _btnVolume,

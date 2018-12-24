@@ -25,6 +25,8 @@ class Episode implements InputFilterAwareInterface
     public $title;
     public $description;
     public $track;
+    public $thumb;
+    public $key;
 
     private $inputFilter;
 
@@ -39,6 +41,8 @@ class Episode implements InputFilterAwareInterface
         $this->title = !empty($data['title']) ? $data['title'] : null;
         $this->description = !empty($data['description']) ? $data['description'] : null;
         $this->track = !empty($data['track']) ? $data['track'] : null;
+        $this->thumb = !empty($data['thumb']) ? $data['thumb'] : null;
+        $this->key = !empty($data['key']) ? $data['key'] : null;
     }
 
     public function getArrayCopy()
@@ -52,7 +56,9 @@ class Episode implements InputFilterAwareInterface
             'end_start' => $this->end_start,
             'title' => $this->title,
             'description' => $this->description,
-            'track' => $this->track
+            'track' => $this->track,
+            'thumb' => $this->thumb,
+            'key' => $this->key
         ];
     }
 

@@ -46,7 +46,6 @@ class Player{
 
         video.onloadedmetadata = function() {
             Player_Helper.setCurrentData();
-          //  Player_Helper.createVideoActions();
             Player_Helper.createSliders();
             Player_Helper.listEpisodes();
         };
@@ -147,7 +146,7 @@ class Player{
             Player_Helper.hideNextEpisode(this, e.pageX, e.pageY);
         });
 
-        btnEpisodes.bind('mouseover', function(){
+        btnEpisodes.bind('mouseenter', function(){
             Player_Helper.hideTooltip('episode');
             Player_Helper.showEpisodes();
         });
@@ -160,7 +159,7 @@ class Player{
             Player_Helper.returnListAnimes();
         });
 
-        btnReturn.bind('mouseover', function(){
+        btnReturn.bind('mouseenter', function(){
             Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('return');
         });
@@ -174,7 +173,7 @@ class Player{
             Player_Anime.sendEpisodeReport();
         });
 
-        btnReport.bind('mouseover', function(){
+        btnReport.bind('mouseenter', function(){
             Player_Helper.hideProgressBar();
             Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('report');
@@ -197,7 +196,7 @@ class Player{
             Player_Helper.skipSeconds();
         });
 
-        btnSkipSeconds.bind('mouseover', function(){
+        btnSkipSeconds.bind('mouseenter', function(){
             Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('skip-secs');
         });
@@ -222,7 +221,7 @@ class Player{
             Player_Helper.backSeconds();
         });
 
-        btnBackSeconds.bind('mouseover', function(){
+        btnBackSeconds.bind('mouseenter', function(){
             Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('back-secs');
         });

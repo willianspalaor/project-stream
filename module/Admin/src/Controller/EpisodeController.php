@@ -48,6 +48,7 @@ class EpisodeController extends AbstractController
         $episode = new Episode();
         $form->setInputFilter($episode->getInputFilter());
 
+        $file = $request->getFiles()->toArray();
         $data = $request->getPost();
         $form->setData($data);
 
@@ -56,6 +57,13 @@ class EpisodeController extends AbstractController
         }
 
         $data = $form->getData();
+
+        if($file['image']['size'] > 0){
+            $imgName = $this->prepareKey($data['key']) . '_' . $data['episode'] . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
+            $data['thumb'] = '/img/Anime/thumbs/' . $imgName;
+            move_uploaded_file($file['image']['tmp_name'], 'public/img/Anime/thumbs/' . $imgName);
+        }
+
         $data['id_season'] = $id_season;
         $data['track'] = md5($data['id_episode']);
 
@@ -115,6 +123,22 @@ class EpisodeController extends AbstractController
             return $viewData;
         }
 
+        $file = $this->request->getFiles()->toArray();
+
+        if($file['image']['size'] > 0){
+
+            if($episode->thumb){
+
+                if(file_exists ( 'public' . $episode->thumb )){
+                    unlink('public' . $episode->thumb);
+                }
+            }
+
+            $imgName = $this->prepareKey($data['key']) . '_' . $data['episode'] . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
+            $episode->thumb = '/img/Anime/thumbs/' . $imgName;
+            move_uploaded_file($file['image']['tmp_name'], 'public' . $episode->thumb);
+        }
+
         $this->_episodeTable->saveEpisode($episode);
 
         return $this->redirect()->toRoute('admin/episode', array(
@@ -149,7 +173,10 @@ class EpisodeController extends AbstractController
             $del = $request->getPost('del', 'No');
 
             if ($del == 'Yes') {
+
                 $id = (int) $request->getPost('id');
+                $episode = $this->_episodeTable->getEpisode($id);
+                unlink('public' . $episode->thumb);
                 $this->_episodeTable->deleteEpisode($id);
             }
 
