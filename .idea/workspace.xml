@@ -6,53 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" line="882" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/modules.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/modules.config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/Episode.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/Episode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/episode/add.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/episode/add.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/episode/edit.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/episode/edit.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/config/module.config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/src/Controller/AlbumController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/src/Form/AlbumForm.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/src/Model/Album.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/src/Model/AlbumTable.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/src/Module.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/view/album/album/add.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/view/album/album/delete.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/view/album/album/edit.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Album/view/album/album/index.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/config/module.config.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/src/Controller/AnimeController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/src/Form/AnimeForm.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/src/Model/Anime.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/src/Model/AnimeTable.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/src/Module.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/view/anime/anime/add.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/view/anime/anime/index.dist.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Anime/view/anime/anime/index.phtml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Episode.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Episode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/navbar.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/navbar.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/player.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/Anime/miniaturas/black_clover.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/Anime/miniaturas/black_clover.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Album/album.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Album/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Anime/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Anime/Player/Handle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Anime/Player/Player.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/Anime/player.dist.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" afterDir="false" />
-    </list>
+    <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -339,7 +293,7 @@
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1" />
     <option name="y" value="1" />
     <option name="width" value="1364" />
@@ -492,15 +446,15 @@
       <workItem from="1545485322067" duration="25768000" />
       <workItem from="1545543860219" duration="2400000" />
       <workItem from="1545577197597" duration="12346000" />
-      <workItem from="1545662246311" duration="20358000" />
+      <workItem from="1545662246311" duration="20732000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="838165000" />
+    <option name="totallyTimeSpent" value="838539000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="916" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1825" />
