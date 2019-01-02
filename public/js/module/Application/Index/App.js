@@ -5,6 +5,7 @@ class App{
         let self = this;
 
         App_Helper.assignElements();
+        App_Helper.assignScreen();
         App_Helper.showLoader();
         App_Helper.listCurrentAnimes(function(){
             App_Helper.listAnimes(function(){
@@ -84,7 +85,6 @@ class App{
         });
 
         search.input.bind('keyup',function(e){
-
             if(e.keyCode !== 13){
                 App_Helper.showAutoCompleteTags($(this));
             }
@@ -100,8 +100,35 @@ class App{
 
         btnAnimes.bind('click', function(){
             App_Helper.listSearchAnimes();
-
         });
+
+        if (window.matchMedia("(orientation: portrait)").matches) {
+            if(App_Helper.getScreenType() === 'mobile'){
+                App_Helper.setOrientation('portrait');
+            }
+        }
+
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            if(App_Helper.getScreenType() === 'mobile'){
+                setTimeout(function(){
+                    App_Helper.setOrientation('landscape');
+                }, 5000);
+            }
+        }
+
+        $( window ).on( "orientationchange", function( event ) {
+
+            let orientation = null;
+
+            switch(window.orientation){
+                case 0 :  orientation = 'portrait'; break;
+                case 90 :  orientation = 'landscape'; break;
+                case -90 :  orientation = 'landscape'; break;
+            }
+
+            App_Helper.setOrientation(orientation);
+        });
+
     }
 
 }

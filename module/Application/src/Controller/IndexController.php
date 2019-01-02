@@ -1,6 +1,5 @@
 <?php
 namespace Application\Controller;
-
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractController

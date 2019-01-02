@@ -63,11 +63,18 @@ class ClientAnimeTable
 
     public function saveClientAnime(ClientAnime $clientAnime)
     {
+
+        $date = null;
+        if($clientAnime->last_activity){
+            $date = date('Y-m-d h:i:s', strtotime($clientAnime->last_activity));
+        }
+
         $data = [
             'id_anime' => $clientAnime->id_anime,
             'id_client' => $clientAnime->id_client,
             'current_season' => $clientAnime->current_season,
-            'current_episode' => $clientAnime->current_episode
+            'current_episode' => $clientAnime->current_episode,
+            'last_activity' => $date
         ];
 
         $id = (int) $clientAnime->id;

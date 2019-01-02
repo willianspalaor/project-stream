@@ -25,6 +25,8 @@ let Player_Anime = new (function () {
 
         data.client_anime.current_season = currentSeason.season;
         data.client_anime.current_episode = currentEpisode.episode;
+        data.client_anime.last_activity = new Date().toLocaleString();
+
         _saveClientAnime(data.client_anime);
     }
 
@@ -146,13 +148,15 @@ let Player_Anime = new (function () {
         return episode.videos;
     }
 
-    function _getVideo(episode, callback, index = null){
+    function _getVideo(episode, callback, index = null, checkUrl = true){
 
         let videos_not_working = [];
 
         if(index){
             return episode.videos['video ' + index];
         }
+
+        console.log(data);
 
         index = 1;
         let videos = episode.videos;
@@ -163,34 +167,43 @@ let Player_Anime = new (function () {
             return videos['video ' + index];
         }
 
-       checkVideo();
+        return callback(video);
 
-        function checkVideo(){
-
-            _checkUrlVideo(video.url, function(is_working){
-
-                if(is_working){
-                    callback(video);
-                    found = true;
-                    _saveVideoStatus(videos_not_working);
-                }else{
-
-
-                   // Player_Helper.clearConsole();
-
-                    if(!found){
-
-                        videos_not_working.push(video);
-                        video = getVideo(index);
-                        index++;
-
-                        if(video){
-                            checkVideo();
-                        }
-                    }
-                }
-            });
+        if(!checkUrl){
+             return callback(video);
         }
+
+        checkVideo();
+
+         function checkVideo(){
+
+             _checkUrlVideo(video.url, function(is_working, changeStatus = true){
+
+                 if(is_working){
+                     callback(video);
+                     found = true;
+
+                     if(changeStatus){
+                         _saveVideoStatus(videos_not_working);
+                     }
+                 }else{
+
+
+                     //Player_Helper.clearConsole();
+
+                     if(!found){
+
+                         videos_not_working.push(video);
+                         video = getVideo(index);
+                         index++;
+
+                         if(video){
+                             checkVideo();
+                         }
+                     }
+                 }
+             });
+         }
     }
 
     function _getNumberVideos(episode){
@@ -204,10 +217,8 @@ let Player_Anime = new (function () {
             url  :'/anime/getPlayerAnime?trackId=' + track,
             success: function(response){
 
-                let data = JSON.parse(response);
-
                 if(typeof(callback) === 'function'){
-                    callback(data);
+                    callback(JSON.parse(response));
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -226,7 +237,6 @@ let Player_Anime = new (function () {
             success: function(response){
 
                 let data = JSON.parse(response);
-                console.log(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log(xhr.status);
@@ -235,18 +245,16 @@ let Player_Anime = new (function () {
         });
     }
 
-    function _saveClientAnime(data, callback){
+    function _saveClientAnime(dataClient, callback){
 
         $.ajax({
             type : 'POST',
             url  :'/anime/saveClientAnime',
-            data: data,
+            data: dataClient,
             success: function(response){
 
-                let data = JSON.parse(response);
-
                 if(typeof(callback) === 'function'){
-                    callback(data);
+                    callback(JSON.parse(response));
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -257,20 +265,18 @@ let Player_Anime = new (function () {
 
     }
 
-    function _saveClientEpisode(data, callback){
+    function _saveClientEpisode(dataEpisode, callback){
 
-        data.id_anime =  _getData().id;
+        dataEpisode.id_anime =  _getData().id;
 
         $.ajax({
             type : 'POST',
             url  :'/anime/saveClientEpisode',
-            data: data,
+            data: dataEpisode,
             success: function(response){
 
-                let data = JSON.parse(response);
-
                 if(typeof(callback) === 'function'){
-                    callback(data);
+                    callback(JSON.parse(response));
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -359,7 +365,26 @@ let Player_Anime = new (function () {
             }
         };
 
+        xhr.addEventListener("error", function(){
+            callback(true, false);
+        });
+
         xhr.send(null);
+
+
+      /*  $.ajax({
+            type : 'GET',
+            url  :url,
+            dataType: 'jsonp',
+            success: function(response){
+                callback(true);
+                alert('success');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('error');
+                callback(false);
+            }
+        });*/
     }
 
     function _saveVideoStatus(videos, callback){
@@ -378,8 +403,6 @@ let Player_Anime = new (function () {
 
                     let data = JSON.parse(response);
 
-                    console.log(data);
-
                     if(typeof(callback) === 'function'){
                         callback(data);
                     }
@@ -392,10 +415,31 @@ let Player_Anime = new (function () {
         }
     }
 
+    function _getRelatedAnimes(track, callback){
+
+        $.ajax({
+            type : 'GET',
+            url  :'/anime/getRelatedAnimes?trackId=' + track,
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
 
     return {
         setData : _setData,
         getData : _getData,
+        getAnime : _getAnime,
         getSeasons: _getSeasons,
         getSeason: _getSeason,
         getSeasonById : _getSeasonById,
@@ -418,7 +462,8 @@ let Player_Anime = new (function () {
         getClientData : _getClientData,
         setEpisodeProgress : _setEpisodeProgress,
         setCurrentData : _setCurrentData,
-        sendEpisodeReport : _sendEpisodeReport
+        sendEpisodeReport : _sendEpisodeReport,
+        getRelatedAnimes : _getRelatedAnimes
     }
 
 });

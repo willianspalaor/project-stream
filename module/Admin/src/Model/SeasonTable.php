@@ -85,5 +85,9 @@ class SeasonTable
         $this->tableGateway->delete(['id_season' => (int) $id]);
     }
 
+    public function deleteSeasonsAnime($id){
+        $this->tableGateway->delete(['id_anime' => (int) $id]);
+    }
+
 
 }

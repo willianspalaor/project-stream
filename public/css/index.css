@@ -55,6 +55,8 @@ a{
     cursor: pointer;
     background-color: #000;
     left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .card > .overlay{
@@ -85,24 +87,36 @@ a{
     margin-left: 5px;
 }
 
+
+.card > .info-overlay{
+    width: 100%;
+    height: 129px;
+    position: absolute;
+    background-color: #000;
+    top: 0;
+    opacity: 0.5;
+    display: none;
+}
+
 .card > .info > h6.title{
-    margin-top: 50px !important;
+    margin-top: 45px !important;
     margin-bottom: 2px !important;
 }
 
 .card > .info > h6.status{
     color: #36ff3e;
     font-size: 8px;
-    margin-top: 5px !important;
-    margin-bottom: 5px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     display: inline-block;
     /*margin-left: 5px;*/
 }
 
+
 .card > .info > h6.seasons{
     position: relative;
-    margin-top: 2px !important;
-    margin-bottom: 5px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     font-size: 8px;
     color: #fdfdfd;
     font-style: italic;
@@ -111,7 +125,7 @@ a{
 }
 
 .card > .info > p{
-    font-size: 46%;
+    font-size: 7px;
     text-shadow: 1px 1px 5px #000;
     margin-left: 5px;
     margin-bottom: 0;
@@ -275,6 +289,10 @@ a{
     -ms-transform: scale(1.7); /* IE 9 */
     -webkit-transform: scale(1.7); /* Safari */
     transform: scale(1.7); /* Standard syntax */
+}
+
+.navbar{
+    min-height: unset;
 }
 
 .navbar-nav>li {
@@ -494,7 +512,7 @@ a { list-style-type:none;}
 .container-search{
     padding: 30px;
     width: 82%;
-    top: 90px;
+    top: 30px;
     left: 270px;
     visibility: hidden;
     opacity: 0;
@@ -502,6 +520,7 @@ a { list-style-type:none;}
     transition: opacity 300ms, visibility 300ms;
     min-height: 600px;
     position: absolute;
+
 
 }
 .container-search > li{
@@ -524,10 +543,11 @@ a { list-style-type:none;}
 
 /* TOP */
 #wrapper-top{
-    position: absolute;
+    position: fixed;
+    top: 60px;
+    z-index: 99;
     width: 82%;
     left: 275px;
-    top: 10px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -558,7 +578,7 @@ a { list-style-type:none;}
 
 /* LEFT */
 #wrapper-left{
-    position: absolute;
+    position: fixed;
     left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -587,12 +607,11 @@ a { list-style-type:none;}
 }
 
 #sidebar-left-wrapper > h4{
-    padding-top: 16px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 11px;
     margin-right: 6px;
     margin-bottom: 0;
     background: #18181875;
-    /*border-left: 1px solid #5b1b1b;*/
 }
 
 #sidebar-left-wrapper > h4 > i{
@@ -690,7 +709,6 @@ a { list-style-type:none;}
     display: inline-block;
     cursor: pointer;
     text-align: center;
-    top: 5px;
 }
 
 
@@ -920,9 +938,11 @@ a { list-style-type:none;}
     position: fixed;
     opacity: 0.1;
     width: 100%;
+    height: 100%;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
+    background-size: cover;
 }
 
 .selected-filters{

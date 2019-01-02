@@ -62,6 +62,7 @@ class VideoController extends AbstractController
 
         $data = $form->getData();
         $data['id_episode'] = $id_episode;
+        $data['status'] = 1;
 
         $video->exchangeArray($data);
         $this->_videoTable->saveVideo($video);

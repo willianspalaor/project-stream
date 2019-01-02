@@ -133,6 +133,7 @@ class AnimeTable
         $sqlSelect->join('client_anime', 'client_anime.id_anime = anime.id_anime', array(), 'inner');
         $sqlSelect->join('genre', 'anime.id_genre = genre.id_genre', array('genre' => 'title'), 'left');
         $sqlSelect->where(array('client_anime.id_client' => $id_client));
+        $sqlSelect->order('client_anime.last_activity DESC');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
         return $rowset->toArray();
@@ -163,5 +164,38 @@ class AnimeTable
 
         $data = $anime->getData();
         $this->tableGateway->update($data, ['id_anime' => $id]);
+    }
+
+    public function getRelatedAnimes($anime){
+
+        $select = $this->tableGateway->getSql()->select();
+        $select->columns(array('*'));
+        $select->where(array('anime.title LIKE ?' => '%' . $anime->title . '%'));
+        $select->where(array('anime.id_anime != ?' => $anime->id));
+        $select->limit(1);
+        $result = $this->fetchPaginatedResults($select);
+
+
+        if($result->count() <= 0){
+            $select = $this->tableGateway->getSql()->select();
+            $select->columns(array('*'));
+            $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
+            $select->join('category', 'anime_category.id_category = category.id_category', array(), 'inner');
+            $select->where(array('anime_category.id_anime' => $anime->id));
+            $select->where(array('anime.id_anime != ?' => $anime->id));
+            $select->limit(1);
+            $result = $this->fetchPaginatedResults($select);
+        }
+
+        if($result->count() <= 0){
+            $select = $this->tableGateway->getSql()->select();
+            $select->columns(array('*'));
+            $select->limit(1);
+            $select->where(array('anime.id_anime != ?' => $anime->id));
+            $result = $this->fetchPaginatedResults($select);
+        }
+
+        return $result;
+
     }
 }

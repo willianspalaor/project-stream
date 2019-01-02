@@ -3,6 +3,9 @@
 namespace Application\Controller;
 
 use Application\Model\Video;
+use Zend\View\Model\ViewModel;
+
+//require __DIR__ . '\..\..\..\..\DriverAPI.php';
 
 class AnimeController extends AbstractController
 {
@@ -14,6 +17,11 @@ class AnimeController extends AbstractController
         die(json_encode(array('anime' => $anime)));
     }
 
+    public function getVideoAnimeAction()
+    {
+        getFile5();
+        die('true');
+    }
 
     public function getPlayerAnimeAction(){
         $id_md5 = $this->params()->fromQuery('trackId');
@@ -159,6 +167,16 @@ class AnimeController extends AbstractController
         }
 
         die(json_encode(array('data' => $data)));
+    }
+
+    public function getRelatedAnimesAction()
+    {
+        $id_md5 = $this->params()->fromQuery('trackId');
+        $anime = $this->animeTable->getAnime($id_md5);
+        $relatedAnimes = $this->animeTable->getRelatedAnimes($anime);
+        $data =  $this->prepareJsonData($relatedAnimes, 'anime');
+
+        die(json_encode(array('related_animes' => $data)));
     }
 }
 

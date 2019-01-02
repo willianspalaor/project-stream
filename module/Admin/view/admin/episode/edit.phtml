@@ -17,6 +17,7 @@ $this->headTitle($title);
     $description = $form->get('description');
     $description->setAttribute('class', 'form-control');
     $description->setAttribute('placeholder', 'Description');
+    $description->setAttribute('maxlength', '250');
 
     $episode = $form->get('episode');
     $episode->setAttribute('class', 'form-control');

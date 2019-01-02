@@ -1,13 +1,14 @@
 class Player{
 
-    start(track){
+    start(track, checkUrl = true){
 
-       let self = this;
+        let self = this;
 
         Player_Anime.setData(track, function(data){
 
             Player_Helper.setVideo(document.getElementById('video'));
             Player_Helper.assignElements();
+            Player_Helper.assignScreen();
 
             let currentSeason = Player_Anime.getCurrentSeason(true);
             let currentEpisode = Player_Anime.getCurrentEpisode(true);
@@ -18,16 +19,18 @@ class Player{
             Player_Anime.setCurrentSeason(season);
             Player_Anime.setCurrentEpisode(episode);
 
-            self.play(episode);
+            self.play(episode, checkUrl);
         });
     }
 
-    play(episode){
+    play(episode, checkUrl){
 
         let self = this;
         let video = Player_Helper.getVideo();
 
         Player_Anime.getVideo(episode, function(videoEpisode){
+
+            console.log(videoEpisode);
 
             video.src = videoEpisode.url;
 
@@ -35,7 +38,7 @@ class Player{
             self.bindProgressEvents();
             self.bindVideoEvents(video);
 
-        });
+        }, null, checkUrl);
     }
 
     bindVideoEvents(video){
@@ -58,6 +61,7 @@ class Player{
         };
 
         video.oncanplay = function() {
+            Player_Helper.hideError();
             Player_Helper.hideLoader();
         };
 
@@ -65,9 +69,23 @@ class Player{
             Player_Helper.manageProgressBar();
         };
 
-        video.onabort = function() {
-            alert("Video load aborted");
+        video.onprogress = function() {
+            //   Player_Helper.manageProgressBuffer();
         };
+
+        video.onabort = function(ev) {
+            /*let player = new Player();
+            let episode = Player_Anime.getCurrentEpisode();
+            player.play(episode, false);*/
+        };
+
+        video.onerror = function(ev){
+
+            Player_Helper.setCurrentData(function(){
+                Player_Helper.showError();
+                Player_Helper.hideLoader();
+            });
+        }
     }
 
     bindProgressEvents(){
@@ -77,7 +95,7 @@ class Player{
 
         container.mousedown(function (e) {
             timeDrag = true;
-            Player_Helper.updateProgressBar(e.pageX);
+            Player_Helper.updateProgressBar(e.pageX, e.pageY);
             Player_Helper.createActionSkip();
         });
 
@@ -115,92 +133,122 @@ class Player{
         let btnBackSeconds = $('#btnBackSeconds');
         let interval = null;
 
+
+        //btnPlay.unbind('click');
         btnPlay.bind('click', function(){
-          //  Player_Helper.hideTooltip('episode');
             video.paused ? Player_Helper.play(this) : Player_Helper.pause(this);
         });
 
+        //btnVolume.unbind('click');
         btnVolume.bind('click', function(){
             video.muted ? Player_Helper.unMute(this) : Player_Helper.mute(this);
+
+            if($('.control-volume-slider').css('display') === 'none'){
+                Player_Helper.showVolume();
+            } else{
+                Player_Helper.hideVolume();
+            }
         });
 
+       // btnVolume.unbind('mouseover');
         btnVolume.bind('mouseover', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showVolume();
         });
 
+       // btnVolume.unbind('mouseleave');
         btnVolume.bind('mouseleave', function(e){
             Player_Helper.hideVolume(this, e.pageX, e.pageY);
         });
 
+       // btnForward.unbind('click');
         btnForward.bind('click', function(){
             Player_Helper.playNextEpisode();
         });
 
+       // btnForward.unbind('mouseover');
         btnForward.bind('mouseover', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showNextEpisode();
         });
 
+      //  btnForward.unbind('mouseleave');
         btnForward.bind('mouseleave', function(e){
             Player_Helper.hideNextEpisode(this, e.pageX, e.pageY);
         });
 
+       // btnEpisodes.unbind('click');
+        btnEpisodes.bind('click', function(){
+
+            if($('.control-episodes').css('display') === 'none'){
+                Player_Helper.showEpisodes();
+            } else{
+                Player_Helper.hideEpisodes();
+            }
+        });
+
+       // btnEpisodes.unbind('mouseenter');
         btnEpisodes.bind('mouseenter', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showEpisodes();
         });
 
+       // btnEpisodes.unbind('mouseleave');
         btnEpisodes.bind('mouseleave', function(e){
             Player_Helper.hideEpisodes(this, e.pageX, e.pageY);
         });
 
+        //btnReturn.unbind('click');
         btnReturn.bind('click', function(){
             Player_Helper.returnListAnimes();
         });
 
+       // btnReturn.unbind('mouseenter');
         btnReturn.bind('mouseenter', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('return');
         });
 
+       // btnReturn.unbind('mouseleave');
         btnReturn.bind('mouseleave', function(){
             Player_Helper.hideTooltip('return');
         });
 
+       // btnReport.unbind('click');
         btnReport.bind('click', function(){
             Player_Helper.showAlertReport();
             Player_Anime.sendEpisodeReport();
         });
 
+      //  btnReport.unbind('mouseenter');
         btnReport.bind('mouseenter', function(){
             Player_Helper.hideProgressBar();
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('report');
         });
 
+        //btnReport.unbind('mouseleave');
         btnReport.bind('mouseleave', function(){
             Player_Helper.showProgressBar();
             Player_Helper.hideTooltip('report');
         });
 
+       // btnSkip.unbind('click');
         btnSkip.bind('click', function(){
             Player_Helper.skipVideo();
         });
 
+        //btnFullScreen.unbind('click');
         btnFullScreen.bind('click', function(){
             Player_Helper.toggleFullScreen(document.body);
         });
 
+        //btnSkipSeconds.unbind('click');
         btnSkipSeconds.bind('click', function(){
             Player_Helper.skipSeconds();
         });
 
+        //btnSkipSeconds.unbind('mouseenter');
         btnSkipSeconds.bind('mouseenter', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('skip-secs');
         });
 
+        //btnSkipSeconds.unbind('mouseleave');
         btnSkipSeconds.bind('mouseleave', function(){
             Player_Helper.hideTooltip('skip-secs');
         });
@@ -217,15 +265,17 @@ class Player{
             return false;
         });
 
+        //btnBackSeconds.unbind('click');
         btnBackSeconds.bind('click', function(){
             Player_Helper.backSeconds();
         });
 
+       // btnBackSeconds.unbind('mouseenter');
         btnBackSeconds.bind('mouseenter', function(){
-            Player_Helper.hideTooltip('episode');
             Player_Helper.showTooltip('back-secs');
         });
 
+        //btnBackSeconds.unbind('mouseleave');
         btnBackSeconds.bind('mouseleave', function(){
             Player_Helper.hideTooltip('back-secs');
         });
@@ -242,27 +292,31 @@ class Player{
             return false;
         });
 
-        $(video).click(function (e) {
+        //$(video).unbind('click');
+        $(video).bind('click', function(){
             video.paused ? Player_Helper.play(btnPlay, true) : Player_Helper.pause(btnPlay, true);
+            Player_Helper.removeTimeoutCount();
         });
 
-        $(document).keyup(function (e) {
+        if(Player_Helper.getScreenType() !== 'mobile'){
 
-            if(video){
+            $(document).keyup(function (e) {
 
-                switch(e.keyCode){
-                    case 37 : Player_Helper.backSeconds(true); break;
-                    case 38: Player_Helper.volumeUp(btnVolume, true); break;
-                    case 39: Player_Helper.skipSeconds(true); break;
-                    case 40: Player_Helper.volumeDown(btnVolume, true); break;
-                    case 32 :
-                        video.paused ?
-                            Player_Helper.play(btnPlay, true) :
-                            Player_Helper.pause(btnPlay, true);
-                        return false;
+                if(video){
+                    switch(e.keyCode){
+                        case 37 : Player_Helper.backSeconds(true); break;
+                        case 38: Player_Helper.volumeUp(btnVolume, true); break;
+                        case 39: Player_Helper.skipSeconds(true); break;
+                        case 40: Player_Helper.volumeDown(btnVolume, true); break;
+                        case 32 :
+                            video.paused ?
+                                Player_Helper.play(btnPlay, true) :
+                                Player_Helper.pause(btnPlay, true);
+                            return false;
+                    }
                 }
-            }
-        });
+            });
+        }
 
 
         document.addEventListener('fullscreenchange', Player_Helper.fullScreenVideo);
@@ -270,10 +324,36 @@ class Player{
         document.addEventListener('mozfullscreenchange', Player_Helper.fullScreenVideo);
         document.addEventListener('MSFullscreenChange', Player_Helper.fullScreenVideo);
 
-        Player_Helper.showTooltip('episode');
+        /*Player_Helper.showTooltip('episode');
 
         setTimeout(function(){
             Player_Helper.hideTooltip('episode');
-        }, 5000);
+        }, 3000);*/
+
+
+        if (window.matchMedia("(orientation: portrait)").matches) {
+            if(Player_Helper.getScreenType() === 'mobile'){
+                Player_Helper.setOrientation('portrait');
+            }
+        }
+
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            if(Player_Helper.getScreenType() === 'mobile'){
+                Player_Helper.setOrientation('landscape');
+            }
+        }
+
+        $( window ).on( "orientationchange", function( event ) {
+
+            let orientation = null;
+
+            switch(window.orientation){
+                case 0 :  orientation = 'portrait'; break;
+                case 90 :  orientation = 'landscape'; break;
+                case -90 :  orientation = 'landscape'; break;
+            }
+
+            Player_Helper.setOrientation(orientation);
+        });
     }
 }

@@ -60,13 +60,13 @@ class AnimeController extends AbstractController
         if($file['image']['size'] > 0){
             $imgName = $this->prepareKey($data['name'])  . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
             $data['img'] = '/img/Anime/miniaturas/' . $imgName;
-            move_uploaded_file($file['image']['tmp_name'], 'public/img/Anime/miniaturas/' . $imgName);
+            move_uploaded_file($file['image']['tmp_name'],  $_SERVER['DOCUMENT_ROOT'] . '/img/Anime/miniaturas/' . $imgName);
         }
 
         if($file['video']['size'] > 0){
             $trailerName = $this->prepareKey($data['name'])  . '.' . pathinfo($file['video']['name'], PATHINFO_EXTENSION);
             $data['trailer'] = '/video/Anime/trailers/' . $trailerName;
-            move_uploaded_file($file['video']['tmp_name'], 'public/video/Anime/trailers/' . $trailerName);
+            move_uploaded_file($file['video']['tmp_name'],  $_SERVER['DOCUMENT_ROOT'] . '/video/Anime/trailers/' . $trailerName);
         }
 
         $categories = $data['category'];
@@ -222,18 +222,24 @@ class AnimeController extends AbstractController
 
         if($file['image']['size'] > 0){
 
-            if(file_exists ( 'public' . $anime->img)){
-                unlink('public' . $anime->img);
+            if(file_exists ( $_SERVER['DOCUMENT_ROOT'] . $anime->img)){
+                unlink($_SERVER['DOCUMENT_ROOT'] . $anime->img);
             }
 
             $imgName = $this->prepareKey($data['name'])  . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
             $anime->img = '/img/Anime/miniaturas/' . $imgName;
-            move_uploaded_file($file['image']['tmp_name'], 'public' . $anime->img);
+            move_uploaded_file($file['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . $anime->img);
         }
 
         if($file['video']['size'] > 0){
-            unlink('public' . $anime->trailer);
-            move_uploaded_file($file['video']['tmp_name'], 'public/' . $anime->trailer);
+
+            if(file_exists ( $_SERVER['DOCUMENT_ROOT'] . $anime->trailer)){
+                unlink($_SERVER['DOCUMENT_ROOT'] . $anime->trailer);
+            }
+
+            $trailerName = $this->prepareKey($data['name'])  . '.' . pathinfo($file['video']['name'], PATHINFO_EXTENSION);
+            $anime->trailer = '/video/Anime/trailers/' . $trailerName;
+            move_uploaded_file($file['video']['tmp_name'],  $_SERVER['DOCUMENT_ROOT'] . '/video/Anime/trailers/' . $trailerName);
         }
 
         $id_author = $data['author'];
@@ -290,20 +296,38 @@ class AnimeController extends AbstractController
 
                 $id = (int) $request->getPost('id');
                 $anime = $this->_animeTable->getAnime($id);
-                unlink('public' . $anime->img);
-                unlink('public' . $anime->trailer);
+
+                if($anime->img){
+                    $file = $_SERVER['DOCUMENT_ROOT'] . $anime->img;
+                    if(file_exists ($file)){
+                        unlink($file);
+                    }
+                }
+
+                if($anime->trailer){
+                    $file = $_SERVER['DOCUMENT_ROOT'] . $anime->trailer;
+                    if(file_exists ($file)){
+                        unlink($file);
+                    }
+                }
                 $this->_animeCategoryTable->deleteAnimeCategory($id);
+                $seasons = $this->_seasonTable->getSeasonByAnime($id);
+                $episodes = $this->_episodeTable->getEpisodeByAnime($id);
+
+                $this->_videoTable->deleteVideosAnime($episodes);
+                $this->_episodeTable->deleteEpisodesAnime($seasons);
+                $this->_seasonTable->deleteSeasonsAnime($id);
                 $this->_animeTable->deleteAnime($id);
             }
 
             return $this->redirect()->toRoute('admin/anime');
-      }
+        }
 
-      return[
+        return[
 
-          'id' => $id,
-          'anime' => $this->_animeTable->getAnime($id)
-      ];
+            'id' => $id,
+            'anime' => $this->_animeTable->getAnime($id)
+        ];
 
     }
 

@@ -5,9 +5,12 @@
     <div class="video-notification">
         <i class="fas fa-volume-up"></i>
     </div>
+    <div class="video-related"></div>
+    <div class="video-error"></div>
 </div>
 <div class="video-progress">
     <div id="progress-aux"></div>
+    <div id="progress-buffer"></div>
 </div>
 <div class="video-controls">
     <button id="btnPlay" class="btn-control">
@@ -16,19 +19,19 @@
     <button id="btnVolume" class="btn-control">
         <i class="fas fa-volume-up"></i>
     </button>
-    <button id="btnReport" class="btn-control">
-        <i class="fas fa-question-circle"></i>
-        <span id="tooltip-report" class="control-tooltip report">
-            <span></span>
-            <h5> Encontrou algum problema? Relate aqui.</h5>
-        </span>
-    </button>
-    <span class="control-title"></span>
     <button id="btnEpisodes" class="btn-control">
         <i class="fas fa-clone"></i>
         <span id="tooltip-episode" class="control-tooltip episode">
             <span></span>
             <h5> Lista de episódios </h5>
+        </span>
+    </button>
+    <span class="control-title"></span>
+    <button id="btnReport" class="btn-control">
+        <i class="fas fa-question-circle"></i>
+        <span id="tooltip-report" class="control-tooltip report">
+            <span></span>
+            <h5> Encontrou algum problema? Relate aqui.</h5>
         </span>
     </button>
     <button id="btnForward" class="btn-control">
@@ -81,6 +84,7 @@
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
 </div>
+
 <script>
     $(window).on('load', function() {
 
@@ -90,7 +94,7 @@
         (new Player()).start(track);
     });
 </script>
-
 <link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/player.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/mobile.css') ?>">
 <script src="<?= $this->basePath('js/module/Application/Player/xhr/Anime.js') ?>"></script>
 <script src="<?= $this->basePath('js/module/Application/Player/Helper.js') ?>"></script>

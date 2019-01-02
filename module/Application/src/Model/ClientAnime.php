@@ -21,6 +21,7 @@ class ClientAnime implements InputFilterAwareInterface
     public $id_client;
     public $current_season;
     public $current_episode;
+    public $last_activity;
 
     private $inputFilter;
 
@@ -31,6 +32,7 @@ class ClientAnime implements InputFilterAwareInterface
         $this->id_client = !empty($data['id_client']) ? $data['id_client'] : null;
         $this->current_season = !empty($data['current_season']) ? $data['current_season'] : null;
         $this->current_episode = !empty($data['current_episode']) ? $data['current_episode'] : null;
+        $this->last_activity = !empty($data['last_activity']) ? $data['last_activity'] : null;
     }
 
     public function getArrayCopy()
@@ -40,7 +42,8 @@ class ClientAnime implements InputFilterAwareInterface
             'id_anime' => $this->id_anime,
             'id_client' => $this->id_client,
             'current_season' => $this->current_season,
-            'current_episode' => $this->current_episode
+            'current_episode' => $this->current_episode,
+            'last_activity' => $this->last_activity
         ];
     }
 

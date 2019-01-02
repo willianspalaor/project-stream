@@ -4,12 +4,15 @@ let Player_Helper = new (function () {
     let _video = null;
     let _viewPort = null;
     let _videoNotification = null;
+    let _videoRelated = null;
+    let _videoError = null;
     let _volumeSlider = null;
     let _progressSlider = null;
     let _progressTime = null;
     let _controlsContainer = null;
     let _progressContainer = null;
     let _progressAux = null;
+    let _progressBuffer = null;
     let _volumeContainer = null;
     let _boxNextEpisode = null;
     let _episodeTitle = null;
@@ -22,9 +25,12 @@ let Player_Helper = new (function () {
     let _btnEpisodes = null;
     let _btnReport = null;
     let _btnForward = null;
+    let _btnSkip = null;
     let _btnFullScreen = null;
     let _btnSkipSeconds = null;
     let _btnBackSeconds = null;
+    let _toolTipSkipSeconds = null;
+    let _toolTipBackSeconds = null;
 
     let _timeoutSkip;
     let _timeoutNext;
@@ -32,6 +38,12 @@ let Player_Helper = new (function () {
     let _iddleInterval = null;
     let _interval = 0;
     let _skipOpening = false;
+    let _screenType = null;
+    let _fullScreen = false;
+    let _orientation = null;
+    let _finishAnime = false;
+    let _lastEpisode = false;
+    let _first = true;
 
     function _setVideo(video){
         _video = video;
@@ -40,11 +52,14 @@ let Player_Helper = new (function () {
     function _assignElements(){
         _viewPort = $('.video-viewport');
         _videoNotification = $('.video-notification');
+        _videoRelated = $('.video-related');
+        _videoError = $('.video-error');
         _controlsContainer = $('.video-controls');
         _progressContainer = $('.video-progress');
         _volumeSlider = $('#volume-slider');
         _progressSlider = $('#progress-slider');
         _progressAux = $('#progress-aux');
+        _progressBuffer = $('#progress-buffer');
         _volumeContainer = $('.control-volume-slider');
         _boxNextEpisode =  $('.control-next-episode');
         _episodeTitle = $('.control-title');
@@ -53,6 +68,7 @@ let Player_Helper = new (function () {
         _btnReturn = $('#btnReturn');
         _btnPlay = $('#btnPlay');
         _btnNext = $('#btnNextEpisode');
+        _btnSkip = $('#btnSkip');
         _btnVolume = $('#btnVolume');
         _btnEpisodes = $('#btnEpisodes');
         _btnReport = $('#btnReport');
@@ -60,6 +76,31 @@ let Player_Helper = new (function () {
         _btnFullScreen = $('#btnFullScreen');
         _btnSkipSeconds = $('#btnSkipSeconds');
         _btnBackSeconds = $('#btnBackSeconds');
+        _toolTipSkipSeconds = $('#tooltip-skip-secs');
+        _toolTipBackSeconds = $('#tooltip-back-secs');
+    }
+
+    function _assignScreen(){
+
+        let isMobile = false; //initiate as false
+        if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+            || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) {
+            isMobile = true;
+        }
+
+        if (/Mobi/.test(navigator.userAgent)) {
+            isMobile = true;
+        }
+
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            isMobile = true;
+        }
+
+        if(isMobile){
+            _screenType = 'mobile';
+        }else{
+            _screenType = 'desk';
+        }
     }
 
     function _getVideo(){
@@ -71,7 +112,6 @@ let Player_Helper = new (function () {
     }
 
     function _play(el, key){
-
         if(key)
             _showNotification('fas fa-play', 'play');
 
@@ -80,7 +120,6 @@ let Player_Helper = new (function () {
     }
 
     function _pause(el, key){
-
         if(key)
             _showNotification('fas fa-pause', 'pause');
 
@@ -244,10 +283,24 @@ let Player_Helper = new (function () {
 
         let rect = el.getBoundingClientRect();
 
+        let verify = false;
+
+        /*if(_screenType === 'mobile' && _orientation === 'landscape'){
+
+            if(x >= rect.right){
+                verify = true;
+            }
+        }else{*/
         if(y <= rect.top && (x >= rect.left && x <= rect.right)){
+            verify = true;
+        }
+        //  }
+
+        if(verify){
 
             _hideProgressBar();
 
+          //  _volumeContainer.unbind('mouseleave');
             _volumeContainer.bind('mouseleave', function(){
                 $(this).css('display', 'none');
                 _showProgressBar();
@@ -261,13 +314,14 @@ let Player_Helper = new (function () {
 
     function _playNextEpisode(play = false){
 
-        _showLoader();
-        _hideControls();
-
-        Player_Anime.setEpisodeProgress();
+        //Player_Anime.setEpisodeProgress();
+        _first = true;
         let nextEpisode = Player_Anime.getNextEpisode(true);
 
         if(nextEpisode){
+
+            _showLoader();
+            _hideControls();
 
             Player_Anime.getVideo(nextEpisode, function(videoEpisode){
 
@@ -284,11 +338,89 @@ let Player_Helper = new (function () {
 
                 _hideLoader();
             });
+        }else{
+
+            _showRelatedAnimes();
+        }
+    }
+
+    function _showRelatedAnimes(){
+
+        _finishAnime = true;
+
+      //  $(_video).css('display', 'none');
+        _progressContainer.css('display', 'none');
+        _controlsContainer.css('display', 'none');
+
+        let anime = Player_Anime.getData();
+
+        Player_Anime.getRelatedAnimes(anime.track, function(data){
+
+            let animes = data.related_animes;
+
+            $.each(animes, function(key, anime){
+
+                let video = createContainerVideo(anime);
+
+                $(video).parent().bind('mouseenter', function(){
+                    _video.muted = true;
+                    $(this).find('video')[0].play();
+                });
+
+                $(video).parent().bind('mouseleave', function(){
+                    _video.muted = false;
+                    $(this).find('video')[0].pause();
+                });
+
+                $(video).parent().bind('click', function(){
+                    window.location.href = 'http://' + document.location.host + '/' + $(this).attr('data-route');
+                });
+            });
+        });
+
+        function createContainerVideo(anime){
+
+            let container = $('<div>')
+                .attr('data-route', anime.route)
+                .addClass('container-video')
+                .appendTo(_videoRelated);
+
+            $('<h1>')
+                .text('Assista também:')
+                .appendTo(container);
+
+            let video = $('<video loop>')
+                .appendTo(container);
+
+            let info = $('<div>')
+                .addClass('info')
+                .appendTo(container);
+
+            $('<h5>')
+                .text(anime.title)
+                .appendTo(info);
+
+            let inner = $('<div>')
+                .addClass('info-inner')
+                .appendTo(info);
+
+
+            $('<p>')
+                .text(anime.description)
+                .appendTo(inner);
+
+            video[0].src = anime.trailer;
+            video[0].volume = 0.5;
+            //video[0].muted = true;
+            video[0].load();
+
+            return video[0];
         }
     }
 
     function _playCurrentEpisode(play = false){
 
+        _first = true;
         _video.pause();
         _showLoader();
         _hideControls();
@@ -326,10 +458,22 @@ let Player_Helper = new (function () {
 
         let rect = el.getBoundingClientRect();
 
+        let verify = false;
+        /*if(_screenType === 'mobile' && _fullScreen){
+            if(x >= rect.right){
+                verify = true;
+            }
+        }else{*/
         if(y <= rect.top && x >= rect.left){
+            verify = true;
+        }
+        //  }
+
+        if(verify){
 
             _hideProgressBar();
 
+            //_boxNextEpisode.unbind('mouseleave');
             _boxNextEpisode.bind('mouseleave', function(){
                 $(this).css('display', 'none');
                 _showProgressBar();
@@ -343,11 +487,14 @@ let Player_Helper = new (function () {
     function _showEpisodes(){
         _progressContainer.css('display', 'none');
         _controlEpisodes.css('display', 'block');
+        _listEpisodes();
     }
 
     function _hideEpisodes(el, x, y){
 
         if(el){
+
+            let timeout = null;
 
             function hide(){
                 _showProgressBar();
@@ -356,21 +503,30 @@ let Player_Helper = new (function () {
 
             let rect = el.getBoundingClientRect();
 
-            if(y <= rect.top+10 && x <= rect.right+20){
+            if(y <= rect.top+10 && (x >= rect.left && x <= rect.right)){
 
+               // _controlEpisodes.unbind('mouseover');
                 _controlEpisodes.bind('mouseover', function(){
+                    clearTimeout(timeout);
                     clearIddleInterval();
                 });
 
+               // _controlEpisodes.unbind('mouseleave');
                 _controlEpisodes.bind('mouseleave', function(){
-                    hide();
+
+                  //  timeout = setTimeout(function(){
+                        hide();
+                   // }, 300);
+
                     clearIddleInterval(true);
                 });
 
+                //_btnEpisodes.unbind('mouseover');
                 _btnEpisodes.bind('mouseover', function(){
                     clearIddleInterval();
                 });
 
+                //_btnEpisodes.unbind('mouseleave');
                 _btnEpisodes.bind('mouseleave', function(){
                     clearIddleInterval(true);
                 });
@@ -379,6 +535,8 @@ let Player_Helper = new (function () {
                 hide();
             }
 
+
+
         }else{
             _controlEpisodes.css('display', 'none');
             _showProgressBar();
@@ -386,10 +544,10 @@ let Player_Helper = new (function () {
     }
 
     function _returnListAnimes(){
-        location.href = 'http://project-stream.localhost/';
+        location.href = 'http://' + document.location.host;
     }
 
-    function _setCurrentData(){
+    function _setCurrentData(callback){
 
         let anime = Player_Anime.getData();
         let episode = Player_Anime.getCurrentEpisode();
@@ -398,10 +556,19 @@ let Player_Helper = new (function () {
         _episodeTitle.empty();
         _boxNextEpisode.empty();
 
-        $('<h4>').text(anime.title).appendTo(_episodeTitle);
-        $('<span>').text(episode.title).appendTo(_episodeTitle);
+        let title = $('<h4>')
+            .text(anime.title)
+            .appendTo(_episodeTitle);
 
-        if(nextEpisode) {
+        let subTitle = $('<span>')
+            .text(episode.title)
+            .appendTo(_episodeTitle);
+
+        if(!nextEpisode) {
+            _lastEpisode = true;
+        }else{
+
+            _lastEpisode = false;
 
             let circle = $('<div>')
                 .addClass('dot next-episode')
@@ -417,10 +584,42 @@ let Player_Helper = new (function () {
             $('<em>').text(nextEpisode.description).appendTo(_boxNextEpisode);
             $('<span>').appendTo(_boxNextEpisode);
 
-
+            _boxNextEpisode.unbind('click');
             _boxNextEpisode.bind('click', function(){
                 Player_Helper.playNextEpisode();
             });
+        }
+
+        if(title[0].offsetWidth){
+            subTitle.css('left', title[0].offsetWidth + 'px');
+        }
+
+        setTimeout(function(){
+            if(title[0].offsetWidth){
+                subTitle.css('left', title[0].offsetWidth + 'px');
+            }
+        }, 200);
+
+        setTimeout(function(){
+            if(title[0].offsetWidth){
+                subTitle.css('left', title[0].offsetWidth + 'px');
+            }
+        }, 500);
+
+        setTimeout(function(){
+            if(title[0].offsetWidth){
+                subTitle.css('left', title[0].offsetWidth + 'px');
+            }
+        }, 1000);
+
+        setTimeout(function(){
+            if(title[0].offsetWidth){
+                subTitle.css('left', title[0].offsetWidth + 'px');
+            }
+        }, 2000);
+
+        if(typeof(callback) === 'function'){
+            callback();
         }
     }
 
@@ -471,6 +670,11 @@ let Player_Helper = new (function () {
                 });
             }
 
+            _controlsContainer.removeClass('fullscreen');
+            _progressContainer.removeClass('fullscreen');
+            _btnBackSeconds.removeClass('fullscreen');
+            _btnSkipSeconds.removeClass('fullscreen');
+
         }else{
 
             _viewPort.css({
@@ -490,7 +694,15 @@ let Player_Helper = new (function () {
                     'right' : '20%'
                 });
             }
+
+
+            _controlsContainer.addClass('fullscreen');
+            _progressContainer.addClass('fullscreen');
+            _btnBackSeconds.addClass('fullscreen');
+            _btnSkipSeconds.addClass('fullscreen');
+
         }
+
     }
 
     function _createVideoActions(){
@@ -505,18 +717,32 @@ let Player_Helper = new (function () {
         clearTimeout(_timeoutCount);
     }
 
-    function _bindActionEvents(){
+    function _removeTimeoutCount(){
 
-        $(_video).bind('click', function(){
+        if(_timeoutCount){
+
             clearTimeout(_timeoutCount);
             _maximizeVideo();
             _btnNext.css('display', 'none');
-            _video.play();
-            $(_video).unbind('click');
-            $(_video).bind('click', function(){
-                _video.paused ? Player_Helper.play(_btnPlay, true) : Player_Helper.pause(_btnPlay, true);
-            });
-        });
+
+            if(_first){
+                _video.play();
+            }
+
+            _first = false;
+        }
+    }
+
+    function _bindActionEvents(){
+
+        _btnNext.unbind('click');
+        _btnNext.bind('click', function(){
+            clearTimeout(_timeoutCount);
+            _maximizeVideo();
+            _video.pause();
+            _playNextEpisode(true);
+            $(this).css('display', 'none');
+        })
     }
 
     function _skipVideo(){
@@ -571,9 +797,35 @@ let Player_Helper = new (function () {
         function checkTime() {
 
             if (_video.currentTime >= endTime && !_video.paused) {
+
                 clearTimeout(_timeoutNext);
-                _minimizeVideo();
-                countSeconds();
+
+                if(!_lastEpisode){
+                    _minimizeVideo();
+                    countSeconds();
+                }else{
+                    _minimizeVideo();
+                    _showRelatedAnimes();
+                    $(_video).unbind('click');
+                    $(_video).bind('click', function(){
+                        _maximizeVideo();
+                        _finishAnime = false;
+                        _progressContainer.css('display', 'block');
+                        _controlsContainer.css('display', 'block');
+                        _videoRelated.css('display', 'none');
+                        _video.play();
+                        $(_video).unbind('click');
+                        _video.paused ? Player_Helper.play(_btnPlay, true) : Player_Helper.pause(_btnPlay, true);
+                        if(_screenType !== 'mobile'){
+                            $(_video).bind('click', function(){
+                                _video.paused ? Player_Helper.play(_btnPlay, true) : Player_Helper.pause(_btnPlay, true);
+                            });
+                        }
+                    });
+
+
+                }
+
             }else{
                 _timeoutNext = setTimeout(checkTime, 3000);
             }
@@ -584,6 +836,7 @@ let Player_Helper = new (function () {
 
         let timeStart = $('#next-episode-time');
         let time = 10;
+
         _timeoutCount = 0;
 
         timeStart.text(time + ' segundos');
@@ -602,7 +855,6 @@ let Player_Helper = new (function () {
             if(time > 0){
                 _timeoutCount = setTimeout(count, 1000);
             }else{
-
                 if(_timeoutCount >= 12){
                     clearTimeout(_timeoutCount);
                     _maximizeVideo();
@@ -616,20 +868,88 @@ let Player_Helper = new (function () {
 
     function _minimizeVideo(){
 
-       $(_video).css({
-           'transition' : 'all .4s ease-in-out',
-           'width' : '400px',
-           'margin-left' : '10%',
-           'margin-top' : '10%',
-           'border' : '2px solid #fff',
-           'cursor' : 'pointer',
-           'opacity' : '0.7'
-       });
+        if(_screenType === 'mobile'){
 
-       $(_video).bind('mouseover', function(){
-           $(this).css('opacity', '0.9');
-       });
+            if(_orientation === 'landscape'){
 
+
+                /* $(_video).css({
+                     'transition' : 'all .4s ease-in-out',
+                     'width' : '200px',
+                     'height' : '100px',
+                     'margin-left' : '0',
+                     'margin-top' : '8%',
+                     'border' : '2px solid #fff',
+                     'cursor' : 'pointer',
+                     'opacity' : '0.7'
+                 });*/
+
+                $(_video).css({
+                    'transition' : 'all .4s ease-in-out'
+                });
+
+                _viewPort.css({
+                    'transition' : 'all .4s ease-in-out',
+                    'width' : '230px',
+                    'height' : '100px',
+                    'left' : '18%',
+                    'top' : '19%'
+                })
+
+            }else{
+
+                $(_video).css({
+                    'transition' : 'all .4s ease-in-out',
+                    'width' : '200px',
+                    'height' : '100px',
+                    'margin-left' : '0',
+                    'margin-top' : '8%',
+                    'border' : '2px solid #fff',
+                    'cursor' : 'pointer',
+                    'opacity' : '0.7'
+                });
+
+                _viewPort.css({
+                    'transition' : 'all .4s ease-in-out',
+                    'width' : '50px',
+                    'height' : '50px',
+                    'top' : '5%',
+                    'margin-left' : '10%'
+                })
+
+                /*$(_video).css({
+                    'transition' : 'all .4s ease-in-out',
+                    'width' : '300px',
+                    'margin-left' : '5%',
+                    'margin-top' : '0',
+                    'border' : '2px solid #fff',
+                    'cursor' : 'pointer',
+                    'opacity' : '0.7'
+                });*/
+            }
+
+
+
+        }else{
+
+            $(_video).css({
+                'transition' : 'all .4s ease-in-out',
+                'width' : '400px',
+                'margin-left' : '10%',
+                'margin-top' : '10%',
+                'border' : '2px solid #fff',
+                'cursor' : 'pointer',
+                'opacity' : '0.7'
+            });
+
+        }
+
+       // $(_video).unbind('mouseover');
+        $(_video).bind('mouseover', function(){
+            $(this).css('opacity', '0.9');
+        });
+
+        //$(_video).unbind('mouseleave');
         $(_video).bind('mouseleave', function(){
             $(this).css('opacity', '0.7');
         })
@@ -637,6 +957,7 @@ let Player_Helper = new (function () {
 
     function _maximizeVideo(){
 
+        $(_viewPort).removeAttr('style');
         $(_video).removeAttr('style');
         $(_video).css({
             'width' : '100%',
@@ -647,23 +968,40 @@ let Player_Helper = new (function () {
         $(_video).unbind( 'mouseleave' );
     }
 
-    function _updateProgressBar(x){
+    function _updateProgressBar(x, y){
 
         let maxduration = _video.duration;
         let currentPos = _video.currentTime; //Get currenttime
-        let position = x - _progressContainer.offset().left;
-        let percentage = 100 * position / _progressContainer.width();
-        let percentAux = 100 * currentPos / maxduration; //in %
 
-        if (percentage > 100) {
-            percentage = 100;
+        let position = null;
+
+        /* if(_screenType === 'mobile'){
+             position = y - _progressContainer.offset().top;
+         }else{*/
+        position = x - _progressContainer.offset().left;
+        // }
+
+        let percentage = 100 * position / _progressContainer.width();
+
+        if(!isNaN(percentage)){
+
+            let percentAux = 100 * currentPos / maxduration; //in %
+
+            if (percentage > 100) {
+                percentage = 100;
+            }
+            if (percentage < 0) {
+                percentage = 0;
+            }
+
+            _progressSlider.slider( "option", "value", Math.round(percentAux));
+            _video.currentTime = maxduration * percentage / 100;
+            _progressAux.css({'width' : percentage+ 0.5 + '%'});
         }
-        if (percentage < 0) {
-            percentage = 0;
-        }
-        _progressSlider.slider( "option", "value", Math.round(percentAux));
-        _progressAux.css({'width' : percentage+ 0.5 + '%'});
-        _video.currentTime = maxduration * percentage / 100;
+
+
+
+        // _updateBuffer(position);
     }
 
     function _manageProgressBar(){
@@ -677,6 +1015,19 @@ let Player_Helper = new (function () {
             if(_progressTime){
                 _progressTime.text(_getTime(_video.currentTime));
             }
+        }
+    }
+
+
+    function _manageProgressBuffer(x){
+
+        if(_controlsContainer.css('display') !== 'none'){
+
+            let buffer = _getBufferPercentage();
+
+            _progressBuffer.css({'width' : parseInt(buffer.width) + '%'});
+            _progressBuffer.css({'margin-left' : parseInt(buffer.left) + '%'});
+
         }
     }
 
@@ -723,11 +1074,16 @@ let Player_Helper = new (function () {
 
         el.parent().find('.episode').each(function(){
             $(this).css('background-color', 'transparent');
-            $(this).css('border-bottom', '1px solid #191919')
+            $(this).css('border-bottom', '2px solid #191919')
+
+            if(_screenType === 'mobile'){
+                $(this).find('.progress').css('display', 'none');
+                $(this).find('.aux-progress').css('display', 'none');
+            }
         });
 
         el.css('border-bottom', 'none');
-        el.css('background-color', '#000');
+        el.css('background-color', 'rgb(111, 45, 48)');
 
         let episode = el.attr('data-episode');
         let info = null;
@@ -780,24 +1136,46 @@ let Player_Helper = new (function () {
                 .attr('data-episode', value.episode)
                 .on('click', function(){
 
+                    $(this).parent().scrollTop($(this)[0].offsetTop);
                     let info = _getEpisodeInfo($(this));
 
                     if(info.css('display') === 'none'){
+
+                        containerBody.find('.episode-info').css('display', 'none');
+
                         info.css('display', 'block');
+
+                        if(_screenType === 'mobile'){
+                            $(this).find('.progress').css('display', 'block');
+                            $(this).find('.aux-progress').css('display', 'block');
+                        }
+
                     }else{
-                        Player_Anime.setEpisodeProgress();
+                       /* Player_Anime.setEpisodeProgress();
                         _setCurrentSeason(currentSeason.season);
-                        _setCurrentEpisode(value.episode);
+                        _setCurrentEpisode($(this).attr('data-episode'));
                         _listEpisodes();
                         _playCurrentEpisode();
                         _hideEpisodes();
+
+                        */
                     }
                 })
                 .appendTo(containerBody);
 
             let episodeInfo = $('<div>')
-                .attr('data-episode', value.episode)
                 .addClass('episode-info')
+                .attr('data-episode', value.episode)
+                .on('click', function(){
+
+                    Player_Anime.setEpisodeProgress();
+                    _setCurrentSeason(currentSeason.season);
+                    _setCurrentEpisode($(this).attr('data-episode'));
+                    _listEpisodes();
+                    _playCurrentEpisode();
+                    _controlEpisodes.css('display', 'none');
+
+                })
                 .appendTo(containerBody);
 
             $('<img>')
@@ -818,8 +1196,11 @@ let Player_Helper = new (function () {
             if(value.id === currentEpisode.id) {
                 let info = _getEpisodeInfo(episode);
                 info.css('display', 'block');
-                episode.css('background-color', '#000');
+                episode.css('background-color', 'rgb(111, 45, 48)');
                 episode.css('border-bottom', 'none');
+
+
+                episode.parent().scrollTop(episode[0].offsetTop);
             }
 
             $('<h5>')
@@ -828,19 +1209,38 @@ let Player_Helper = new (function () {
 
             let progressWidth = 0;
             if(value.progress > 0){
-                progressWidth = 165 * parseInt(value.progress) / 100;
+                progressWidth = 130 * parseInt(value.progress) / 100;
             }
 
-            $('<div>')
+            let auxProgress = $('<div>')
+                .addClass('aux-progress')
+                .css({
+                    'width' : progressWidth + 'px'
+                })
+                .appendTo(episodeInfo);
+
+            let progress = $('<div>')
+                .addClass('progress')
+                .appendTo(episodeInfo);
+
+           /* let auxProgress2 = $('<div>')
                 .addClass('aux-progress')
                 .css({
                     'width' : progressWidth + 'px'
                 })
                 .appendTo(episode);
 
-            $('<div>')
+            let progress2 = $('<div>')
                 .addClass('progress')
-                .appendTo(episode);
+                .appendTo(episode);*/
+
+
+            if(_screenType === 'mobile' && value.id !== currentEpisode.id){
+                auxProgress.css('display', 'none');
+                progress.css('display', 'none');
+              //  auxProgress2.css('display', 'none');
+              //  progress2.css('display', 'none');
+            }
         });
 
         let span = _controlEpisodes.find('span');
@@ -854,10 +1254,72 @@ let Player_Helper = new (function () {
 
     function _getProgressPercentage(){
 
-        let currentTime = _video.currentTime; //Get currenttime
-        let maxduration = _video.duration; //Get video duration
+        let currentTime = _video.currentTime;
+        let duration = _video.duration;
 
-        return 100 * currentTime / maxduration; //in %
+        return 100 * (currentTime / duration);
+    }
+
+    function _updateBuffer(position){
+
+        let duration = _video.duration;
+        let buffer = _video.buffered;
+        let length = buffer.length - 1;
+        let percentage = 100 * position / _progressContainer.width();
+        let start = null;
+        let end = null;
+        let diff = 5000;
+
+
+        for(let i = 0; i < length; i++){
+
+            let s = 100 * (buffer.start(i) / buffer.end(i));
+            let p = s > percentage ? s - percentage : percentage - s;
+
+            if(p < diff){
+                diff = p;
+                start = buffer.start(i);
+                end = buffer.end(i);
+            }
+        }
+
+        let left = 100 * (start / duration);
+        let width =  100 * ((end-start) / duration);
+
+        _progressBuffer.css({'width' : parseInt(width) + '%'});
+        _progressBuffer.css({'margin-left' : parseInt(left) + '%'});
+    }
+
+
+    function _getBufferPercentage(){
+
+        let position = parseInt(_progressAux.css('width'));
+        let percentage = parseInt(100 * position / parseInt(_progressContainer.width()));
+
+
+        let duration = _video.duration;
+        let buffer = _video.buffered;
+        let length = buffer.length - 1;
+        let start = null;
+        let end = null;
+        let diff = 5000;
+
+        for(let i = 0; i < length; i++){
+
+            let s = 100 * (buffer.start(i) / buffer.end(i));
+            let p = s - percentage;
+
+            if(p < diff){
+                diff = p;
+                start = buffer.start(i);
+                end =  buffer.end(i);
+            }
+        }
+
+        return {
+            left : 100 * (start / duration),
+            width : 100 * ((end-start) / duration)
+        };
     }
 
     function _setCurrentEpisode(index){
@@ -876,13 +1338,10 @@ let Player_Helper = new (function () {
 
     function _showControls(){
         _controlsContainer.css('display', 'block');
+        _progressContainer.css('display', 'block');
         _btnReturn.css('display', 'block');
         _btnSkipSeconds.css('display', 'block');
         _btnBackSeconds.css('display', 'block');
-
-        if($('#tooltip-episode').css('display') === 'none'){
-            _showProgressBar();
-        }
     }
 
     function _hideControls(){
@@ -891,7 +1350,6 @@ let Player_Helper = new (function () {
         _btnReturn.css('display', 'none');
         _btnSkipSeconds.css('display', 'none');
         _btnBackSeconds.css('display', 'none');
-
         _volumeContainer.css('display', 'none');
         _controlEpisodes.css('display', 'none');
         _boxNextEpisode.css('display', 'none');
@@ -907,12 +1365,18 @@ let Player_Helper = new (function () {
 
         _viewPort.mousemove(function () {
             _interval = 0;
-            _showControls();
+
+            if(!_finishAnime){
+                _showControls();
+            }
+
         });
 
         _viewPort.keypress(function (event) {
             _interval = 0;
-            _showControls();
+            if(!_finishAnime){
+                _showControls();
+            }
         });
 
         let elements = {
@@ -935,10 +1399,12 @@ let Player_Helper = new (function () {
 
         $.each(elements, function (key, element) {
 
+           // element.unbind('mouseover');
             element.bind("mouseover", function () {
                 clearIddleInterval();
             });
 
+          //  element.unbind('mouseleave');
             element.bind("mouseleave", function () {
                 clearIddleInterval(true);
             });
@@ -956,20 +1422,6 @@ let Player_Helper = new (function () {
         if (_interval > 1500 && !_video.paused) {
             _hideControls();
         }
-    }
-
-    function _unbindControls(){
-
-        _viewPort.unbind('mouseove');
-        _viewPort.unbind('keypress');
-        _controlsContainer.unbind('mouseover');
-        _controlsContainer.unbind('mouseleave');
-        _controlEpisodes.unbind('mouseover');
-        _controlEpisodes.unbind('mouseleave');
-        _progressContainer.unbind('mouseover');
-        _progressContainer.unbind('mouseleave');
-        _btnReturn.unbind('mouseover');
-        _btnReturn.unbind('mouseleave');
     }
 
     function _checkControls(){
@@ -1021,27 +1473,24 @@ let Player_Helper = new (function () {
     function _setStartTime(callback){
 
         let currentEpisode = Player_Anime.getCurrentEpisode();
+        let progress =  currentEpisode.progress;
+        let maxduration = _video.duration; //Get video duration
+        _video.currentTime = (maxduration * progress) / 100;
 
-        if(_skipOpening){
-            _video.currentTime = currentEpisode.open_end;
+        let currentPos = _video.currentTime;
+        let percentAux = 100 * currentPos / maxduration; //in %
+
+        _progressSlider.slider( "option", "value", Math.round(percentAux));
+        _progressAux.css({'width' : percentAux+ 0.5 + '%'});
+
+        if(percentAux < 70){
+            Player_Helper.createVideoActions();
         }else{
+            _destroyVideoActions();
+        }
 
-            let progress =  currentEpisode.progress;
-            let maxduration = _video.duration; //Get video duration
-            _video.currentTime = (maxduration * progress) / 100;
-
-            let currentPos = _video.currentTime;
-            let percentAux = 100 * currentPos / maxduration; //in %
-
-            _progressSlider.slider( "option", "value", Math.round(percentAux));
-            _progressAux.css({'width' : percentAux+ 0.5 + '%'});
-
-
-            if(percentAux < 70){
-                Player_Helper.createVideoActions();
-            }else{
-                _destroyVideoActions();
-            }
+        if(_skipOpening && percentAux < 20){
+           // _video.currentTime = currentEpisode.open_end;
         }
 
         if(typeof(callback) === 'function'){
@@ -1074,7 +1523,7 @@ let Player_Helper = new (function () {
             show = false;
         }
 
-        if(show){
+        if(show && !_finishAnime){
             _progressContainer.css('display', 'block');
         }
     }
@@ -1112,6 +1561,47 @@ let Player_Helper = new (function () {
         console.API.clear();
     }
 
+    function _setOrientation(orientation){
+
+        let elements = [_viewPort, _controlsContainer, _progressContainer, _btnSkipSeconds, _btnBackSeconds,_toolTipSkipSeconds,_toolTipBackSeconds,
+            _btnPlay, _btnVolume, _btnEpisodes, _btnForward, _volumeContainer, _controlEpisodes, _boxNextEpisode, _btnSkip, _btnNext,
+            _episodeTitle, _btnFullScreen, _btnReport, _btnEpisodes, _btnForward, _btnReturn];
+
+        _orientation = orientation;
+
+        if(orientation === 'landscape'){
+            $.each(elements, function(key, element){
+                element.addClass(orientation);
+            });
+        }else{
+            $.each(elements, function(key, element){
+                element.removeClass('landscape');
+            });
+        }
+    }
+
+    function _getScreenType(){
+        return _screenType;
+    }
+
+    function _showError(){
+
+        let img = _videoError.find('img');
+
+        if(!img[0]){
+            img = $('<img>')
+                .attr('src', '/img/Anime/utils/video_not_found.png')
+                .appendTo(_videoError);
+        }
+
+        img.css('display', 'block');
+        _showControls();
+    }
+
+    function _hideError(){
+        _videoError.find('img').css('display', 'none');
+    }
+
     return {
         setVideo: _setVideo,
         getVideo: _getVideo,
@@ -1134,7 +1624,9 @@ let Player_Helper = new (function () {
         skipVideo : _skipVideo,
         createSliders : _createSliders,
         manageProgressBar : _manageProgressBar,
+        manageProgressBuffer : _manageProgressBuffer,
         assignElements : _assignElements,
+        assignScreen : _assignScreen,
         updateProgressBar : _updateProgressBar,
         createActionSkip  : _createActionSkip,
         listEpisodes : _listEpisodes,
@@ -1154,7 +1646,12 @@ let Player_Helper = new (function () {
         hideProgressBar : _hideProgressBar,
         showProgressBar : _showProgressBar,
         showAlertReport : _showAlertReport,
-        clearConsole : _clearConsole
+        clearConsole : _clearConsole,
+        setOrientation : _setOrientation,
+        getScreenType : _getScreenType,
+        removeTimeoutCount : _removeTimeoutCount,
+        showError : _showError,
+        hideError : _hideError
     }
 
 });

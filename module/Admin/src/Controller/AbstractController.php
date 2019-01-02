@@ -106,7 +106,10 @@ class AbstractController extends AbstractActionController
 
     public function authenticate($user, $pass){
 
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
         $auth = $this->_adminTable->authenticate($user, $pass);
 
         if($auth){
@@ -119,7 +122,9 @@ class AbstractController extends AbstractActionController
 
     public function isAuthenticate(){
 
-        session_start();
+        if(!isset($_SESSION)){
+            session_start();
+        }
 
         if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
             session_unset();

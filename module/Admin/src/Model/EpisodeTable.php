@@ -43,7 +43,7 @@ class EpisodeTable
         return $row;
     }
 
-    public function getEpisodeByAnime($id_anime, $track)
+    public function getEpisodeByAnime($id_anime, $track = null)
     {
         $id_anime = (int) $id_anime;
         $sqlSelect = $this->tableGateway->getSql()->select();
@@ -51,7 +51,11 @@ class EpisodeTable
         $sqlSelect->join('season', 'episode.id_season = season.id_season', array(), 'inner');
         $sqlSelect->join('anime', 'season.id_anime = anime.id_anime', array(), 'inner');
         $sqlSelect->where(array('anime.id_anime' => $id_anime));
-        $sqlSelect->where(array('episode.track' => $track));
+
+        if($track){
+            $sqlSelect->where(array('episode.track' => $track));
+        }
+
         $sqlSelect->order('episode.episode');
         $rowset = $this->tableGateway->selectWith($sqlSelect);
 
@@ -97,6 +101,13 @@ class EpisodeTable
     public function deleteEpisode($id)
     {
         $this->tableGateway->delete(['id_episode' => (int) $id]);
+    }
+
+
+    public function deleteEpisodesAnime($seasons){
+        foreach($seasons as $season){
+            $this->tableGateway->delete(['id_season' => (int) $season->id_season]);
+        }
     }
 
 
