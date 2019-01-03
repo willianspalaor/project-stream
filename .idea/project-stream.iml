@@ -15,6 +15,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/guzzle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/promises" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/guzzlehttp/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/matthiasmullie/minify" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/matthiasmullie/path-converter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpseclib/phpseclib" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
@@ -35,6 +37,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-hydrator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-i18n" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-inputfilter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-json" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-loader" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-modulemanager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc" />

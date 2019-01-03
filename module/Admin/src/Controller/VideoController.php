@@ -63,6 +63,7 @@ class VideoController extends AbstractController
         $data = $form->getData();
         $data['id_episode'] = $id_episode;
         $data['status'] = 1;
+        $data['token'] = (int)$data['token'];
 
         $video->exchangeArray($data);
         $this->_videoTable->saveVideo($video);
@@ -119,7 +120,7 @@ class VideoController extends AbstractController
         if (! $form->isValid()) {
             return $viewData;
         }
-
+        $video->token = (int)$data['token'];
         $this->_videoTable->saveVideo($video);
 
         return $this->redirect()->toRoute('admin/video', array(

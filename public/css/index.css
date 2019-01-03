@@ -529,8 +529,9 @@ a { list-style-type:none;}
 }
 
 .container-search > .col-xs-12{
-    margin-bottom: 30px;
-    margin-top: 30px;
+    width: 90%;
+    left: 5%;
+    margin-top: 80px;
 }
 
 .container-search > .card-search > .overlay{

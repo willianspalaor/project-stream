@@ -156,8 +156,6 @@ let Player_Anime = new (function () {
             return episode.videos['video ' + index];
         }
 
-        console.log(data);
-
         index = 1;
         let videos = episode.videos;
         let video = getVideo(index);
@@ -188,8 +186,7 @@ let Player_Anime = new (function () {
                      }
                  }else{
 
-
-                     //Player_Helper.clearConsole();
+                     Player_Helper.clearConsole();
 
                      if(!found){
 

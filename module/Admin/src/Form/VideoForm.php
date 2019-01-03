@@ -33,6 +33,18 @@ class VideoForm extends Form
         ]);
 
         $this->add([
+            'name' => 'token',
+            'type' => 'select',
+            'options' => [
+                'options' => [
+                    '0' => 'Não',
+                    '1' => 'Sim'
+                ],
+                'label' => 'token'
+            ]
+        ]);
+
+        $this->add([
             'name' => 'submit',
             'type' => 'submit',
             'attributes' => [

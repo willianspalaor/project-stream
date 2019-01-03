@@ -31,7 +31,7 @@ body{
 
 .video-error{
     position: absolute;
-    top: 0;
+    top: 25%;
     left: 15%;
 }
 
@@ -40,7 +40,7 @@ body{
     background-color: #000;
     width: 400px;
     height: 230px;
-    top: 130px;
+    top: 122px;
     cursor: pointer;
     right: 10%;
     border: 1px solid #fff;
@@ -646,7 +646,7 @@ body{
 
 .btn-action.next {
     background-color: #262626;
-    margin-top: 11%;
+    margin-top: 10.5%;
     right: 18%;
     width: 400px;
     height: 230px;

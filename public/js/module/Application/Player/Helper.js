@@ -325,21 +325,23 @@ let Player_Helper = new (function () {
 
             Player_Anime.getVideo(nextEpisode, function(videoEpisode){
 
-                _video.pause();
-                _video.src = videoEpisode.url;
-                _video.load();
+                Player_Helper.getUrlVideo(videoEpisode, function(url){
 
-                if(play){
-                    _btnPlay.find('i').attr('class', 'fas fa-pause');
-                    _video.play();
-                }else{
-                    _btnPlay.find('i').attr('class', 'fas fa-play');
-                }
+                    _video.pause();
+                    _video.src = url;
+                    _video.load();
 
-                _hideLoader();
+                    if(play){
+                        _btnPlay.find('i').attr('class', 'fas fa-pause');
+                        _video.play();
+                    }else{
+                        _btnPlay.find('i').attr('class', 'fas fa-play');
+                    }
+
+                    _hideLoader();
+                });
             });
         }else{
-
             _showRelatedAnimes();
         }
     }
@@ -429,18 +431,21 @@ let Player_Helper = new (function () {
 
         Player_Anime.getVideo(currentEpisode, function(videoEpisode){
 
-            _video = document.getElementById('video');
-            _video.src = videoEpisode.url;
-            _video.load();
+            Player_Helper.getUrlVideo(videoEpisode, function(url){
 
-            if(play){
-                _btnPlay.find('i').attr('class', 'fas fa-pause');
-                _video.play();
-            }else{
-                _btnPlay.find('i').attr('class', 'fas fa-play');
-            }
+                _video = document.getElementById('video');
+                _video.src = url;
+                _video.load();
 
-            _hideLoader();
+                if(play){
+                    _btnPlay.find('i').attr('class', 'fas fa-pause');
+                    _video.play();
+                }else{
+                    _btnPlay.find('i').attr('class', 'fas fa-play');
+                }
+
+                _hideLoader();
+            });
         });
     }
 
@@ -514,9 +519,9 @@ let Player_Helper = new (function () {
                // _controlEpisodes.unbind('mouseleave');
                 _controlEpisodes.bind('mouseleave', function(){
 
-                  //  timeout = setTimeout(function(){
+                    timeout = setTimeout(function(){
                         hide();
-                   // }, 300);
+                    }, 300);
 
                     clearIddleInterval(true);
                 });
@@ -598,12 +603,6 @@ let Player_Helper = new (function () {
             if(title[0].offsetWidth){
                 subTitle.css('left', title[0].offsetWidth + 'px');
             }
-        }, 200);
-
-        setTimeout(function(){
-            if(title[0].offsetWidth){
-                subTitle.css('left', title[0].offsetWidth + 'px');
-            }
         }, 500);
 
         setTimeout(function(){
@@ -616,7 +615,7 @@ let Player_Helper = new (function () {
             if(title[0].offsetWidth){
                 subTitle.css('left', title[0].offsetWidth + 'px');
             }
-        }, 2000);
+        }, 10000);
 
         if(typeof(callback) === 'function'){
             callback();
@@ -658,6 +657,10 @@ let Player_Helper = new (function () {
                 'position' : 'relative'
             });
 
+            _videoError.css({
+                'left' : '15%'
+            });
+
             if(_btnNext.css('display') !== 'none'){
 
                 _btnNext.css({
@@ -680,6 +683,10 @@ let Player_Helper = new (function () {
             _viewPort.css({
                 'margin' : '0',
                 'position' : 'relative'
+            });
+
+            _videoError.css({
+                'left' : '22.5%'
             });
 
             if(_btnNext.css('display') !== 'none'){
@@ -814,16 +821,14 @@ let Player_Helper = new (function () {
                         _controlsContainer.css('display', 'block');
                         _videoRelated.css('display', 'none');
                         _video.play();
-                        $(_video).unbind('click');
                         _video.paused ? Player_Helper.play(_btnPlay, true) : Player_Helper.pause(_btnPlay, true);
+                        $(_video).unbind('click');
                         if(_screenType !== 'mobile'){
                             $(_video).bind('click', function(){
                                 _video.paused ? Player_Helper.play(_btnPlay, true) : Player_Helper.pause(_btnPlay, true);
                             });
                         }
                     });
-
-
                 }
 
             }else{
@@ -1134,9 +1139,18 @@ let Player_Helper = new (function () {
             let episode = $('<div>')
                 .addClass('episode')
                 .attr('data-episode', value.episode)
-                .on('click', function(){
+                .on('click', function(ev){
 
-                    $(this).parent().scrollTop($(this)[0].offsetTop);
+                    ev.preventDefault();
+
+                    if(_screenType === 'mobile' && _orientation !== 'landscape'){
+                        $(this).parent().scrollTop($(this)[0].offsetTop);
+                    }
+
+                    if(_screenType === 'desk'){
+                        $(this).parent().scrollTop($(this)[0].offsetTop);
+                    }
+
                     let info = _getEpisodeInfo($(this));
 
                     if(info.css('display') === 'none'){
@@ -1150,15 +1164,6 @@ let Player_Helper = new (function () {
                             $(this).find('.aux-progress').css('display', 'block');
                         }
 
-                    }else{
-                       /* Player_Anime.setEpisodeProgress();
-                        _setCurrentSeason(currentSeason.season);
-                        _setCurrentEpisode($(this).attr('data-episode'));
-                        _listEpisodes();
-                        _playCurrentEpisode();
-                        _hideEpisodes();
-
-                        */
                     }
                 })
                 .appendTo(containerBody);
@@ -1166,7 +1171,9 @@ let Player_Helper = new (function () {
             let episodeInfo = $('<div>')
                 .addClass('episode-info')
                 .attr('data-episode', value.episode)
-                .on('click', function(){
+                .on('click', function(ev){
+
+                    ev.preventDefault();
 
                     Player_Anime.setEpisodeProgress();
                     _setCurrentSeason(currentSeason.season);
@@ -1565,7 +1572,7 @@ let Player_Helper = new (function () {
 
         let elements = [_viewPort, _controlsContainer, _progressContainer, _btnSkipSeconds, _btnBackSeconds,_toolTipSkipSeconds,_toolTipBackSeconds,
             _btnPlay, _btnVolume, _btnEpisodes, _btnForward, _volumeContainer, _controlEpisodes, _boxNextEpisode, _btnSkip, _btnNext,
-            _episodeTitle, _btnFullScreen, _btnReport, _btnEpisodes, _btnForward, _btnReturn];
+            _episodeTitle, _btnFullScreen, _btnReport, _btnEpisodes, _btnForward, _btnReturn, _videoError];
 
         _orientation = orientation;
 
@@ -1600,6 +1607,37 @@ let Player_Helper = new (function () {
 
     function _hideError(){
         _videoError.find('img').css('display', 'none');
+    }
+
+    function _getToken(videoEpisode){
+
+        if(videoEpisode.token){
+            let date = new Date();
+            let token = encodeURIComponent(window.btoa(String(videoEpisode.url)));
+            let time = date.toLocaleString('pt-br');
+            return  '/anime/getVideoAnime?t=' + token + ';' + window.btoa(String(time));
+        }else{
+            return videoEpisode.url;
+        }
+    }
+
+    function _getUrlVideo(video, callback){
+
+        if(!video.token){
+            return callback(video.url);
+        }else{
+            $.ajax({
+                type: 'GET',
+                url: Player_Helper.getToken(video),
+                success: function (response) {
+                    callback(response);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
     }
 
     return {
@@ -1651,7 +1689,9 @@ let Player_Helper = new (function () {
         getScreenType : _getScreenType,
         removeTimeoutCount : _removeTimeoutCount,
         showError : _showError,
-        hideError : _hideError
+        hideError : _hideError,
+        getToken : _getToken,
+        getUrlVideo : _getUrlVideo
     }
 
 });

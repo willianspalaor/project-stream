@@ -2,10 +2,11 @@
 
 namespace Application\Controller;
 
-use Application\Model\Video;
-use Zend\View\Model\ViewModel;
+//use Application\Model\Video;
+//use Zend\View\Model\ViewModel;
 
-//require __DIR__ . '\..\..\..\..\DriverAPI.php';
+use Admin\Model\Video;
+use Application\Utils\VideoStream;
 
 class AnimeController extends AbstractController
 {
@@ -17,10 +18,70 @@ class AnimeController extends AbstractController
         die(json_encode(array('anime' => $anime)));
     }
 
+    function curl_get_file_size( $url ) {
+        // Assume failure.
+        $result = -1;
+
+        $curl = curl_init( $url );
+
+        // Issue a HEAD request and follow any redirects.
+        curl_setopt( $curl, CURLOPT_NOBODY, true );
+        curl_setopt( $curl, CURLOPT_HEADER, true );
+        curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
+        //curl_setopt( $curl, CURLOPT_USERAGENT, get_user_agent_string() );
+
+        $data = curl_exec( $curl );
+        curl_close( $curl );
+
+        if( $data ) {
+            $content_length = "unknown";
+            $status = "unknown";
+
+            if( preg_match( "/^HTTP\/1\.[01] (\d\d\d)/", $data, $matches ) ) {
+                $status = (int)$matches[1];
+            }
+
+            if( preg_match( "/Content-Length: (\d+)/", $data, $matches ) ) {
+                $content_length = (int)$matches[1];
+            }
+
+            // http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+            if( $status == 200 || ($status > 300 && $status <= 308) ) {
+                $result = $content_length;
+            }
+        }
+
+        return $result;
+    }
+
+
     public function getVideoAnimeAction()
     {
-        getFile5();
-        die('true');
+
+
+        $token = $this->params()->fromQuery('t');
+        $position = strpos($token, ';');
+        $video = substr($token, 0, $position);
+        $date = substr($token, $position+1, strlen($token));
+
+
+        $video =  base64_decode(urldecode($video));
+        $date =  base64_decode(urldecode($date));
+
+        $now = date('m/d/Y h:i:s a', time());
+        $now = strtotime((string)$now);
+
+        $now = (int)$now;
+        $date = (int)$date;
+        $diff = $date - $now;
+
+        if($diff < 5000000){
+            $headers = get_headers($video, 1);
+            die($headers['Location'][1]);
+        }
+
+        die();
     }
 
     public function getPlayerAnimeAction(){

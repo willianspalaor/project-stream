@@ -4,7 +4,7 @@ class Player{
 
         let self = this;
 
-        Player_Anime.setData(track, function(data){
+        Player_Anime.setData(track, function(data) {
 
             Player_Helper.setVideo(document.getElementById('video'));
             Player_Helper.assignElements();
@@ -21,45 +21,48 @@ class Player{
 
             self.play(episode, checkUrl);
         });
-    }
+      }
 
     play(episode, checkUrl){
-
+    
         let self = this;
         let video = Player_Helper.getVideo();
-
+    
         Player_Anime.getVideo(episode, function(videoEpisode){
 
-            console.log(videoEpisode);
+            Player_Helper.showLoader();
 
-            video.src = videoEpisode.url;
+            Player_Helper.getUrlVideo(videoEpisode, function(url){
 
-            self.bindButtonEvents();
-            self.bindProgressEvents();
-            self.bindVideoEvents(video);
+                video.src = url;
+                self.bindButtonEvents();
+                self.bindProgressEvents();
+                self.bindVideoEvents(video);
+
+                video.play();
+            });
 
         }, null, checkUrl);
     }
-
+    
     bindVideoEvents(video){
-
+    
         video.onloadstart = function() {
             Player_Helper.showLoader();
         };
-
+    
         video.onloadedmetadata = function() {
             Player_Helper.setCurrentData();
             Player_Helper.createSliders();
             Player_Helper.listEpisodes();
         };
-
+    
         video.onloadeddata = function() {
             Player_Helper.setStartTime(function(){
                 Player_Helper.showControls();
                 Player_Helper.checkControls();
             });
         };
-
         video.oncanplay = function() {
             Player_Helper.hideError();
             Player_Helper.hideLoader();
@@ -70,17 +73,17 @@ class Player{
         };
 
         video.onprogress = function() {
-            //   Player_Helper.manageProgressBuffer();
+        //   Player_Helper.manageProgressBuffer();
         };
 
         video.onabort = function(ev) {
-            /*let player = new Player();
-            let episode = Player_Anime.getCurrentEpisode();
-            player.play(episode, false);*/
+        /*let player = new Player();
+        let episode = Player_Anime.getCurrentEpisode();
+        player.play(episode, false);*/
         };
 
         video.onerror = function(ev){
-
+    
             Player_Helper.setCurrentData(function(){
                 Player_Helper.showError();
                 Player_Helper.hideLoader();
@@ -162,7 +165,7 @@ class Player{
 
        // btnForward.unbind('click');
         btnForward.bind('click', function(){
-            Player_Helper.playNextEpisode();
+            Player_Helper.playNextEpisode(true);
         });
 
        // btnForward.unbind('mouseover');
@@ -294,7 +297,11 @@ class Player{
 
         //$(video).unbind('click');
         $(video).bind('click', function(){
-            video.paused ? Player_Helper.play(btnPlay, true) : Player_Helper.pause(btnPlay, true);
+
+            if(Player_Helper.getScreenType() !== 'mobile'){
+                video.paused ? Player_Helper.play(btnPlay, true) : Player_Helper.pause(btnPlay, true);
+            }
+
             Player_Helper.removeTimeoutCount();
         });
 

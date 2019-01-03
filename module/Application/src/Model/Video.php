@@ -21,6 +21,7 @@ class Video implements InputFilterAwareInterface
     public $server;
     public $url;
     public $status;
+    public $token;
 
     private $inputFilter;
 
@@ -31,6 +32,7 @@ class Video implements InputFilterAwareInterface
         $this->server = !empty($data['server']) ? $data['server'] : null;
         $this->url = !empty($data['url']) ? $data['url'] : null;
         $this->status = !empty($data['status']) ? $data['status'] : null;
+        $this->token = !empty($data['token']) ? $data['token'] : null;
     }
 
     public function getArrayCopy()
@@ -40,7 +42,8 @@ class Video implements InputFilterAwareInterface
             'id_episode' => $this->id_episode,
             'server' => $this->server,
             'url' => $this->url,
-            'status' => $this->status
+            'status' => $this->status,
+            'token' => $this->token
         ];
     }
 
