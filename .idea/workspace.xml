@@ -4,51 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/module/Admin/src/Model/EpisodeReport.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/module/Admin/src/Model/EpisodeReportTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-stream.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-stream.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/modules.config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/modules.config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/Episode.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/Episode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/EpisodeTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/EpisodeTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Module.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Module.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/anime/add.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/anime/add.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/anime/edit.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/anime/edit.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/episode/add.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/episode/add.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/episode/edit.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/episode/edit.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Client.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Client.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/ClientTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/ClientTable.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Episode.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Episode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/navbar.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/navbar.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/mobile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mobile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/player.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/Anime/miniaturas/boruto_next_generation.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/bootstrap-slider.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/bootstrap-slider.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/jquery-ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/jquery-ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/xhr/Anime.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/xhr/Anime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/video/Anime/trailers/amanchu.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/public/video/Anime/trailers/amanchu.mp4" afterDir="false" />
-    </list>
+    <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +86,7 @@
           <entry key="html" value="7" />
           <entry key="jpg" value="5" />
           <entry key="js" value="337" />
-          <entry key="json" value="17" />
+          <entry key="json" value="18" />
           <entry key="md" value="1" />
           <entry key="php" value="862" />
           <entry key="phtml" value="364" />
@@ -145,7 +101,7 @@
           <entry key="Dockerfile" value="1" />
           <entry key="HTML" value="7" />
           <entry key="Image" value="6" />
-          <entry key="JSON" value="17" />
+          <entry key="JSON" value="18" />
           <entry key="JavaScript" value="337" />
           <entry key="Markdown" value="1" />
           <entry key="PHP" value="1226" />
@@ -167,7 +123,7 @@
         <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1">
-              <caret line="186" column="5" lean-forward="true" selection-start-line="186" selection-start-column="5" selection-end-line="186" selection-end-column="5" />
+              <caret line="186" column="5" selection-start-line="186" selection-start-column="5" selection-end-line="186" selection-end-column="5" />
               <folding>
                 <element signature="e#107#129#0#PHP" expanded="true" />
               </folding>
@@ -179,7 +135,7 @@
         <entry file="file://$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="506">
-              <caret line="202" column="20" lean-forward="true" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
+              <caret line="202" column="20" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -206,16 +162,25 @@
         <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="389">
-              <caret line="823" column="25" lean-forward="true" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
+              <caret line="823" column="25" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/player.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="751" column="20" selection-start-line="751" selection-start-column="20" selection-end-line="751" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/css/player.css">
+        <entry file="file://$PROJECT_DIR$/composer.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="751" column="20" lean-forward="true" selection-start-line="751" selection-start-column="20" selection-end-line="751" selection-end-column="20" />
+            <state relative-caret-position="408">
+              <caret line="24" column="30" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -400,7 +365,7 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-mime" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1616" />
@@ -579,15 +544,15 @@
       <workItem from="1546914591611" duration="13562000" />
       <workItem from="1546986789375" duration="878000" />
       <workItem from="1547063576623" duration="1168000" />
-      <workItem from="1547080948618" duration="4807000" />
+      <workItem from="1547080948618" duration="4813000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1185112000" />
+    <option name="totallyTimeSpent" value="1185118000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="916" extended-state="7" />
+    <frame x="-8" y="-8" width="1616" height="916" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20875" />
@@ -628,13 +593,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/Admin/src/Module.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="138" column="59" selection-start-line="138" selection-start-column="59" selection-end-line="138" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/module/Admin/src/Model/ClientEpisodeTable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
@@ -940,7 +898,7 @@
     <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1">
-          <caret line="186" column="5" lean-forward="true" selection-start-line="186" selection-start-column="5" selection-end-line="186" selection-end-column="5" />
+          <caret line="186" column="5" selection-start-line="186" selection-start-column="5" selection-end-line="186" selection-end-column="5" />
           <folding>
             <element signature="e#107#129#0#PHP" expanded="true" />
           </folding>
@@ -950,7 +908,7 @@
     <entry file="file://$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
-          <caret line="202" column="20" lean-forward="true" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
+          <caret line="202" column="20" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -964,14 +922,21 @@
     <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="389">
-          <caret line="823" column="25" lean-forward="true" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
+          <caret line="823" column="25" selection-start-line="823" selection-start-column="25" selection-end-line="823" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/player.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
-          <caret line="751" column="20" lean-forward="true" selection-start-line="751" selection-start-column="20" selection-end-line="751" selection-end-column="20" />
+          <caret line="751" column="20" selection-start-line="751" selection-start-column="20" selection-end-line="751" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="30" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="30" />
         </state>
       </provider>
     </entry>
