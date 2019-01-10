@@ -67,6 +67,26 @@ class EpisodeTable
         return $row;
     }
 
+    public function getEpisodesByAnime($id_anime)
+    {
+        $id_anime = (int) $id_anime;
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->join('season', 'episode.id_season = season.id_season', array(), 'inner');
+        $sqlSelect->join('anime', 'season.id_anime = anime.id_anime', array(), 'inner');
+        $sqlSelect->where(array('anime.id_anime' => $id_anime));
+        $sqlSelect->order('episode.episode');
+
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+        $rows = [];
+
+        foreach ($rowset as $key => $value) {
+            $rows[(int)$key] = $value;
+        }
+
+        return $rows;
+    }
+
     public function getEpisodesBySeason($id_season)
     {
         $id_season = (int) $id_season;

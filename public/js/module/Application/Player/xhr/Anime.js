@@ -79,6 +79,11 @@ let Player_Anime = new (function () {
 
             if(nextSeason){
 
+                if(change){
+                //    Player_Helper.resetOpening();
+                }
+
+
                 let episode = nextSeason.episodes['episode ' + 1];
 
                 if(change){

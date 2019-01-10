@@ -8,6 +8,7 @@ let App_Helper = new (function () {
     let _carouselInner = null;
     let _carouselId = null;
     let _loader = null;
+    let _loaderLogin = null;
     let _containerNavbar = null;
     let _navbar = null;
     let _navbarMenu = null;
@@ -30,6 +31,8 @@ let App_Helper = new (function () {
     let _filtersClear = false;
     let _screenType = null;
     let _orientation = null;
+    let _authenticated = false;
+    let _modalDialog = null;
 
 
     function _assignElements(){
@@ -37,6 +40,7 @@ let App_Helper = new (function () {
         _content = $('.content');
         _carousel = $('#carousel-animes');
         _loader = $('#loader-wrapper');
+        _loaderLogin = $('#loader-wrapper-lg');
         _sidebarTopWrapper = $('#sidebar-top-wrapper');
         _sidebarRightWrapper = $('#sidebar-right-wrapper');
         _sidebarLeftWrapper = $('#sidebar-left-wrapper');
@@ -57,6 +61,7 @@ let App_Helper = new (function () {
         _searchReturn = $('.search-return');
         _searchIcon = $('.search-icon');
         _containerSearch = $('.container-search');
+        _modalDialog = $('.modal-dialog');
         _carouselId = _carousel.attr('id');
     }
 
@@ -223,7 +228,7 @@ let App_Helper = new (function () {
         App_Helper.showSearch();
         App_Helper.showWrapper();
 
-        $('.search-return').css('display', 'block');
+       // $('.search-return').css('display', 'block');
 
         if(showloader)
             App_Helper.showLoader();
@@ -256,7 +261,7 @@ let App_Helper = new (function () {
 
             $.each(data.animes, function (key, value) {
 
-                if((i % 5) === 0){
+                if((i % 5) === 0){ // Mobile aqui
                     createCarousel(index);
                     first = true;
                     index++;
@@ -382,7 +387,7 @@ let App_Helper = new (function () {
             })
             .appendTo(link);
 
-        $('<video muted>')
+        $('<video muted loop>')
             .attr({
                 'src' : data.trailer,
                 'type' : 'video/mp4'
@@ -430,7 +435,16 @@ let App_Helper = new (function () {
             .addClass('info');
 
         info.bind('click', function(){
-            window.location.href = $(this).parent().attr('data-route');
+
+            if(_screenType !== 'mobile'){
+                window.location.href = $(this).parent().attr('data-route');
+            }
+        });
+
+        info.bind('dblclick', function(){
+            if(_screenType === 'mobile'){
+                window.location.href = $(this).parent().attr('data-route');
+            }
         });
 
         info.bind('mouseenter', function(){
@@ -968,9 +982,26 @@ let App_Helper = new (function () {
         }
     }
 
+    function _showLoaderLogin(callback){
+
+
+        _loaderLogin = $('#loader-wrapper-lg');
+        $('.modal-body').css('overflow-y', 'hidden');
+        _loaderLogin.css('display', 'block');
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
+    }
+
     function _hideLoader(){
         $('body').css('overflow-y', 'visible');
         _loader.css('display', 'none');
+    }
+
+    function _hideLoaderLogin(){
+        $('.modal-body').css('overflow-y', 'visible');
+        _loaderLogin.css('display', 'none');
     }
 
     function _showCarousel(){
@@ -1062,8 +1093,10 @@ let App_Helper = new (function () {
                         'href' : '#'
                     })
                     .on('click', function(){
+
+                        let id =  $(this).attr('data-id');
                         App_Helper.clearFilters(function(){
-                            _listSearchAnimes({category :  $(this).attr('data-id')});
+                            _listSearchAnimes({category :  id});
                         });
                     })
                     .text(value.title)
@@ -1325,7 +1358,7 @@ let App_Helper = new (function () {
             App_Helper.hideSearch();
             App_Helper.showCarousel();
 
-            $('.search-return').css('display', 'none');
+          //  $('.search-return').css('display', 'none');
             $('.selected-filters').css('display', 'none');
             $('#search-anime').val('');
 
@@ -1433,7 +1466,7 @@ let App_Helper = new (function () {
         _orientation = orientation;
 
         let elements = [_searchBar, _containerNavbar, _wrapperTop, _containerFluid, _containerCarousel,
-            _searchReturn, _containerSearch, _wrapperLeft, _wrapperTop];
+            _searchReturn, _containerSearch, _wrapperLeft, _wrapperTop, _navbarMenu, _modalDialog];
 
         if(orientation === 'landscape'){
 
@@ -1504,6 +1537,36 @@ let App_Helper = new (function () {
         return _screenType;
     }
 
+    function _setAuthentication(){
+
+        let textLogin = $('.btn-login');
+
+        App_Anime.getAuthentication(function(authenticated){
+            
+            _authenticated = authenticated;
+
+            if(_authenticated){
+                textLogin.css('display', 'none');
+            }else{
+                textLogin.css('display', 'block');
+            }
+        });
+    }
+
+    function _isAuthenticated(){
+        return _authenticated;
+    }
+
+    function _showWrapperTop(){
+        if(_hasSearch()){
+            _sidebarTopWrapper.css('display', 'block');
+        }
+    }
+
+    function _hideWrapperTop(){
+        _sidebarTopWrapper.css('display', 'none');
+    }
+
     return {
         assignElements: _assignElements,
         assignScreen: _assignScreen,
@@ -1511,6 +1574,8 @@ let App_Helper = new (function () {
         listCurrentAnimes : _listCurrentAnimes,
         listSearchAnimes : _listSearchAnimes,
         showLoader : _showLoader,
+        showLoaderLogin : _showLoaderLogin,
+        hideLoaderLogin : _hideLoaderLogin,
         hideLoader : _hideLoader,
         showCarousel: _showCarousel,
         hideCarousel : _hideCarousel,
@@ -1528,8 +1593,11 @@ let App_Helper = new (function () {
         clearFilters : _clearFilters,
         showAutoCompleteTags : _showAutoCompleteTags,
         setOrientation : _setOrientation,
-        getScreenType : _getScreenType
-
+        getScreenType : _getScreenType,
+        setAuthentication : _setAuthentication,
+        isAuthenticated : _isAuthenticated,
+        showWrapperTop : _showWrapperTop,
+        hideWrapperTop : _hideWrapperTop
     }
 
 });

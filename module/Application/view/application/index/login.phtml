@@ -1,0 +1,47 @@
+
+
+<div class="modal fade" id="modal-login" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="alert alert-danger" id="alert-login" role="alert"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-login">
+                    <div class="login-form">
+                        <div class="main-div">
+                            <div class="panel">
+                                <h2>Login</h2>
+                                <p>Por favor informe um usuário e uma senha.</p>
+                            </div>
+                            <form action="/anime/login" method="post"  name="login-home">
+                                    <div class="form-group">
+                                        <input type="text" autocomplete="username" class="form-control" name="user_email" placeholder="Usuário" required autofocus="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" autocomplete="current-password" class="form-control" name="user_pass" placeholder="Senha" required/>
+                                    </div>
+                                    <!--<div class="forgot">
+                                        <a id="btnForgot" href="#">Esqueceu a senha?</a>
+                                    </div> -->
+                                <button name="btnModalLogin" type="submit" class="btn btn-primary">Entrar / Cadastrar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="loader-wrapper-lg">
+                        <div id="loader-lg"></div>
+                        <div class="loader-section section-left"></div>
+                        <div class="loader-section section-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/login-home.css') ?>">
+<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/login-loader.css') ?>">

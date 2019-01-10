@@ -61,11 +61,13 @@ class Player{
             Player_Helper.setStartTime(function(){
                 Player_Helper.showControls();
                 Player_Helper.checkControls();
+                Player_Helper.setCurrentData();
             });
         };
         video.oncanplay = function() {
             Player_Helper.hideError();
             Player_Helper.hideLoader();
+            //Player_Helper.clearConsole();
         };
 
         video.ontimeupdate = function() {
@@ -138,14 +140,13 @@ class Player{
 
 
         //btnPlay.unbind('click');
-        btnPlay.bind('click', function(){
-            video.paused ? Player_Helper.play(this) : Player_Helper.pause(this);
+        btnPlay.find('i').bind('click', function(){
+            video.paused ? Player_Helper.play($(this).parent()) : Player_Helper.pause($(this).parent());
         });
 
         //btnVolume.unbind('click');
-        btnVolume.bind('click', function(){
-            video.muted ? Player_Helper.unMute(this) : Player_Helper.mute(this);
-
+        btnVolume.find('i').bind('click', function(){
+            video.muted ? Player_Helper.unMute($(this).parent()) : Player_Helper.mute($(this).parent());
             if($('.control-volume-slider').css('display') === 'none'){
                 Player_Helper.showVolume();
             } else{
@@ -154,12 +155,12 @@ class Player{
         });
 
        // btnVolume.unbind('mouseover');
-        btnVolume.bind('mouseover', function(){
+        btnVolume.find('i').bind('mouseenter', function(){
             Player_Helper.showVolume();
         });
 
        // btnVolume.unbind('mouseleave');
-        btnVolume.bind('mouseleave', function(e){
+        btnVolume.find('i').bind('mouseleave', function(e){
             Player_Helper.hideVolume(this, e.pageX, e.pageY);
         });
 
@@ -169,12 +170,12 @@ class Player{
         });
 
        // btnForward.unbind('mouseover');
-        btnForward.bind('mouseover', function(){
+        btnForward.find('i').bind('mouseenter', function(){
             Player_Helper.showNextEpisode();
         });
 
       //  btnForward.unbind('mouseleave');
-        btnForward.bind('mouseleave', function(e){
+        btnForward.find('i').bind('mouseleave', function(e){
             Player_Helper.hideNextEpisode(this, e.pageX, e.pageY);
         });
 
@@ -189,13 +190,14 @@ class Player{
         });
 
        // btnEpisodes.unbind('mouseenter');
-        btnEpisodes.bind('mouseenter', function(){
+        btnEpisodes.find('i').bind('mouseenter', function(){
             Player_Helper.showEpisodes();
         });
 
        // btnEpisodes.unbind('mouseleave');
-        btnEpisodes.bind('mouseleave', function(e){
+        btnEpisodes.find('i').bind('mouseleave', function(e){
             Player_Helper.hideEpisodes(this, e.pageX, e.pageY);
+            Player_Helper.showProgressBar();
         });
 
         //btnReturn.unbind('click');
@@ -215,18 +217,27 @@ class Player{
 
        // btnReport.unbind('click');
         btnReport.bind('click', function(){
-            Player_Helper.showAlertReport();
-            Player_Anime.sendEpisodeReport();
+            if(Player_Helper.getScreenType() !== 'mobile'){
+                Player_Helper.showAlertReport();
+                Player_Anime.sendEpisodeReport();
+            }
+        });
+
+        btnReport.bind('dblclick', function(){
+            if(Player_Helper.getScreenType() === 'mobile'){
+                Player_Helper.showAlertReport();
+                Player_Anime.sendEpisodeReport();
+            }
         });
 
       //  btnReport.unbind('mouseenter');
-        btnReport.bind('mouseenter', function(){
+        btnReport.find('i').bind('mouseenter', function(){
             Player_Helper.hideProgressBar();
             Player_Helper.showTooltip('report');
         });
 
         //btnReport.unbind('mouseleave');
-        btnReport.bind('mouseleave', function(){
+        btnReport.find('i').bind('mouseleave', function(){
             Player_Helper.showProgressBar();
             Player_Helper.hideTooltip('report');
         });
@@ -297,7 +308,6 @@ class Player{
 
         //$(video).unbind('click');
         $(video).bind('click', function(){
-
             if(Player_Helper.getScreenType() !== 'mobile'){
                 video.paused ? Player_Helper.play(btnPlay, true) : Player_Helper.pause(btnPlay, true);
             }

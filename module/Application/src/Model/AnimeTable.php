@@ -173,10 +173,12 @@ class AnimeTable
         $select->where(array('anime.title LIKE ?' => '%' . $anime->title . '%'));
         $select->where(array('anime.id_anime != ?' => $anime->id));
         $select->limit(1);
-        $result = $this->fetchPaginatedResults($select);
+        $rowset = $this->tableGateway->selectWith($select);
+        $row = $rowset->toArray();
+        //$result = $this->fetchPaginatedResults($select);
 
 
-        if($result->count() <= 0){
+        if(!$row || empty($row)){
             $select = $this->tableGateway->getSql()->select();
             $select->columns(array('*'));
             $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
@@ -184,18 +186,21 @@ class AnimeTable
             $select->where(array('anime_category.id_anime' => $anime->id));
             $select->where(array('anime.id_anime != ?' => $anime->id));
             $select->limit(1);
-            $result = $this->fetchPaginatedResults($select);
+            $rowset = $this->tableGateway->selectWith($select);
+            $row = $rowset->toArray();
+           // $result = $this->fetchPaginatedResults($select);
         }
 
-        if($result->count() <= 0){
+        if(!$row || empty($row)){
             $select = $this->tableGateway->getSql()->select();
             $select->columns(array('*'));
             $select->limit(1);
             $select->where(array('anime.id_anime != ?' => $anime->id));
-            $result = $this->fetchPaginatedResults($select);
+            $rowset = $this->tableGateway->selectWith($select);
+            $row = $rowset->toArray();
         }
 
-        return $result;
+        return $row;
 
     }
 }

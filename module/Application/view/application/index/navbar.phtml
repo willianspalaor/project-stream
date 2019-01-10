@@ -5,20 +5,33 @@
                 <li><a id="btnHome" href="#"><i class="fas fa-home"></i> Início</a></li>
                 <li><a id="btnAnimes" href="#"> Animes</a></li>
                 <!--<li><a href="#"><i class="fas fa-list-ul"></i> Minha Lista</a></li> -->
-                <li>
-                    <div class="search-bar">
-                        <div class="ui-widget">
-                            <input id="search-anime" autocomplete="disabled" class="search-input" type="text" placeholder="Procurar por título, categoria, autor...">
-                        </div>
-                        <a href="#" class="search-icon" data-toggle="toggle" title="Procurar"><i class="fas fa-search"></i></a>
-                    </div>
-                </li>
-                <li>
-                    <div class="search-return" data-toggle="toggle" title="Voltar início">
-                        <i class="fas fa-arrow-left"></i>Voltar
-                    </div>
+                <li class="login">
+                    <button type="button" class="btn-login" data-toggle="modal" data-target="#modal-login">Clique aqui e faça seu cadastro para não perder o progresso de seus animes, só é preciso um click! </button>
                 </li>
             </ul>
+
+            <div class="search-bar">
+                <div class="ui-widget">
+                    <input id="search-anime" autocomplete="disabled" class="search-input" type="text" placeholder="Procurar por título, categoria, autor...">
+                </div>
+                <a href="#" class="search-icon" data-toggle="toggle" title="Procurar"><i class="fas fa-search"></i></a>
+            </div>
+            <div class="search-return" data-toggle="toggle" title="Voltar início">
+                <i class="fas fa-arrow-left"></i>Voltar
+            </div>
+            <div class="navbar-login">
+                <div class="dropdown">
+                    <button class="dropdown-toggle navbar-btn-login" type="button" id="btnNavbarLogin" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-astronaut"></i>
+                    </button>
+                    <div class="dropdown-menu login" aria-labelledby="btnNavbarLogin">
+                        <h5 align="center">
+                            <a class="dropdown-item login" href="#">Deslogar</a>
+                        </h5>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

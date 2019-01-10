@@ -24,6 +24,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/simple-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/true/punycode" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-code" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-component-installer" />
@@ -39,6 +41,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-inputfilter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-json" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-loader" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mail" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mime" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-modulemanager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-mvc" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zend-paginator" />

@@ -312,8 +312,15 @@ class AnimeController extends AbstractController
                 }
                 $this->_animeCategoryTable->deleteAnimeCategory($id);
                 $seasons = $this->_seasonTable->getSeasonByAnime($id);
-                $episodes = $this->_episodeTable->getEpisodeByAnime($id);
+                $episodes = $this->_episodeTable->getEpisodesByAnime($id);
+                $clientAnimes = $this->_clientAnimeTable->getClientsAnimeByAnime($id);
+                $this->_clientEpisodeTable->deleteClientsEpisodes($clientAnimes);
 
+                foreach($clientAnimes as $clientAnime){
+                    $this->_clientAnimeTable->deleteClientAnime($clientAnime->id_client_anime);
+                }
+
+                $this->_episodeReportTable->deleteEpisodeReportsByAnime($id);
                 $this->_videoTable->deleteVideosAnime($episodes);
                 $this->_episodeTable->deleteEpisodesAnime($seasons);
                 $this->_seasonTable->deleteSeasonsAnime($id);

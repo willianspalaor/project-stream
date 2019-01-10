@@ -25,6 +25,7 @@ class EpisodeController extends AbstractController
 
     public function addAction()
     {
+
         if(!$this->isAuthenticate()) {
             return $this->redirect()->toRoute('admin');
         }
@@ -50,6 +51,7 @@ class EpisodeController extends AbstractController
 
         $file = $request->getFiles()->toArray();
         $data = $request->getPost();
+
         $form->setData($data);
 
         if(! $form->isValid()){
@@ -57,6 +59,26 @@ class EpisodeController extends AbstractController
         }
 
         $data = $form->getData();
+
+        if($data['open_start'] !== ''){
+            $data['open_start'] = $this->timeToSeconds($data['open_start']);
+        }
+
+        if($data['open_end'] !== ''){
+            $data['open_end'] = $this->timeToSeconds($data['open_end']);
+        }
+
+        if($data['resume_start'] !== ''){
+            $data['resume_start'] = $this->timeToSeconds($data['resume_start']);
+        }
+
+        if($data['resume_end'] !== ''){
+            $data['resume_end'] = $this->timeToSeconds($data['resume_end']);
+        }
+
+        if($data['end_start'] !== ''){
+            $data['end_start'] = $this->timeToSeconds($data['end_start']);
+        }
 
         if($file['image']['size'] > 0){
             $imgName = $this->prepareKey($data['key']) . '_' . $data['episode'] . '.' . pathinfo($file['image']['name'], PATHINFO_EXTENSION);
@@ -104,6 +126,22 @@ class EpisodeController extends AbstractController
             ));
         }
 
+        if($episode->open_start !== '' && $episode->open_start){
+            $episode->open_start = $this->secondsToTime($episode->open_start);
+        }
+        if($episode->open_end !== '' && $episode->open_end){
+            $episode->open_end = $this->secondsToTime($episode->open_end);
+        }
+        if($episode->resume_start !== '' && $episode->resume_start){
+            $episode->resume_start = $this->secondsToTime($episode->resume_start);
+        }
+        if($episode->resume_end !== '' && $episode->resume_end){
+            $episode->resume_end = $this->secondsToTime($episode->resume_end);
+        }
+        if($episode->end_start !== '' && $episode->end_start){
+            $episode->end_start = $this->secondsToTime($episode->end_start);
+        }
+
         $form = new EpisodeForm();
         $form->bind($episode);
         $form->get('submit')->setAttribute('value', 'Edit');
@@ -123,6 +161,26 @@ class EpisodeController extends AbstractController
         }
 
         $file = $this->request->getFiles()->toArray();
+
+        if($episode->open_start && $episode->open_start !== ''){
+            $episode->open_start = $this->timeToSeconds($episode->open_start);
+        }
+
+        if($episode->open_end && $episode->open_end !== ''){
+            $episode->open_end = $this->timeToSeconds($episode->open_end);
+        }
+
+        if($episode->resume_start && $episode->resume_start !== ''){
+            $episode->resume_start = $this->timeToSeconds($episode->resume_start);
+        }
+
+        if($episode->resume_end && $episode->resume_end !== ''){
+            $episode->resume_end = $this->timeToSeconds($episode->resume_end);
+        }
+
+        if($episode->end_start && $episode->end_start !== ''){
+            $episode->end_start = $this->timeToSeconds($episode->end_start);
+        }
 
         if($file['image']['size'] > 0){
 

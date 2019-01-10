@@ -81,7 +81,7 @@ class VideoTable
 
     public function deleteVideosAnime($episodes){
         foreach($episodes as $episode){
-            $this->tableGateway->delete(['id_episode' => (int) $episode['id_episode']]);
+            $this->tableGateway->delete(['id_episode' => (int) $episode->id_episode]);
         }
     }
 

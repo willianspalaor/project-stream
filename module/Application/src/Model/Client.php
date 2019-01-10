@@ -18,6 +18,8 @@ class Client implements InputFilterAwareInterface
 {
     public $id;
     public $ip_address;
+    public $user_email;
+    public $user_pass;
 
     private $inputFilter;
 
@@ -25,7 +27,8 @@ class Client implements InputFilterAwareInterface
     {
         $this->id = !empty($data['id_client']) ? $data['id_client'] : null;
         $this->ip_address = !empty($data['ip_address']) ? $data['ip_address'] : null;
-
+        $this->user_email = !empty($data['user_email']) ? $data['user_email'] : null;
+        $this->user_pass = !empty($data['user_pass']) ? $data['user_pass'] : null;
     }
 
     public function getArrayCopy()
@@ -33,6 +36,17 @@ class Client implements InputFilterAwareInterface
         return [
             'id' => $this->id,
             'ip_address' => $this->ip_address,
+            'user_email' => $this->user_email,
+            'user_pass' => $this->user_pass,
+        ];
+    }
+
+    public function getData()
+    {
+        return [
+            'ip_address' => $this->ip_address,
+            'user_email' => $this->user_email,
+            'user_pass' => $this->user_pass,
         ];
     }
 

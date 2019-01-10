@@ -21,12 +21,20 @@ body{
 
 /************************* VIDEO **************************/
 .video-viewport{
-    margin: 40px 180px 0 180px;
+    margin: 4% 12% 0 12%;
     position: relative;
+}
+
+.video-viewport.fullscreen{
+    margin: 0;
 }
 
 .video-viewport > video{
     width:100%;
+}
+
+.video-viewport > video.fullscreen{
+    margin-left: 20% !important;
 }
 
 .video-error{
@@ -35,14 +43,23 @@ body{
     left: 15%;
 }
 
-.video-related > .container-video{
+.video-error.fullscreen{
+    left : 22.5%;
+}
+
+.video-related{
     position: absolute;
     background-color: #000;
+    top: 20%;
+    cursor: pointer;
+    right: 0;
+    border: 1px solid #fff;
+    display: none;
+}
+
+.video-related > .container-video{
     width: 400px;
     height: 230px;
-    top: 122px;
-    cursor: pointer;
-    right: 10%;
     border: 1px solid #fff;
 }
 
@@ -91,7 +108,7 @@ body{
 .video-controls{
     position: fixed;
     height: 48px;
-    bottom: 160px;
+    bottom: 220px;
     background-color: #262626;
     border-radius: 10px;
     display: none;
@@ -103,7 +120,7 @@ body{
 }
 
 .video-controls.fullscreen{
-    bottom: 100px;
+    bottom: 200px;
 }
 
 .btn-control{
@@ -219,7 +236,11 @@ body{
     background-color: #312f2f;
 }
 
-.control-episodes > .head > i{
+.control-episodes > .head > i.hover{
+    color: #fff;
+}
+
+.control-episodes > .head > i.fa-arrow-left{
     position: absolute;
     padding: 10px 15px 10px 15px;
     font-size: 20px;
@@ -227,6 +248,26 @@ body{
     color: #c1c1c1;
     cursor:pointer;
 }
+
+.control-episodes > .head > i.fa-sort-down{
+    position: absolute;
+    right: 10px;
+    font-size: 25px;
+    color: #c1c1c1;
+    cursor: pointer;
+    top: 10px;
+}
+
+.control-episodes > .head > i.fa-sort-up{
+    position: absolute;
+    right: 10px;
+    font-size: 25px;
+    color: #c1c1c1;
+    cursor: pointer;
+    top: 5px;
+    height: 20px;
+}
+
 
 .control-episodes > .head > h5{
     position: absolute;
@@ -236,12 +277,17 @@ body{
     font-size: 15px;
 }
 
-.control-episodes > .body > .episode{
+.control-episodes > .body > .episode {
     position: relative;
     height: 40px;
     cursor: pointer;
     opacity: 0.7;
     border-bottom: 1px solid #191919;
+}
+
+.control-episodes > .body > .episode.active{
+    border-bottom : none;
+    background-color : rgb(111, 45, 48);
 }
 
 .control-episodes > .body > .episode-info{
@@ -291,10 +337,6 @@ body{
     text-align: justify;
     text-shadow: 1px 1px 1px #000;
     margin-top: 0;
-}
-
-.control-episodes > .body > .episode.active{
-    background-color: #000;
 }
 
 .control-episodes > .body > .episode:hover{
@@ -646,13 +688,17 @@ body{
 
 .btn-action.next {
     background-color: #262626;
-    margin-top: 10.5%;
-    right: 18%;
+    margin-top: 10%;
+    right: 10%;
     width: 400px;
     height: 230px;
     opacity: 0.6;
     border: 2px solid #fff;
     display: none;
+}
+
+.btn-action.next.fullscreen{
+    right: 20%;
 }
 
 .btn-action.next:hover {
@@ -677,14 +723,14 @@ body{
     right: 16.5%;
     opacity: 0.7;
     position: fixed;
-    bottom: 163px;
+    bottom: 223px;
     height: 40px;
     width: 50px;
     box-shadow: none;
 }
 
 .btn-control.fullscreen.skip-secs{
-    bottom: 103px;
+    bottom: 203px;
 }
 
 .btn-control.skip-secs:hover{
@@ -692,7 +738,7 @@ body{
 }
 
 .btn-control.skip-secs > i{
-    color: #2d2e2c;
+    color: #a23737;
     font-size: 30px;
 }
 
@@ -704,14 +750,14 @@ body{
     left: 16.5%;
     opacity: 0.7;
     position: fixed;
-    bottom: 163px;
+    bottom: 223px;
     height: 40px;
     width: 50px;
     box-shadow: none;
 }
 
 .btn-control.fullscreen.back-secs{
-    bottom: 103px;
+    bottom: 203px;
 }
 
 .btn-control.back-secs:hover{
@@ -719,7 +765,7 @@ body{
 }
 
 .btn-control.back-secs > i{
-    color: #2d2e2c;
+    color: #a23737;
     font-size: 30px;
 }
 
@@ -736,13 +782,13 @@ body{
     cursor: pointer;
     display: none;
     border-radius: 5px;
-    bottom: 220px;
+    bottom: 280px;
     left: 21%;
     width: 55%;
 }
 
 .video-progress.fullscreen{
-    bottom: 160px;
+    bottom: 260px;
 }
 
 #progress-aux{
