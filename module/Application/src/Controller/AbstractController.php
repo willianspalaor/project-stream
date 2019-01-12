@@ -33,6 +33,7 @@ use Application\Model\EpisodeReportTable;
 use Application\Model\EpisodeReport;
 use Application\Utils\RemoteAddress;
 use Zend\Mail;
+use MatthiasMullie\Minify;
 
 class AbstractController extends AbstractActionController
 {
@@ -420,7 +421,6 @@ class AbstractController extends AbstractActionController
 
     public function sendMail($email){
 
-
         $client = $this->clientTable->getClient(null, null, $email);
 
         if($client){
@@ -449,5 +449,127 @@ class AbstractController extends AbstractActionController
         }
 
         return true;
+    }
+
+    public function minifyCSS(){
+
+        $files = ['style', 'admin', 'index', 'jquery-ui-base', 'mobile', 'login-home', 'login-loader', 'player', 'mobile'];
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value . '.css';
+            $minifierCSS = new Minify\JS($sourcePath);
+            $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value . '.min.css';
+            $minifierCSS->minify($minifiedPath);
+        }
+    }
+
+    public function minifyJS(){
+
+        $allFiles = [
+            1 => ['Player' => 'Player', 'Index' => 'App'],
+            2 => ['Player/xhr' => 'Anime', 'Player' => 'Helper'],
+            3 => ['Index/xhr' => 'Anime', 'Index' => 'Helper']
+        ];
+
+        foreach($allFiles as $key => $files){
+
+            foreach($files as $key => $value){
+                $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $key . '/' . $value . '.js';
+                $minifierJS = new Minify\JS($sourcePath);
+                $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $key . '/' . $value . '.min.js';
+                $minifierJS->minify($minifiedPath);
+            }
+        }
+    }
+
+
+
+
+
+
+    public function minifyFiles()
+    {
+
+        /************************************ LAYOUT *************************************************/
+
+        /* App CSS */
+        $files = ['style.css', 'admin.css'];
+        $minifierCSS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value;
+
+            if($first){
+                $minifierCSS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierCSS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/app.min.css';
+        $minifierCSS->minify($minifiedPath);
+
+
+        /* App JS */
+        $files = ['Index/App.js', 'Index/Player.js'];
+        $minifierJS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $value;
+
+            if($first){
+                $minifierJS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierJS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/app.min.js';
+        $minifierJS->minify($minifiedPath);
+
+        /************************************ INDEX *************************************************/
+
+        /* App CSS */
+        $files = ['index.css', 'mobile.css', 'jquery-ui-base.css'];
+        $minifierCSS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value;
+
+            if($first){
+                $minifierCSS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierCSS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/index.min.css';
+        $minifierCSS->minify($minifiedPath);
+
+        /* Index JS */
+        $files = ['Index/xhr/Anime.js', 'Index/Helper.js'];
+        $minifierJS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $value;
+
+            if($first){
+                $minifierJS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierJS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/index.min.js';
+        $minifierJS->minify($minifiedPath);
+
     }
 }

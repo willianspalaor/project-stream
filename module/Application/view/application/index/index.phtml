@@ -19,14 +19,15 @@
 
 <link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/index.css') ?>">
 <link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/jquery-ui-base.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/mobile.css') ?>">
-<script src="<?= $this->basePath('js/module/Application/Index/xhr/Anime.js') ?>"></script>
-<script src="<?= $this->basePath('js/module/Application/Index/Helper.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Index/xhr/Anime.min.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Index/Helper.min.js') ?>"></script>
 
-<script>
+<script type="text/javascript">
     $(window).on('load', function() {
         (new App()).start();
     });
 </script>
+
+<noscript>Your browser does not support JavaScript!</noscript>
 
 

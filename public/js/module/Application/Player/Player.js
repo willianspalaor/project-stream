@@ -7,8 +7,8 @@ class Player{
         Player_Anime.setData(track, function(data) {
 
             Player_Helper.setVideo(document.getElementById('video'));
-            Player_Helper.assignElements();
             Player_Helper.assignScreen();
+            Player_Helper.assignElements();
 
             let currentSeason = Player_Anime.getCurrentSeason(true);
             let currentEpisode = Player_Anime.getCurrentEpisode(true);

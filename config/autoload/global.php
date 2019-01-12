@@ -13,7 +13,7 @@
 return [
     'db' => [
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=project_stream;host=localhost;charset=utf8',
+        'dsn' => 'mysql:dbname=new_project;host=localhost;charset=utf8',
         'username' => 'root',
         'password' => ''
     ],

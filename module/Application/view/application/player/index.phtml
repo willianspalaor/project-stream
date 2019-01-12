@@ -85,16 +85,15 @@
     <div class="loader-section section-right"></div>
 </div>
 
-<script>
+<script type="text/javascript">
     $(window).on('load', function() {
-
         let video = document.getElementById('video');
         let track = $(video).attr('data-track');
-
         (new Player()).start(track);
     });
 </script>
+<noscript>Your browser does not support JavaScript!</noscript>
+
 <link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/player.css') ?>">
-<link rel="stylesheet" type="text/css" href="<?= $this->basePath('css/mobile.css') ?>">
-<script src="<?= $this->basePath('js/module/Application/Player/xhr/Anime.js') ?>"></script>
-<script src="<?= $this->basePath('js/module/Application/Player/Helper.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Player/xhr/Anime.min.js') ?>"></script>
+<script src="<?= $this->basePath('js/module/Application/Player/Helper.min.js') ?>"></script>

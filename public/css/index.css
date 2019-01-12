@@ -89,11 +89,12 @@ a{
 
 
 .card > .info-overlay{
-    width: 100%;
-    height: 129px;
+    width: 103%;
+    height: 103%;
     position: absolute;
     background-color: #000;
     top: 0;
+    left: -2%;
     opacity: 0.5;
     display: none;
 }
@@ -119,7 +120,6 @@ a{
     margin-bottom: 0 !important;
     font-size: 8px;
     color: #fdfdfd;
-    font-style: italic;
     display: inline-block;
     padding-left: 5px;
 }
@@ -281,8 +281,9 @@ a{
     background-color: #fff;
     transition: transform 200ms ease-in-out;
     padding: 0;
-    margin-left: 3px;
+    margin-left: 15px;
     overflow: hidden;
+    /*box-shadow: 1px 1px 10px 1px #000;*/
 }
 
 .thumbnails li:hover {
@@ -414,7 +415,6 @@ a { list-style-type:none;}
     top: 35%;
     position: absolute;
     text-align: right;
-    display: none;
 }
 
 
@@ -572,9 +572,12 @@ a { list-style-type:none;}
     transition: opacity 300ms, visibility 300ms;
     min-height: 600px;
     position: absolute;
-
-
 }
+
+.container-search > .col-xs-12 > .carousel.slide > .carousel-inner > .item > ul > li.col-sm-3.desk{
+    margin-bottom: 60px;
+}
+
 .container-search > li{
     width: 230px;
     padding: 10px;
@@ -1021,12 +1024,11 @@ a { list-style-type:none;}
 
 .btn-login{
     padding: 15px;
-    /* position: absolute; */
     background: transparent;
     border: none;
     box-shadow: none;
     text-shadow: 1px 1px 1px #3b2626;
-    /* font-style: italic; */
+    display: none;
     color: #ded5d1;
     outline: 0;
 }
