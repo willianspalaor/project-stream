@@ -25,7 +25,6 @@ let Player_Anime = new (function () {
 
         data.client_anime.current_season = currentSeason.season;
         data.client_anime.current_episode = currentEpisode.episode;
-        data.client_anime.last_activity = new Date().toLocaleString();
 
         _saveClientAnime(data.client_anime);
     }
@@ -182,8 +181,10 @@ let Player_Anime = new (function () {
 
              _checkUrlVideo(video.url, function(is_working, changeStatus = true){
 
+                 alert(is_working);
+
                  if(is_working){
-                     callback(video);
+                     return callback(video);
                      found = true;
 
                      if(changeStatus){
@@ -191,7 +192,7 @@ let Player_Anime = new (function () {
                      }
                  }else{
 
-                     Player_Helper.clearConsole();
+                     //Player_Helper.clearConsole();
 
                      if(!found){
 
@@ -248,6 +249,8 @@ let Player_Anime = new (function () {
     }
 
     function _saveClientAnime(dataClient, callback){
+
+        alert("aqui");
 
         $.ajax({
             type : 'POST',
@@ -368,25 +371,10 @@ let Player_Anime = new (function () {
         };
 
         xhr.addEventListener("error", function(){
-            callback(true, false);
+           // callback(true, false);
         });
 
         xhr.send(null);
-
-
-      /*  $.ajax({
-            type : 'GET',
-            url  :url,
-            dataType: 'jsonp',
-            success: function(response){
-                callback(true);
-                alert('success');
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                alert('error');
-                callback(false);
-            }
-        });*/
     }
 
     function _saveVideoStatus(videos, callback){

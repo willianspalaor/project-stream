@@ -2,32 +2,63 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" />
-    <bookmark url="file://$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" line="510" />
+    <bookmark url="file://$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" line="512" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/autoload/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/login.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/login.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/custom.dist.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/custom.stable.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mobile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mobile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/mobile2.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/mobile_350.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/mobile_450.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/mobile.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mobile.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/player.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/player.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/all.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/all.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap-slider.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/brands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/brands.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/fontawesome.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/fontawesome.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-3.1.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-3.3.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/xhr/Anime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/Helper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/Player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/xhr/Anime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/regular.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/regular.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/select2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/solid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/solid.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/v4-shims.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/v4-shims.min.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +73,7 @@
     <session id="955389779">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="18" />
+          <entry key="project.closed" value="19" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="1" />
           <entry key="project.open.time.23" value="1" />
@@ -50,8 +81,9 @@
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.43" value="2" />
-          <entry key="project.open.time.45" value="1" />
-          <entry key="project.open.time.47" value="3" />
+          <entry key="project.open.time.44" value="2" />
+          <entry key="project.open.time.45" value="2" />
+          <entry key="project.open.time.47" value="4" />
           <entry key="project.open.time.48" value="6" />
           <entry key="project.open.time.49" value="3" />
           <entry key="project.open.time.50" value="7" />
@@ -70,69 +102,70 @@
           <entry key="project.open.time.65" value="1" />
           <entry key="project.open.time.67" value="1" />
           <entry key="project.open.time.68" value="2" />
-          <entry key="project.open.time.69" value="1" />
+          <entry key="project.open.time.69" value="2" />
           <entry key="project.open.time.71" value="2" />
           <entry key="project.open.time.75" value="2" />
           <entry key="project.open.time.77" value="1" />
           <entry key="project.open.time.79" value="1" />
           <entry key="project.open.time.87" value="1" />
           <entry key="project.open.time.89" value="1" />
-          <entry key="project.opened" value="72" />
+          <entry key="project.opened" value="77" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="28235" />
+          <entry key="css" value="28885" />
           <entry key="dummy" value="77" />
-          <entry key="htaccess" value="8" />
-          <entry key="js" value="152324" />
+          <entry key="htaccess" value="10" />
+          <entry key="js" value="156572" />
           <entry key="json" value="67" />
-          <entry key="php" value="69803" />
-          <entry key="phtml" value="19891" />
+          <entry key="php" value="70567" />
+          <entry key="phtml" value="19892" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="28235" />
+          <entry key="CSS" value="28885" />
           <entry key="JSON" value="67" />
-          <entry key="JavaScript" value="152322" />
-          <entry key="PHP" value="89694" />
+          <entry key="JavaScript" value="156570" />
+          <entry key="PHP" value="90459" />
           <entry key="PLAIN_TEXT" value="77" />
           <entry key="RegExp" value="2" />
-          <entry key="htaccess" value="8" />
+          <entry key="htaccess" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Dockerfile" value="1" />
-          <entry key="css" value="186" />
+          <entry key="config" value="1" />
+          <entry key="css" value="197" />
           <entry key="dist" value="9" />
-          <entry key="htaccess" value="5" />
+          <entry key="htaccess" value="7" />
           <entry key="html" value="7" />
           <entry key="jpg" value="5" />
-          <entry key="js" value="368" />
+          <entry key="js" value="390" />
           <entry key="json" value="18" />
           <entry key="md" value="1" />
-          <entry key="php" value="877" />
-          <entry key="phtml" value="410" />
+          <entry key="php" value="893" />
+          <entry key="phtml" value="418" />
           <entry key="png" value="1" />
           <entry key="ts" value="2" />
-          <entry key="txt" value="14" />
+          <entry key="txt" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="186" />
+          <entry key="CSS" value="197" />
           <entry key="Dockerfile" value="1" />
           <entry key="HTML" value="7" />
           <entry key="Image" value="6" />
           <entry key="JSON" value="18" />
-          <entry key="JavaScript" value="368" />
+          <entry key="JavaScript" value="390" />
           <entry key="Markdown" value="1" />
-          <entry key="PHP" value="1287" />
-          <entry key="PLAIN_TEXT" value="23" />
+          <entry key="PHP" value="1311" />
+          <entry key="PLAIN_TEXT" value="25" />
           <entry key="TypeScript" value="2" />
-          <entry key="htaccess" value="5" />
+          <entry key="htaccess" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
@@ -144,29 +177,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/Helper.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="467" column="29" lean-forward="true" selection-start-line="467" selection-start-column="29" selection-end-line="467" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
+            <state relative-caret-position="152">
+              <caret line="213" column="47" selection-start-line="213" selection-start-column="47" selection-end-line="213" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="1634" column="51" selection-start-line="1634" selection-start-column="51" selection-end-line="1634" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/mobile.css">
+        <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="359" column="27" lean-forward="true" selection-start-line="359" selection-start-column="27" selection-end-line="359" selection-end-column="27" />
+            <state relative-caret-position="203">
+              <caret line="85" column="34" lean-forward="true" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/Helper.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="1169" column="48" selection-start-line="1169" selection-start-column="48" selection-end-line="1169" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -174,35 +216,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/index.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="121" column="19" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/css/jquery-ui-base.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="127" column="30" selection-start-line="127" selection-start-column="10" selection-end-line="127" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/Application/view/layout/layout.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="25" column="77" lean-forward="true" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/module/Application/view/application/index/index.phtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+            <state relative-caret-position="452">
+              <caret line="681" column="26" selection-start-line="681" selection-start-column="26" selection-end-line="681" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -220,36 +235,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setOrientatio</find>
-      <find>container-search</find>
-      <find>=== 'mobile</find>
-      <find>_listCurrentAnimes</find>
-      <find>setOrienta</find>
-      <find>_carouselInner</find>
-      <find>_carousel</find>
-      <find>orientation</find>
-      <find>listCurrentAni</find>
-      <find>_column</find>
-      <find>createCari</find>
-      <find>setOrient</find>
-      <find>listCurrent</find>
-      <find>setOrientat</find>
-      <find>data-page</find>
-      <find>_setOrientation</find>
-      <find>listCurrentAn</find>
-      <find>nav</find>
-      <find>alert</find>
-      <find>listCurrentAnimes</find>
-      <find>setOrientation</find>
-      <find>listAnimes</find>
-      <find>control-box</find>
-      <find>btnLogi</find>
-      <find>authenti</find>
-      <find>timeout</find>
-      <find>ui-menu-item-wrapper</find>
-      <find>length</find>
-      <find>btn-login</find>
-      <find>Temporada</find>
+      <find>showToolit</find>
+      <find>last_act</find>
+      <find>saveC</find>
+      <find>setCurrentData</find>
+      <find>setEpisodePro</find>
+      <find>setCurrentEpiso</find>
+      <find>showControls</find>
+      <find>getDateNow</find>
+      <find>setEpisodeProgress</find>
+      <find>btnNext</find>
+      <find>_btnNext</find>
+      <find>bindAction</find>
+      <find>_bindAc</find>
+      <find>bindActionEv</find>
+      <find>bindActionEvents</find>
+      <find>video-controls</find>
+      <find>saveANime</find>
+      <find>saveEp</find>
+      <find>Episode</find>
+      <find>beforeun</find>
+      <find>save</find>
+      <find>currentTIme</find>
+      <find>margin-left</find>
+      <find>showCOntrols</find>
+      <find>_sidebarLeftWrapper</find>
+      <find>wrapper-top</find>
+      <find>transi</find>
+      <find>_bindActionEvents</find>
+      <find>video</find>
+      <find>error</find>
     </findStrings>
     <replaceStrings>
       <replace>control</replace>
@@ -274,23 +289,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/module/Application/src/Utils/VideoStream.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Model/ClientEpisode.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Model/ClientAnime.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/ClientAnimeTable.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/ClientEpisodeTable.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/EpisodeReport.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Module.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/EpisodeReportTable.php" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/EpisodeTable.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" />
         <option value="$PROJECT_DIR$/module/Application/src/Model/Episode.php" />
         <option value="$PROJECT_DIR$/module/Admin/view/admin/episode/edit.phtml" />
         <option value="$PROJECT_DIR$/module/Admin/view/admin/episode/add.phtml" />
         <option value="$PROJECT_DIR$/module/Admin/src/Model/Episode.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" />
-        <option value="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" />
         <option value="$PROJECT_DIR$/module/Application/src/Utils/RemoteAddress.php" />
         <option value="$PROJECT_DIR$/module/Admin/view/admin/index/index.phtml" />
         <option value="$PROJECT_DIR$/public/css/index_log.css" />
@@ -301,30 +309,37 @@
         <option value="$PROJECT_DIR$/public/css/fontawesome-free-5.5.0-web/login-loader.css" />
         <option value="$PROJECT_DIR$/public/css/login-loader.css" />
         <option value="$PROJECT_DIR$/module/Application/src/Model/ClientTable.php" />
-        <option value="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" />
         <option value="$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php" />
         <option value="$PROJECT_DIR$/public/js/module/Application/Index/xhr/Anime.js" />
         <option value="$PROJECT_DIR$/module/Admin/view/admin/anime/add.phtml" />
         <option value="$PROJECT_DIR$/module/Admin/view/admin/anime/edit.phtml" />
         <option value="$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php" />
-        <option value="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" />
         <option value="$PROJECT_DIR$/module/Application/view/application/index/login.phtml" />
-        <option value="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" />
         <option value="$PROJECT_DIR$/public/js/module/Application/Index/Helper.min.js" />
-        <option value="$PROJECT_DIR$/public/.htaccess" />
         <option value="$PROJECT_DIR$/config/autoload/global.php" />
-        <option value="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" />
+        <option value="$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js" />
+        <option value="$PROJECT_DIR$/public/css/login.css" />
+        <option value="$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php" />
+        <option value="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" />
+        <option value="$PROJECT_DIR$/public/.htaccess" />
+        <option value="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" />
+        <option value="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" />
+        <option value="$PROJECT_DIR$/public/video/js/module/Application/Player/Helper.js" />
         <option value="$PROJECT_DIR$/module/Application/view/layout/layout.phtml" />
         <option value="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" />
+        <option value="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" />
+        <option value="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" />
         <option value="$PROJECT_DIR$/public/css/player.css" />
-        <option value="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" />
-        <option value="$PROJECT_DIR$/public/js/module/Application/Index/App.js" />
-        <option value="$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js" />
+        <option value="$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml" />
+        <option value="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" />
+        <option value="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" />
+        <option value="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" />
         <option value="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" />
         <option value="$PROJECT_DIR$/public/css/mobile.css" />
-        <option value="$PROJECT_DIR$/module/Application/view/application/index/index.phtml" />
-        <option value="$PROJECT_DIR$/public/css/index.css" />
+        <option value="$PROJECT_DIR$/public/js/module/Application/Index/App.js" />
         <option value="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" />
+        <option value="$PROJECT_DIR$/public/css/index.css" />
+        <option value="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" />
       </list>
     </option>
   </component>
@@ -389,10 +404,9 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="916" />
+    <option name="x" value="-57" />
+    <option name="width" value="1364" />
+    <option name="height" value="775" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -400,7 +414,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -418,53 +431,6 @@
               <item name="project-stream" type="462c0819:PsiDirectoryNode" />
               <item name="module" type="462c0819:PsiDirectoryNode" />
               <item name="Application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="index" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="Application" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
@@ -507,10 +473,20 @@
               <item name="Application" type="462c0819:PsiDirectoryNode" />
               <item name="Index" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="project-stream" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project-stream" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="Application" type="462c0819:PsiDirectoryNode" />
+              <item name="Player" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -522,16 +498,16 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Projects\project-stream\module\Admin\src\Model" />
-      <recent name="C:\Projects\project-stream" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Projects\project-stream\public\css" />
       <recent name="C:\Projects\project-stream\public\css\fontawesome-free-5.5.0-web\css" />
       <recent name="C:\Projects\project-stream" />
       <recent name="C:\Projects\project-stream\public\video\Anime\trailers" />
       <recent name="C:\Projects\project-stream\module\Admin\view" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\project-stream\module\Admin\src\Model" />
+      <recent name="C:\Projects\project-stream" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -627,18 +603,23 @@
       <workItem from="1547063576623" duration="1168000" />
       <workItem from="1547080948618" duration="10388000" />
       <workItem from="1547140069616" duration="8183000" />
-      <workItem from="1547213124126" duration="21595000" />
+      <workItem from="1547213124126" duration="34786000" />
+      <workItem from="1547406110747" duration="26177000" />
+      <workItem from="1547452507906" duration="1228000" />
+      <workItem from="1547483672012" duration="7787000" />
+      <workItem from="1547656015043" duration="5466000" />
+      <workItem from="1547864474630" duration="789000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1220471000" />
+    <option name="totallyTimeSpent" value="1275109000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="916" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20875" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20497803" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -652,7 +633,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.500625" side_tool="true" visible="true" weight="0.20895523" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.500625" side_tool="true" visible="true" weight="0.20386904" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -676,60 +657,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/module/Admin/src/Form/EpisodeForm.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="135" column="31" selection-start-line="135" selection-start-column="31" selection-end-line="135" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Admin/src/Model/AnimeTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-89">
-          <caret line="58" column="31" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="202" column="20" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="30" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="234" lean-forward="true" selection-start-line="234" selection-end-line="234" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1107">
-          <caret line="34" column="8" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/app.min.css" />
-    <entry file="file://$PROJECT_DIR$/public/js/module/Application/app.min.js" />
-    <entry file="file://$PROJECT_DIR$/public/css/style.min.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1123">
-          <caret line="186" column="5" selection-start-line="186" selection-start-column="5" selection-end-line="186" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -799,20 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/.htaccess">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="52" column="48" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/robots.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/autoload/global.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -824,30 +737,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
           <caret line="5994" column="71" selection-start-line="5994" selection-start-column="62" selection-end-line="5994" selection-end-column="71" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/video/js/module/Application/Player/Helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="84" column="13" selection-start-line="84" selection-start-column="13" selection-end-line="84" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/view/application/player/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="83" column="47" lean-forward="true" selection-start-line="83" selection-start-column="47" selection-end-line="83" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/player.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="347" column="1" lean-forward="true" selection-start-line="347" selection-start-column="1" selection-end-line="347" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -875,61 +764,7 @@
         <state relative-caret-position="-568" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="410" lean-forward="true" selection-start-line="410" selection-end-line="410" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="465" column="31" selection-start-line="465" selection-start-column="31" selection-end-line="465" selection-end-column="31" />
-          <folding>
-            <element signature="e#126#175#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/mobile.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="359" column="27" lean-forward="true" selection-start-line="359" selection-start-column="27" selection-end-line="359" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js" />
     <entry file="file://$PROJECT_DIR$/public/css/jquery-ui-base.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -937,31 +772,178 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/module/Application/view/application/index/index.phtml">
+    <entry file="file://$PROJECT_DIR$/public/css/login.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        <state relative-caret-position="343">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/AnimeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="134" column="20" selection-start-line="134" selection-start-column="20" selection-end-line="134" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="85" column="5" lean-forward="true" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/video/js/module/Application/Player/Helper.js" />
+    <entry file="file://$PROJECT_DIR$/public/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="52" column="48" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/module/Application/view/layout/layout.phtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="25" column="77" lean-forward="true" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
+        <state relative-caret-position="527">
+          <caret line="31" column="78" selection-start-line="31" selection-start-column="75" selection-end-line="31" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/view/application/player/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1649">
+          <caret line="97" column="76" selection-start-line="97" selection-start-column="73" selection-end-line="97" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/_types.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="17" column="7" lean-forward="true" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="176" column="26" lean-forward="true" selection-start-line="176" selection-start-column="26" selection-end-line="176" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/view/application/index/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/web.config">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="78" selection-start-line="3" selection-start-column="78" selection-end-line="3" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="184" column="79" selection-start-line="184" selection-start-column="72" selection-end-line="184" selection-end-column="79" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/player.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2091">
+          <caret line="123" column="1" selection-start-line="123" selection-start-column="1" selection-end-line="123" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2754">
+          <caret line="192" column="13" selection-start-line="192" selection-start-column="13" selection-end-line="192" selection-end-column="13" />
+          <folding>
+            <element signature="e#126#175#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="32" column="30" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/module/Application/src/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="8" lean-forward="true" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/mobile.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="67" column="27" lean-forward="true" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/robots.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="121" column="19" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="19" />
+        <state relative-caret-position="452">
+          <caret line="681" column="26" selection-start-line="681" selection-start-column="26" selection-end-line="681" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/Helper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="467" column="29" lean-forward="true" selection-start-line="467" selection-start-column="29" selection-end-line="467" selection-end-column="29" />
+        <state relative-caret-position="220">
+          <caret line="1169" column="48" selection-start-line="1169" selection-start-column="48" selection-end-line="1169" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Index/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="213" column="47" selection-start-line="213" selection-start-column="47" selection-end-line="213" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="85" column="34" lean-forward="true" selection-start-line="85" selection-start-column="34" selection-end-line="85" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/module/Application/Player/Helper.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="1634" column="51" selection-start-line="1634" selection-start-column="51" selection-end-line="1634" selection-end-column="51" />
         </state>
       </provider>
     </entry>

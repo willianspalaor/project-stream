@@ -238,6 +238,9 @@ class EpisodeController extends AbstractController
                     unlink($_SERVER['DOCUMENT_ROOT']. $episode->thumb);
                 }
 
+               // $videos = $this->_videoTable->getVideosByEpisode($id);
+
+                $this->_videoTable->deleteVideosEpisode($id);
                 $this->_episodeTable->deleteEpisode($id);
             }
 

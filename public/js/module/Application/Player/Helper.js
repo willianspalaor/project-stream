@@ -84,18 +84,20 @@ let Player_Helper = new (function () {
 
         if(_getScreenType() !== 'mobile'){
 
-
             function moveElements(){
                 let top = parseInt(_controlsContainer.css('top'));
-                _progressContainer.css('top', top - 25);
-                _btnSkipSeconds.css('top', top + 3);
-                _btnBackSeconds.css('top', top + 3);
+                _progressContainer.css('top', top - 20);
+                _btnSkipSeconds.css('top', top + 6);
+                _btnBackSeconds.css('top', top + 6);
             }
 
             function showElements(){
-                _progressContainer.css('display', 'block');
-                _btnSkipSeconds.css('display', 'block');
-                _btnBackSeconds.css('display', 'block');
+
+                if(_loader.css('display') === 'none'){
+                    _progressContainer.css('display', 'block');
+                    _btnSkipSeconds.css('display', 'block');
+                    _btnBackSeconds.css('display', 'block');
+                }
             }
 
             function hideElements(){
@@ -350,7 +352,6 @@ let Player_Helper = new (function () {
 
             _hideProgressBar();
 
-          //  _volumeContainer.unbind('mouseleave');
             _volumeContainer.bind('mouseleave', function(){
                 $(this).css('display', 'none');
                 _showProgressBar();
@@ -362,9 +363,8 @@ let Player_Helper = new (function () {
         }
     }
 
-    function _playNextEpisode(play = false){
+    function _playNextEpisode(play = false, button = false){
 
-        //Player_Anime.setEpisodeProgress();
         _video.pause();
         _first = true;
 
@@ -393,7 +393,11 @@ let Player_Helper = new (function () {
                 });
             });
         }else{
-            _showRelatedAnimes();
+            if(!button){
+                _showRelatedAnimes();
+            }else{
+                alert("Este é o último episódio.");
+            }
         }
     }
 
@@ -401,7 +405,6 @@ let Player_Helper = new (function () {
 
         _finishAnime = true;
 
-      //  $(_video).css('display', 'none');
         _progressContainer.css('display', 'none');
         _controlsContainer.css('display', 'none');
 
@@ -466,7 +469,6 @@ let Player_Helper = new (function () {
 
             video[0].src = anime.trailer;
             video[0].volume = 0.5;
-            //video[0].muted = true;
             video[0].load();
 
             return video[0];
@@ -516,22 +518,10 @@ let Player_Helper = new (function () {
 
         let rect = el.getBoundingClientRect();
 
-        let verify = false;
-        /*if(_screenType === 'mobile' && _fullScreen){
-            if(x >= rect.right){
-                verify = true;
-            }
-        }else{*/
         if(y <= rect.top && x >= rect.left){
-            verify = true;
-        }
-        //  }
-
-        if(verify){
 
             _hideProgressBar();
 
-            //_boxNextEpisode.unbind('mouseleave');
             _boxNextEpisode.bind('mouseleave', function(){
                 $(this).css('display', 'none');
                 _showProgressBar();
@@ -573,13 +563,11 @@ let Player_Helper = new (function () {
 
             if(y <= rect.top+10 && (x >= rect.left && x-10 <= rect.right)){
 
-               // _controlEpisodes.unbind('mouseover');
                 _controlEpisodes.bind('mouseover', function(){
                     clearTimeout(timeout);
                     clearIddleInterval();
                 });
 
-               // _controlEpisodes.unbind('mouseleave');
                 _controlEpisodes.bind('mouseleave', function(){
 
                     timeout = setTimeout(function(){
@@ -589,12 +577,10 @@ let Player_Helper = new (function () {
                     clearIddleInterval(true);
                 });
 
-                //_btnEpisodes.unbind('mouseover');
                 _btnEpisodes.bind('mouseover', function(){
                     clearIddleInterval();
                 });
 
-                //_btnEpisodes.unbind('mouseleave');
                 _btnEpisodes.bind('mouseleave', function(){
                     clearIddleInterval(true);
                 });
@@ -625,12 +611,12 @@ let Player_Helper = new (function () {
         _boxNextEpisode.empty();
 
         let title = $('<h4>')
-            .addClass('.title-control')
+            .addClass('title-control')
             .text(anime.title)
             .appendTo(_episodeTitle);
 
         let subTitle = $('<span>')
-            .addClass('.subtitle-control')
+            .addClass('subtitle-control')
             .text(episode.title)
             .appendTo(_episodeTitle);
 
@@ -663,68 +649,6 @@ let Player_Helper = new (function () {
         if(title[0].offsetWidth){
             subTitle.css('left', title[0].offsetWidth + 'px');
         }
-
-
-        let time = 0;
-
-        for(let i = 0; i <5; i++){
-
-            time+=500;
-
-            setTimeout(function(){
-                if(title[0].offsetWidth){
-                    subTitle.css('left', title[0].offsetWidth + 'px');
-                }
-            }, time);
-        }
-
-
-
-      /*  let find = 10000;
-
-        for(let i = 0; i <= find; i+1000){
-
-            setTimeout(function(){
-                if(title[0].offsetWidth){
-                    subTitle.css('left', title[0].offsetWidth + 'px');
-                }
-            }, i);
-        }*/
-
-
-
-
-        setTimeout(function(){
-              if(title[0].offsetWidth){
-                  subTitle.css('left', title[0].offsetWidth + 'px');
-              }
-        }, 500);
-
-      /*  setTimeout(function(){
-            if(title[0].offsetWidth){
-                subTitle.css('left', title[0].offsetWidth + 'px');
-            }
-        }, 1000);
-
-        setTimeout(function(){
-            if(title[0].offsetWidth){
-                subTitle.css('left', title[0].offsetWidth + 'px');
-            }
-        }, 1500);
-
-        setTimeout(function(){
-            if(title[0].offsetWidth){
-                subTitle.css('left', title[0].offsetWidth + 'px');
-            }
-        }, 2000);*/
-
-
-
-        setTimeout(function(){
-            if(title[0].offsetWidth){
-                subTitle.css('left', title[0].offsetWidth + 'px');
-            }
-        }, 10000);
 
         if(typeof(callback) === 'function'){
               callback();
@@ -768,6 +692,7 @@ let Player_Helper = new (function () {
             _btnBackSeconds.removeClass('fullscreen');
             _btnSkipSeconds.removeClass('fullscreen');
             _videoError.removeClass('fullscreen');
+            _videoRelated.removeClass('fullscreen');
             _btnNext.removeClass('fullscreen');
             $(_video).removeClass('fullscreen');
             _fullScreen = false;
@@ -785,6 +710,7 @@ let Player_Helper = new (function () {
             _btnBackSeconds.addClass('fullscreen');
             _btnSkipSeconds.addClass('fullscreen');
             _videoError.addClass('fullscreen');
+            _videoRelated.addClass('fullscreen');
             _fullScreen = true;
 
         }
@@ -841,6 +767,7 @@ let Player_Helper = new (function () {
         let episode = Player_Anime.getCurrentEpisode();
         let startTime = episode.open_start;
         let endTime = episode.open_end;
+        let endEpisode = episode.end_start;
         let btnSkip = $('#btnSkip');
         _timeoutSkip = 0;
 
@@ -880,11 +807,11 @@ let Player_Helper = new (function () {
                     _slideProgress = false;
 
                 } else {
-                    _timeoutSkip = setTimeout(checkTime, 1000);
+                    _timeoutSkip = setTimeout(checkTime, 500);
                 }
 
             } else {
-                _timeoutSkip = setTimeout(checkTime, 1000);
+                _timeoutSkip = setTimeout(checkTime, 500);
                 btnSkip.css('display', 'none');
             }
         }
@@ -902,6 +829,7 @@ let Player_Helper = new (function () {
             if (_video.currentTime >= endTime && !_video.paused) {
 
                 clearTimeout(_timeoutNext);
+                _bindActionEvents();
 
                 if(!_lastEpisode){
                     _minimizeVideo();
@@ -913,8 +841,7 @@ let Player_Helper = new (function () {
                     $(_video).bind('click', function(){
                         _maximizeVideo();
                         _finishAnime = false;
-                        _progressContainer.css('display', 'block');
-                        _controlsContainer.css('display', 'block');
+                        _showControls();
                         _videoRelated.css('display', 'none');
                         _video.play();
                         $(_video).unbind('click');
@@ -927,7 +854,7 @@ let Player_Helper = new (function () {
                 }
 
             }else{
-                _timeoutNext = setTimeout(checkTime, 3000);
+                _timeoutNext = setTimeout(checkTime, 1000);
             }
         }
     }
@@ -957,7 +884,7 @@ let Player_Helper = new (function () {
             }else{
                 if(_timeoutCount >= 12){
                     clearTimeout(_timeoutCount);
-                    _maximizeVideo();
+                   _maximizeVideo();
                     _btnNext.css('display', 'none');
                     _video.pause();
                     _playNextEpisode(true);
@@ -1255,7 +1182,6 @@ let Player_Helper = new (function () {
                 .attr('data-episode', value.episode)
                 .on('click', function(ev){
 
-                    //ev.preventDefault();
                     if(_screenType === 'mobile' && _orientation !== 'landscape'){
                        // $(this).parent().scrollTop($(this)[0].offsetTop);
                     }
@@ -1285,8 +1211,6 @@ let Player_Helper = new (function () {
                 .addClass('episode-info')
                 .attr('data-episode', value.episode)
                 .on('click', function(ev){
-
-                    //ev.preventDefault();
 
                     Player_Anime.setEpisodeProgress();
                     _setCurrentSeason(currentSeason.season);
@@ -1340,23 +1264,9 @@ let Player_Helper = new (function () {
                 .addClass('progress')
                 .appendTo(episodeInfo);
 
-           /* let auxProgress2 = $('<div>')
-                .addClass('aux-progress')
-                .css({
-                    'width' : progressWidth + 'px'
-                })
-                .appendTo(episode);
-
-            let progress2 = $('<div>')
-                .addClass('progress')
-                .appendTo(episode);*/
-
-
             if(_screenType === 'mobile' && value.id !== currentEpisode.id){
                 auxProgress.css('display', 'none');
                 progress.css('display', 'none');
-              //  auxProgress2.css('display', 'none');
-              //  progress2.css('display', 'none');
             }
         });
 
@@ -1376,37 +1286,6 @@ let Player_Helper = new (function () {
 
         return 100 * (currentTime / duration);
     }
-
-    function _updateBuffer(position){
-
-        let duration = _video.duration;
-        let buffer = _video.buffered;
-        let length = buffer.length - 1;
-        let percentage = 100 * position / _progressContainer.width();
-        let start = null;
-        let end = null;
-        let diff = 5000;
-
-
-        for(let i = 0; i < length; i++){
-
-            let s = 100 * (buffer.start(i) / buffer.end(i));
-            let p = s > percentage ? s - percentage : percentage - s;
-
-            if(p < diff){
-                diff = p;
-                start = buffer.start(i);
-                end = buffer.end(i);
-            }
-        }
-
-        let left = 100 * (start / duration);
-        let width =  100 * ((end-start) / duration);
-
-        _progressBuffer.css({'width' : parseInt(width) + '%'});
-        _progressBuffer.css({'margin-left' : parseInt(left) + '%'});
-    }
-
 
     function _getBufferPercentage(){
 
@@ -1453,15 +1332,29 @@ let Player_Helper = new (function () {
         Player_Anime.setCurrentSeason(season);
     }
 
+    function _checkTitle(){
+
+        let title = $('.title-control');
+        let subTitle = $('.subtitle-control');
+
+        if(title[0] !== undefined && subTitle[0] !== undefined){
+            if(title[0].offsetWidth){
+                subTitle.css('left', title[0].offsetWidth + 'px');
+            }
+        }
+    }
+
     function _showControls(){
 
-        if(!_draggin){
-            _controlsContainer.css('display', 'block');
-            _btnReturn.css('display', 'block');
-            _btnSkipSeconds.css('display', 'block');
-            _btnBackSeconds.css('display', 'block');
+        if(!_draggin && _loader.css('display') === 'none'){
 
-            _showProgressBar();
+            if(!_finishAnime){
+                _controlsContainer.css('display', 'block');
+                _btnReturn.css('display', 'block');
+                _btnSkipSeconds.css('display', 'block');
+                _btnBackSeconds.css('display', 'block');
+                _showProgressBar();
+            }
         }
     }
 
@@ -1485,12 +1378,13 @@ let Player_Helper = new (function () {
         _iddleInterval = setInterval(timerIncrement, 500);
 
         _viewPort.mousemove(function () {
+
             _interval = 0;
 
-            if(!_finishAnime){
+            if(_controlsContainer.css('display') === 'none'){
                 _showControls();
+                _checkTitle();
             }
-
         });
 
         _viewPort.keypress(function (event) {
@@ -1520,12 +1414,10 @@ let Player_Helper = new (function () {
 
         $.each(elements, function (key, element) {
 
-           // element.unbind('mouseover');
             element.bind("mouseover", function () {
                 clearIddleInterval();
             });
 
-          //  element.unbind('mouseleave');
             element.bind("mouseleave", function () {
                 clearIddleInterval(true);
             });
@@ -1568,7 +1460,10 @@ let Player_Helper = new (function () {
     }
 
     function _showTooltip(tooltip){
-        _hideMenusControl();
+
+        if(tooltip !== 'skip-secs' && tooltip !== 'back-secs' && tooltip !== 'return'){
+            _hideMenusControl();
+        }
         $('#tooltip-' + tooltip).css('display', 'block');
     }
 
@@ -1605,11 +1500,6 @@ let Player_Helper = new (function () {
         _progressSlider.slider( "option", "value", Math.round(percentAux));
         _progressAux.css({'width' : percentAux+ 0.5 + '%'});
 
-        if(percentAux < 70){
-            Player_Helper.createVideoActions();
-        }else{
-            _destroyVideoActions();
-        }
 
         if(currentEpisode === 1){
            // _skipOpening = false;
@@ -1622,6 +1512,12 @@ let Player_Helper = new (function () {
             }else{
                 _video.currentTime = currentEpisode.open_end;
             }
+        }
+
+        if(percentAux < 70){
+            Player_Helper.createVideoActions();
+        }else{
+            _destroyVideoActions();
         }
 
         if(typeof(callback) === 'function'){
@@ -1637,31 +1533,32 @@ let Player_Helper = new (function () {
 
         let show = true;
 
-        let volume = $('.control-volume-slider').css('display');
-        let episodes = $('.control-episodes').css('display');
-        let nextEpisode = $('.control-next-episode').css('display');
+        if(!_draggin && _loader.css('display') === 'none'){
 
-        if(volume != 'none'){
-            show = false;
-        }
+            let volume = $('.control-volume-slider').css('display');
+            let episodes = $('.control-episodes').css('display');
+            let nextEpisode = $('.control-next-episode').css('display');
 
-        if(episodes != 'none'){
-            show = false;
-        }
+            if(volume != 'none'){
+                show = false;
+            }
 
-        if(nextEpisode != 'none'){
-            show = false;
-        }
+            if(episodes != 'none'){
+                show = false;
+            }
 
-        if(_draggin){
+            if(nextEpisode != 'none'){
+                show = false;
+            }
+
+            if(_draggin){
+                show = false;
+            }
+        }else{
             show = false;
         }
 
         if(show && !_finishAnime){
-            _progressContainer.css('display', 'block');
-        }
-
-        if(show === true){
             _progressContainer.css('display', 'block');
         }
     }
@@ -1732,12 +1629,15 @@ let Player_Helper = new (function () {
                 .appendTo(_videoError);
         }
 
+        $(_video).css('display', 'none');
         img.css('display', 'block');
         _showControls();
+        _controlsContainer.css('display', 'block');
     }
 
     function _hideError(){
         _videoError.find('img').css('display', 'none');
+        $(_video).css('display', 'block');
     }
 
     function _getToken(videoEpisode){

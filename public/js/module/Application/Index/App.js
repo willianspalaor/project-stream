@@ -143,8 +143,26 @@ class App{
             App_Helper.setOrientation(orientation, true);
         });
 
-        let timeout = null;
 
+        let timeoutScroll = null;
+        $( window ).scroll(function() {
+            timeoutScroll = setTimeout(function(){
+
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                let wrapperLeft =  $('#wrapper-left');
+
+                if(scrollTop === 0){
+                    clearTimeout(timeoutScroll);
+                    wrapperLeft.css('opacity', '1');
+                }else{
+                    wrapperLeft.css('opacity', '0');
+                }
+
+            }, 100);
+        });
+
+
+        let timeout = null;
         btnLogin.bind('click', function () {
 
             let menu = $(this).parent().find('.dropdown-menu');

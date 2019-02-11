@@ -143,15 +143,20 @@ let App_Helper = new (function () {
             let i = 0;
             let item = null;
             let first = true;
-            let div = 0;
+            let maxCards = 0;
 
             if(_screenType !== 'mobile'){
-                div = 6;
+
+                if(_getScreenSize() < 1400){
+                    maxCards = 5;
+                }else{
+                    maxCards = 6;
+                }
             }else{
                 if(_orientation === 'landscape'){
-                    div = 3;
+                    maxCards = 3;
                 }else{
-                    div = 22;
+                    maxCards = 22;
                 }
             }
 
@@ -170,8 +175,23 @@ let App_Helper = new (function () {
 
                 $.each(data.current_animes, function (key, value) {
 
-                    if ((i % div) === 0) {
+                    if ((i % maxCards) === 0) {
+
                         item = _createCarouselItem(first);
+
+                        let inner = item.parent().parent();
+                        let carousel = inner.parent();
+                        let column = carousel.parent();
+
+                        column.css({
+                            'text-align' : 'center',
+                        });
+
+                        /*carousel.css({
+                            'margin-left' : '0',
+                            'margin-right' : '0'
+                        });*/
+
                         first = false;
                     }
 
@@ -179,7 +199,7 @@ let App_Helper = new (function () {
                     i++;
                 });
 
-                if (i > div) {
+                if (i > maxCards) {
                     _createCarouselControl();
                 }
             }else{
@@ -209,7 +229,7 @@ let App_Helper = new (function () {
             function getAnimes(callback){
 
                 let category = getCategorie(index);
-                let div = 0;
+                let maxCards = 0;
 
                 if(!category){
 
@@ -221,13 +241,17 @@ let App_Helper = new (function () {
                 }
 
                 if(_screenType !== 'mobile'){
-                    div = 6;
-                }else{
 
-                    if(_orientation === 'landscape'){
-                        div = 3;
+                    if(_getScreenSize() < 1400){
+                        maxCards = 5;
                     }else{
-                        div = 22;
+                        maxCards = 6;
+                    }
+                }else{
+                    if(_orientation === 'landscape'){
+                        maxCards = 3;
+                    }else{
+                        maxCards = 22;
                     }
                 }
 
@@ -238,13 +262,22 @@ let App_Helper = new (function () {
                         let i = 0;
                         let item = null;
                         let first = true;
+                        let align = false;
+
+                        if(Object.keys(data.animes).length > (maxCards-1)){
+                            align = true;
+                        }
 
                       //  $('#carousel-' + category.key).find('.carousel-inner').empty();
-                        _createCarousel(category);
+                        _createCarousel(category, null, align);
 
                         $.each(data.animes, function (key, value) {
 
-                            if ((i % div) === 0) {
+                            if ((i % maxCards) === 1) {
+                                align = true;
+                            }
+
+                            if ((i % maxCards) === 0) {
                                 item = _createCarouselItem(first);
                                 first = false;
                             }
@@ -252,7 +285,7 @@ let App_Helper = new (function () {
                             i++;
                         });
 
-                        if (i > div) {
+                        if (i > maxCards) {
                             _createCarouselControl();
                         }
                     }
@@ -273,11 +306,11 @@ let App_Helper = new (function () {
 
     function _listSearchAnimes(params, callback = null, showloader = true){
 
+        window.scrollTo(0,0);
+
         App_Helper.hideCarousel();
         App_Helper.showSearch();
         App_Helper.showWrapper();
-
-       // $('.search-return').css('display', 'block');
 
         if(showloader)
             App_Helper.showLoader();
@@ -299,31 +332,38 @@ let App_Helper = new (function () {
             let item = null;
             let category = {};
             let first = true;
+            let maxCards = 0;
+            let align = false;
 
+            if(_screenType !== 'mobile'){
+
+                if(_getScreenSize() < 1400){
+                    maxCards = 5;
+                }else{
+                    maxCards = 6;
+                }
+            }else{
+                if(_orientation === 'landscape'){
+                    maxCards = 3;
+                }else{
+                    maxCards = 22;
+                }
+            }
+
+
+            if(Object.keys(data.animes).length >= (maxCards-1)) {
+                align = true;
+            }
             function createCarousel(index){
 
                 category.key = 'search' + index;
                 category.title = '';
-
-                _createCarousel(category, _containerSearch);
-            }
-
-            let div = 0;
-
-            if(_getScreenType() === 'mobile'){
-                div = 3;
-            }else{
-
-                if(_getScreenSize() < 1400){
-                    div = 3;
-                }else{
-                    div = 4;
-                }
+                _createCarousel(category, _containerSearch, align);
             }
 
             $.each(data.animes, function (key, value) {
 
-                if((i % div) === 0){ // Mobile aqui
+                if((i % maxCards) === 0){ // Mobile aqui
                     createCarousel(index);
                     first = true;
                     index++;
@@ -338,9 +378,7 @@ let App_Helper = new (function () {
                 i++;
             });
 
-
             App_Helper.hideLoader();
-          //  App_Helper.setOrientation(_orientation);
 
             if(typeof(callback) === 'function'){
                 callback(data);
@@ -463,7 +501,8 @@ let App_Helper = new (function () {
 
     function _createCardInfo(el, data){
 
-        let seasons = 'Temporadas: ' +  parseInt(data.seasons);
+        let seasons = parseInt(data.seasons);
+        seasons = seasons > 1 ? seasons + ' Temporadas' : seasons + ' Temporada';
 
         let info = $('<div>')
             .addClass('info')
@@ -739,7 +778,7 @@ let App_Helper = new (function () {
 
             //element.parent().removeAttr('style');
             element.find('img').css('display', 'block');
-         //   element.find('.overlay').css('display', 'none');
+            element.find('.overlay').css('display', 'none');
             element.find('.info-overlay').css('display', 'none');
             element.find('.info, .icons').css('opacity', '0');
             video.css('opacity', '0');
@@ -890,7 +929,7 @@ let App_Helper = new (function () {
         }
     }
 
-    function _createCarousel(category, container = null){
+    function _createCarousel(category, container = null, align = false){
 
         if(!container)
             container = _containerCarousel;
@@ -900,6 +939,16 @@ let App_Helper = new (function () {
         _column = $('<div>')
             .addClass('col-xs-12')
             .appendTo(container);
+
+       /* if(align){
+            _column.css('text-align', 'center');
+        }else{
+            _column.css({
+                'margin-left': '4%',
+                'margin-right': '4%',
+                'width' : '92%'
+            });
+        }*/
 
         let carousel = $('<div>')
             .addClass('carousel slide')
@@ -996,7 +1045,7 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('fa fa-chevron-left')
+            .addClass('glyphicon glyphicon-menu-left')
             .appendTo(a);
     }
 
@@ -1017,7 +1066,7 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('fa fa-chevron-right')
+            .addClass('glyphicon glyphicon-menu-right')
             .appendTo(a);
 
     }
@@ -1025,12 +1074,37 @@ let App_Helper = new (function () {
     function _clickBtnControls(el){
 
         let ul = $(el).parent().parent();
+        let column = ul.parent().parent();
+        let inner = column.find('.carousel-inner');
 
+        function unbindOverCards(){
+            inner.find('.item').each(function() {
+                let thumbnails = $(this).find('.thumbnails');
+                thumbnails.find('li').each(function() {
+                    $(this).css('pointer-events', 'none');
+                });
+            });
+        }
+
+        function bindOverCards(){
+            inner.find('.item').each(function() {
+                let thumbnails = $(this).find('.thumbnails');
+                thumbnails.find('li').each(function() {
+                    $(this).css('pointer-events', 'auto');
+                });
+            });
+        }
+
+        unbindOverCards();
         _hideControls(ul);
 
         setTimeout(function(){
             _showControls(ul);
         }, 600);
+
+        setTimeout(function(){
+            bindOverCards();
+        }, 1000);
     }
 
     function _showLoader(callback){
@@ -1086,13 +1160,14 @@ let App_Helper = new (function () {
     function _showWrapper(){
         _sidebarTopWrapper.css('display', 'block');
         _sidebarRightWrapper.css('display', 'block');
-        _sidebarLeftWrapper.css('display', 'block');
+        _sidebarLeftWrapper.css('opacity', '1');
+
     }
 
     function _hideWrapper(){
         _sidebarTopWrapper.css('display', 'none');
         _sidebarRightWrapper.css('display', 'none');
-        _sidebarLeftWrapper.css('display', 'none');
+        _sidebarLeftWrapper.css('opacity', '0');
     }
 
     function _showSearch(){
@@ -1474,6 +1549,7 @@ let App_Helper = new (function () {
 
         $.each(_filterSelects, function(key, value){
             value.val('none').trigger('change');
+            value.parent().find('i').css('color', '#c3bfbf')
         });
 
         _filterParams = {};
@@ -1597,6 +1673,7 @@ let App_Helper = new (function () {
 
         if(listAnimes){
             App_Helper.listCurrentAnimes(function(){
+                App_Helper.listAnimes();
             }, true);
         }
     }

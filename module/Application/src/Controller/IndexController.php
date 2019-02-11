@@ -9,7 +9,7 @@ class IndexController extends AbstractController
     {
 
         $this->minifyCSS();
-        $this->minifyJS();
+       $this->minifyJS();
         return new ViewModel();
     }
  }

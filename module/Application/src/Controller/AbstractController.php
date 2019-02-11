@@ -143,6 +143,7 @@ class AbstractController extends AbstractActionController
 
             $clientAnime = new ClientAnime();
             $data['id_client_anime'] = $data['id'];
+            $data['last_activity'] = $this->getDateNow();
             $clientAnime->exchangeArray($data);
 
         }else{
@@ -156,6 +157,7 @@ class AbstractController extends AbstractActionController
                 $clientAnime->id_client = $id_client;
                 $clientAnime->current_season = 1;
                 $clientAnime->current_episode = 1;
+                $clientAnime->last_activity = $this->getDateNow();
 
             }
         }
@@ -571,5 +573,11 @@ class AbstractController extends AbstractActionController
         $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/index.min.js';
         $minifierJS->minify($minifiedPath);
 
+    }
+
+    public function getDateNow(){
+
+        date_default_timezone_set('America/Sao_Paulo');
+        return date('Y-m-d H:i:s');
     }
 }

@@ -85,4 +85,8 @@ class VideoTable
         }
     }
 
+    public function deleteVideosEpisode($id_episode){
+        $this->tableGateway->delete(['id_episode' => (int) $id_episode]);
+    }
+
 }
