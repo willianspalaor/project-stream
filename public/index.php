@@ -3,7 +3,7 @@
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
-$_SERVER['APPLICATION_ENV'] === 'development';
+$_SERVER['APPLICATION_ENV'] = 'development';
 
 /**
  * Display all errors when APPLICATION_ENV is development.
