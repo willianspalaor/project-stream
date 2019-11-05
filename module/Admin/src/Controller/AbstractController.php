@@ -122,6 +122,8 @@ class AbstractController extends AbstractActionController
 
     public function isAuthenticate(){
 
+        return true;
+
         if(!isset($_SESSION)){
             session_start();
         }

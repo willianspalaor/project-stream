@@ -277,7 +277,7 @@ a{
 }
 .thumbnails li {
     width: 230px;
-    height: 129px;
+    height: 140px;
     background-color: #fff;
     transition: transform 200ms ease-in-out;
     padding: 0;

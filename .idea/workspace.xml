@@ -49,54 +49,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>listFiles</find>
-      <find>setTimeout</find>
-      <find>Player_Helper.play</find>
-      <find>playNextEp</find>
-      <find>getFile3</find>
-      <find>playNext</find>
-      <find>request</find>
-      <find>$_SERVER</find>
-      <find>$_SERV</find>
-      <find>$</find>
-      <find>Date</find>
-      <find>clear</find>
-      <find>listEpi</find>
-      <find>listEpisode</find>
-      <find>hideEpisode</find>
-      <find>src</find>
-      <find>$.a</find>
-      <find>filesize</find>
-      <find>filesi</find>
-      <find>hideEpisodes</find>
-      <find>stream</find>
-      <find>$(video)</find>
-      <find>fseek</find>
-      <find>getToken</find>
-      <find>getVideo</find>
-      <find>hideProgress</find>
-      <find>timeout</find>
-      <find>getUrlVideo</find>
-      <find>getUrlV</find>
-      <find>settimeout</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>control</replace>
-      <replace>Anime_Player.</replace>
-      <replace>Player_Anime</replace>
-      <replace>Helper_Player</replace>
-      <replace>Player_Helper</replace>
-      <replace>% 6</replace>
-      <replace>i &gt; 5</replace>
-      <replace>i &gt; 6</replace>
-      <replace>sidebar-left-wrapper</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>C:\Projects\project-stream</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -153,12 +105,6 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-mail" />
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-mime" />
     </include_path>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
@@ -280,6 +226,11 @@
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/module/Application/src/Controller/PlayerController.php</url>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php</url>
+          <line>108</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
