@@ -19,6 +19,9 @@ use Admin\Model\EpisodeTable;
 use Admin\Model\VideoTable;
 use Admin\Model\AdminTable;
 use Admin\Model\AuthorTable;
+use Admin\Model\ClientAnimeTable;
+use Admin\Model\ClientEpisodeTable;
+use Admin\Model\EpisodeReportTable;
 
 class AbstractController extends AbstractActionController
 {
@@ -32,9 +35,13 @@ class AbstractController extends AbstractActionController
     public $_videoTable;
     public $_adminTable;
     public $_authorTable;
+    public $_clientAnimeTable;
+    public $_clientEpisodeTable;
+    public $_episodeReportTable;
 
     public function __construct(AnimeTable $animeTable, GenreTable $genreTable, CategoryTable $categoryTable, AnimeCategoryTable $animeCategoryTable,
-                                SeasonTable $seasonTable, EpisodeTable $episodeTable, VideoTable $videoTable, AdminTable $adminTable, AuthorTable $authorTable)
+                                SeasonTable $seasonTable, EpisodeTable $episodeTable, VideoTable $videoTable, AdminTable $adminTable, AuthorTable $authorTable,
+                                ClientAnimeTable $clientAnimeTable, ClientEpisodeTable $clientEpisodeTable, EpisodeReportTable $episodeReportTable)
     {
         $this->_animeTable = $animeTable;
         $this->_genreTable = $genreTable;
@@ -45,6 +52,9 @@ class AbstractController extends AbstractActionController
         $this->_videoTable = $videoTable;
         $this->_adminTable = $adminTable;
         $this->_authorTable = $authorTable;
+        $this->_clientAnimeTable = $clientAnimeTable;
+        $this->_clientEpisodeTable = $clientEpisodeTable;
+        $this->_episodeReportTable = $episodeReportTable;
     }
 
     function prepareKey($string){
@@ -142,6 +152,31 @@ class AbstractController extends AbstractActionController
         }
     }
 
+    public function secondsToTime($seconds){
 
+        $dtF = new \DateTime('@0');
+        $dtT = new \DateTime("@$seconds");
+        $hours = $dtF->diff($dtT)->format('%h');
+        $minutes = $dtF->diff($dtT)->format('%i');
+        $seconds = $dtF->diff($dtT)->format('%s');
+
+        if($hours < 10){
+            $hours = '0' . $hours;
+        }
+
+        if($minutes < 10){
+            $minutes = '0' . $minutes;
+        }
+
+        if($seconds < 10){
+            $seconds = '0' . $seconds;
+        }
+
+        return $hours . ':' . $minutes . ':' . $seconds;
+    }
+
+    public function timeToSeconds($time){
+        return strtotime("1970-01-01 $time UTC");
+    }
 
 }

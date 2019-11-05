@@ -23,6 +23,10 @@
     padding: 10px;
 }
 
+button[name="btnModalLogin"] {
+    margin-top: 20px;
+}
+
 input[type="text"] {
     margin-bottom: 0px;
     border-bottom-left-radius: 0;

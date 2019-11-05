@@ -8,6 +8,7 @@ let App_Helper = new (function () {
     let _carouselInner = null;
     let _carouselId = null;
     let _loader = null;
+    let _loaderLogin = null;
     let _containerNavbar = null;
     let _navbar = null;
     let _navbarMenu = null;
@@ -30,13 +31,16 @@ let App_Helper = new (function () {
     let _filtersClear = false;
     let _screenType = null;
     let _orientation = null;
+    let _authenticated = false;
+    let _modalDialog = null;
 
 
-    function _assignElements(){
+    function _assignElements(callback){
 
         _content = $('.content');
         _carousel = $('#carousel-animes');
         _loader = $('#loader-wrapper');
+        _loaderLogin = $('#loader-wrapper-lg');
         _sidebarTopWrapper = $('#sidebar-top-wrapper');
         _sidebarRightWrapper = $('#sidebar-right-wrapper');
         _sidebarLeftWrapper = $('#sidebar-left-wrapper');
@@ -57,7 +61,12 @@ let App_Helper = new (function () {
         _searchReturn = $('.search-return');
         _searchIcon = $('.search-icon');
         _containerSearch = $('.container-search');
+        _modalDialog = $('.modal-dialog');
         _carouselId = _carousel.attr('id');
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
     }
 
     function _assignScreen(){
@@ -118,22 +127,71 @@ let App_Helper = new (function () {
 
     }
 
-    function _listCurrentAnimes(callback){
+    function _listCurrentAnimes(callback, changeOrientation = false){
+
+        if(_screenType === 'mobile' && !_orientation){
+
+            if(typeof(callback) === 'function'){
+                callback();
+            }
+
+            return false;
+        }
 
         App_Anime.getCurrentAnimes(function(data){
 
             let i = 0;
             let item = null;
             let first = true;
+            let maxCards = 0;
+
+            if(_screenType !== 'mobile'){
+
+                if(_getScreenSize() < 1400){
+                    maxCards = 5;
+                }else{
+                    maxCards = 6;
+                }
+            }else{
+                if(_orientation === 'landscape'){
+                    maxCards = 3;
+                }else{
+                    maxCards = 22;
+                }
+            }
 
             if(Object.keys(data.current_animes).length > 0) {
+
+                if(changeOrientation){
+                    _carousel = $('#carousel-animes');
+                    _carouselInner = _carousel.find('.carousel-inner');
+                    _column = _carousel.parent();
+                    _column.find('nav').remove();
+                    _carouselId = _carousel.attr('id');
+                    _carouselInner.empty();
+                }
 
                 _carousel.parent().css('display', 'block');
 
                 $.each(data.current_animes, function (key, value) {
 
-                    if ((i % 6) === 0) {
+                    if ((i % maxCards) === 0) {
+
                         item = _createCarouselItem(first);
+
+                        let inner = item.parent().parent();
+                        let carousel = inner.parent();
+                        let column = carousel.parent();
+
+                        column.css({
+                            'text-align' : 'center',
+                        });
+
+                        /*carousel.css({
+                            'margin-left' : '0',
+                            'margin-right' : '0'
+                        });*/
+
                         first = false;
                     }
 
@@ -141,11 +199,15 @@ let App_Helper = new (function () {
                     i++;
                 });
 
-                if (i > 6) {
+                if (i > maxCards) {
                     _createCarouselControl();
                 }
             }else{
                 _carousel.parent().css('display', 'none');
+            }
+
+            if(changeOrientation){
+                _setOrientation(_orientation);
             }
 
             if(typeof(callback) === 'function'){
@@ -155,7 +217,6 @@ let App_Helper = new (function () {
     }
 
     function _listAnimes(callback){
-
 
         App_Anime.getCategories(function(data){
 
@@ -168,6 +229,7 @@ let App_Helper = new (function () {
             function getAnimes(callback){
 
                 let category = getCategorie(index);
+                let maxCards = 0;
 
                 if(!category){
 
@@ -178,6 +240,21 @@ let App_Helper = new (function () {
                     return false;
                 }
 
+                if(_screenType !== 'mobile'){
+
+                    if(_getScreenSize() < 1400){
+                        maxCards = 5;
+                    }else{
+                        maxCards = 6;
+                    }
+                }else{
+                    if(_orientation === 'landscape'){
+                        maxCards = 3;
+                    }else{
+                        maxCards = 22;
+                    }
+                }
+
                 App_Anime.getAnimesByCategory(category.id, function(data){
 
                     if(Object.keys(data.animes).length > 0) {
@@ -185,12 +262,22 @@ let App_Helper = new (function () {
                         let i = 0;
                         let item = null;
                         let first = true;
+                        let align = false;
 
-                        _createCarousel(category);
+                        if(Object.keys(data.animes).length > (maxCards-1)){
+                            align = true;
+                        }
+
+                      //  $('#carousel-' + category.key).find('.carousel-inner').empty();
+                        _createCarousel(category, null, align);
 
                         $.each(data.animes, function (key, value) {
 
-                            if ((i % 6) === 0) {
+                            if ((i % maxCards) === 1) {
+                                align = true;
+                            }
+
+                            if ((i % maxCards) === 0) {
                                 item = _createCarouselItem(first);
                                 first = false;
                             }
@@ -198,7 +285,7 @@ let App_Helper = new (function () {
                             i++;
                         });
 
-                        if (i > 6) {
+                        if (i > maxCards) {
                             _createCarouselControl();
                         }
                     }
@@ -219,11 +306,11 @@ let App_Helper = new (function () {
 
     function _listSearchAnimes(params, callback = null, showloader = true){
 
+        window.scrollTo(0,0);
+
         App_Helper.hideCarousel();
         App_Helper.showSearch();
         App_Helper.showWrapper();
-
-        $('.search-return').css('display', 'block');
 
         if(showloader)
             App_Helper.showLoader();
@@ -245,18 +332,38 @@ let App_Helper = new (function () {
             let item = null;
             let category = {};
             let first = true;
+            let maxCards = 0;
+            let align = false;
 
+            if(_screenType !== 'mobile'){
+
+                if(_getScreenSize() < 1400){
+                    maxCards = 5;
+                }else{
+                    maxCards = 6;
+                }
+            }else{
+                if(_orientation === 'landscape'){
+                    maxCards = 3;
+                }else{
+                    maxCards = 22;
+                }
+            }
+
+
+            if(Object.keys(data.animes).length >= (maxCards-1)) {
+                align = true;
+            }
             function createCarousel(index){
 
                 category.key = 'search' + index;
                 category.title = '';
-
-                _createCarousel(category, _containerSearch);
+                _createCarousel(category, _containerSearch, align);
             }
 
             $.each(data.animes, function (key, value) {
 
-                if((i % 5) === 0){
+                if((i % maxCards) === 0){ // Mobile aqui
                     createCarousel(index);
                     first = true;
                     index++;
@@ -271,9 +378,7 @@ let App_Helper = new (function () {
                 i++;
             });
 
-
             App_Helper.hideLoader();
-            App_Helper.setOrientation(_orientation);
 
             if(typeof(callback) === 'function'){
                 callback(data);
@@ -382,7 +487,7 @@ let App_Helper = new (function () {
             })
             .appendTo(link);
 
-        $('<video muted>')
+        $('<video muted loop>')
             .attr({
                 'src' : data.trailer,
                 'type' : 'video/mp4'
@@ -430,7 +535,16 @@ let App_Helper = new (function () {
             .addClass('info');
 
         info.bind('click', function(){
-            window.location.href = $(this).parent().attr('data-route');
+
+            if(_screenType !== 'mobile'){
+                window.location.href = $(this).parent().attr('data-route');
+            }
+        });
+
+        info.bind('dblclick', function(){
+            if(_screenType === 'mobile'){
+                window.location.href = $(this).parent().attr('data-route');
+            }
         });
 
         info.bind('mouseenter', function(){
@@ -815,7 +929,7 @@ let App_Helper = new (function () {
         }
     }
 
-    function _createCarousel(category, container = null){
+    function _createCarousel(category, container = null, align = false){
 
         if(!container)
             container = _containerCarousel;
@@ -825,6 +939,16 @@ let App_Helper = new (function () {
         _column = $('<div>')
             .addClass('col-xs-12')
             .appendTo(container);
+
+       /* if(align){
+            _column.css('text-align', 'center');
+        }else{
+            _column.css({
+                'margin-left': '4%',
+                'margin-right': '4%',
+                'width' : '92%'
+            });
+        }*/
 
         let carousel = $('<div>')
             .addClass('carousel slide')
@@ -921,7 +1045,7 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('fa fa-chevron-left')
+            .addClass('glyphicon glyphicon-menu-left')
             .appendTo(a);
     }
 
@@ -942,7 +1066,7 @@ let App_Helper = new (function () {
             .appendTo(li);
 
         $('<i>')
-            .addClass('fa fa-chevron-right')
+            .addClass('glyphicon glyphicon-menu-right')
             .appendTo(a);
 
     }
@@ -950,12 +1074,37 @@ let App_Helper = new (function () {
     function _clickBtnControls(el){
 
         let ul = $(el).parent().parent();
+        let column = ul.parent().parent();
+        let inner = column.find('.carousel-inner');
 
+        function unbindOverCards(){
+            inner.find('.item').each(function() {
+                let thumbnails = $(this).find('.thumbnails');
+                thumbnails.find('li').each(function() {
+                    $(this).css('pointer-events', 'none');
+                });
+            });
+        }
+
+        function bindOverCards(){
+            inner.find('.item').each(function() {
+                let thumbnails = $(this).find('.thumbnails');
+                thumbnails.find('li').each(function() {
+                    $(this).css('pointer-events', 'auto');
+                });
+            });
+        }
+
+        unbindOverCards();
         _hideControls(ul);
 
         setTimeout(function(){
             _showControls(ul);
         }, 600);
+
+        setTimeout(function(){
+            bindOverCards();
+        }, 1000);
     }
 
     function _showLoader(callback){
@@ -968,9 +1117,26 @@ let App_Helper = new (function () {
         }
     }
 
+    function _showLoaderLogin(callback){
+
+
+        _loaderLogin = $('#loader-wrapper-lg');
+        $('.modal-body').css('overflow-y', 'hidden');
+        _loaderLogin.css('display', 'block');
+
+        if(typeof(callback) === 'function'){
+            callback();
+        }
+    }
+
     function _hideLoader(){
         $('body').css('overflow-y', 'visible');
         _loader.css('display', 'none');
+    }
+
+    function _hideLoaderLogin(){
+        $('.modal-body').css('overflow-y', 'visible');
+        _loaderLogin.css('display', 'none');
     }
 
     function _showCarousel(){
@@ -994,13 +1160,14 @@ let App_Helper = new (function () {
     function _showWrapper(){
         _sidebarTopWrapper.css('display', 'block');
         _sidebarRightWrapper.css('display', 'block');
-        _sidebarLeftWrapper.css('display', 'block');
+        _sidebarLeftWrapper.css('opacity', '1');
+
     }
 
     function _hideWrapper(){
         _sidebarTopWrapper.css('display', 'none');
         _sidebarRightWrapper.css('display', 'none');
-        _sidebarLeftWrapper.css('display', 'none');
+        _sidebarLeftWrapper.css('opacity', '0');
     }
 
     function _showSearch(){
@@ -1062,8 +1229,10 @@ let App_Helper = new (function () {
                         'href' : '#'
                     })
                     .on('click', function(){
+
+                        let id =  $(this).attr('data-id');
                         App_Helper.clearFilters(function(){
-                            _listSearchAnimes({category :  $(this).attr('data-id')});
+                            _listSearchAnimes({category :  id});
                         });
                     })
                     .text(value.title)
@@ -1325,7 +1494,7 @@ let App_Helper = new (function () {
             App_Helper.hideSearch();
             App_Helper.showCarousel();
 
-            $('.search-return').css('display', 'none');
+          //  $('.search-return').css('display', 'none');
             $('.selected-filters').css('display', 'none');
             $('#search-anime').val('');
 
@@ -1380,6 +1549,7 @@ let App_Helper = new (function () {
 
         $.each(_filterSelects, function(key, value){
             value.val('none').trigger('change');
+            value.parent().find('i').css('color', '#c3bfbf')
         });
 
         _filterParams = {};
@@ -1427,16 +1597,18 @@ let App_Helper = new (function () {
         }, 150);
     }
 
-    function _setOrientation(orientation){
+    function _setOrientation(orientation, listAnimes = false){
 
+        if(!orientation){
+            return false;
+        }
 
         _orientation = orientation;
 
         let elements = [_searchBar, _containerNavbar, _wrapperTop, _containerFluid, _containerCarousel,
-            _searchReturn, _containerSearch, _wrapperLeft, _wrapperTop];
+            _searchReturn, _containerSearch, _wrapperLeft, _wrapperTop, _navbarMenu, _modalDialog];
 
         if(orientation === 'landscape'){
-
 
             $.each(elements, function (key, element) {
                 element.addClass(orientation);
@@ -1466,10 +1638,10 @@ let App_Helper = new (function () {
                 $(this).addClass(orientation);
             });
 
-
             _createMenuCategories();
 
         }else{
+
             $.each(elements, function (key, element) {
                 element.removeClass('landscape');
             });
@@ -1498,10 +1670,50 @@ let App_Helper = new (function () {
                 $(this).removeClass('landscape');
             });
         }
+
+        if(listAnimes){
+            App_Helper.listCurrentAnimes(function(){
+                App_Helper.listAnimes();
+            }, true);
+        }
     }
 
     function _getScreenType(){
         return _screenType;
+    }
+
+    function _getScreenSize(){
+        return $(document).width();
+    }
+
+    function _setAuthentication(){
+
+        let textLogin = $('.btn-login');
+
+        App_Anime.getAuthentication(function(authenticated){
+            
+            _authenticated = authenticated;
+
+            if(_authenticated){
+                textLogin.css('display', 'none');
+            }else{
+                textLogin.css('display', 'block');
+            }
+        });
+    }
+
+    function _isAuthenticated(){
+        return _authenticated;
+    }
+
+    function _showWrapperTop(){
+        if(_hasSearch()){
+            _sidebarTopWrapper.css('display', 'block');
+        }
+    }
+
+    function _hideWrapperTop(){
+        _sidebarTopWrapper.css('display', 'none');
     }
 
     return {
@@ -1511,6 +1723,8 @@ let App_Helper = new (function () {
         listCurrentAnimes : _listCurrentAnimes,
         listSearchAnimes : _listSearchAnimes,
         showLoader : _showLoader,
+        showLoaderLogin : _showLoaderLogin,
+        hideLoaderLogin : _hideLoaderLogin,
         hideLoader : _hideLoader,
         showCarousel: _showCarousel,
         hideCarousel : _hideCarousel,
@@ -1528,8 +1742,11 @@ let App_Helper = new (function () {
         clearFilters : _clearFilters,
         showAutoCompleteTags : _showAutoCompleteTags,
         setOrientation : _setOrientation,
-        getScreenType : _getScreenType
-
+        getScreenType : _getScreenType,
+        setAuthentication : _setAuthentication,
+        isAuthenticated : _isAuthenticated,
+        showWrapperTop : _showWrapperTop,
+        hideWrapperTop : _hideWrapperTop
     }
 
 });

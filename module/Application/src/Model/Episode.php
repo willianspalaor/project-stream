@@ -21,6 +21,8 @@ class Episode implements InputFilterAwareInterface
     public $episode;
     public $open_start;
     public $open_end;
+    public $resume_start;
+    public $resume_end;
     public $end_start;
     public $title;
     public $description;
@@ -38,6 +40,8 @@ class Episode implements InputFilterAwareInterface
         $this->open_start = !empty($data['open_start']) ? $data['open_start'] : null;
         $this->open_end = !empty($data['open_end']) ? $data['open_end'] : null;
         $this->end_start = !empty($data['end_start']) ? $data['end_start'] : null;
+        $this->resume_start = !empty($data['resume_start']) ? $data['resume_start'] : null;
+        $this->resume_end = !empty($data['resume_end']) ? $data['resume_end'] : null;
         $this->title = !empty($data['title']) ? $data['title'] : null;
         $this->description = !empty($data['description']) ? $data['description'] : null;
         $this->track = !empty($data['track']) ? $data['track'] : null;
@@ -54,6 +58,8 @@ class Episode implements InputFilterAwareInterface
             'open_start' => $this->open_start,
             'open_end' => $this->open_end,
             'end_start' => $this->end_start,
+            'resume_start' => $this->resume_start,
+            'resume_end' => $this->resume_end,
             'title' => $this->title,
             'description' => $this->description,
             'track' => $this->track,

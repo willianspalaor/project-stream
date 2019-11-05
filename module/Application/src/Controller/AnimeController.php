@@ -18,53 +18,12 @@ class AnimeController extends AbstractController
         die(json_encode(array('anime' => $anime)));
     }
 
-    function curl_get_file_size( $url ) {
-        // Assume failure.
-        $result = -1;
-
-        $curl = curl_init( $url );
-
-        // Issue a HEAD request and follow any redirects.
-        curl_setopt( $curl, CURLOPT_NOBODY, true );
-        curl_setopt( $curl, CURLOPT_HEADER, true );
-        curl_setopt( $curl, CURLOPT_RETURNTRANSFER, true );
-        curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, true );
-        //curl_setopt( $curl, CURLOPT_USERAGENT, get_user_agent_string() );
-
-        $data = curl_exec( $curl );
-        curl_close( $curl );
-
-        if( $data ) {
-            $content_length = "unknown";
-            $status = "unknown";
-
-            if( preg_match( "/^HTTP\/1\.[01] (\d\d\d)/", $data, $matches ) ) {
-                $status = (int)$matches[1];
-            }
-
-            if( preg_match( "/Content-Length: (\d+)/", $data, $matches ) ) {
-                $content_length = (int)$matches[1];
-            }
-
-            // http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-            if( $status == 200 || ($status > 300 && $status <= 308) ) {
-                $result = $content_length;
-            }
-        }
-
-        return $result;
-    }
-
-
     public function getVideoAnimeAction()
     {
-
-
         $token = $this->params()->fromQuery('t');
         $position = strpos($token, ';');
         $video = substr($token, 0, $position);
         $date = substr($token, $position+1, strlen($token));
-
 
         $video =  base64_decode(urldecode($video));
         $date =  base64_decode(urldecode($date));
@@ -75,6 +34,14 @@ class AnimeController extends AbstractController
         $now = (int)$now;
         $date = (int)$date;
         $diff = $date - $now;
+
+        if(!$video){
+            die();
+        }
+
+        if(!$date){
+            die();
+        }
 
         if($diff < 5000000){
             $headers = get_headers($video, 1);
@@ -238,6 +205,32 @@ class AnimeController extends AbstractController
         $data =  $this->prepareJsonData($relatedAnimes, 'anime');
 
         die(json_encode(array('related_animes' => $data)));
+    }
+
+    public function loginAction(){
+
+        $request = $this->getRequest();
+        $data = $request->getPost();
+        $auth =$this->authenticate($data['user_email'], $data['user_pass']);
+        die(json_encode(array('authenticated' => $auth)));
+    }
+
+    public function logoutAction()
+    {
+       // $this->logoutClient();
+        die(json_encode(array('logout' => $this->logoutClient())));
+      //  return $this->redirect()->toRoute('home', ['action' => 'index']);
+    }
+
+    public function recoverAction(){
+        $data = $this->params()->fromPost();
+        $email = $data['user_email'];
+        die(json_encode(array('sended' => $this->sendMail($email))));
+
+    }
+
+    public function checkAuthenticationAction(){
+        die(json_encode(array('authenticated' => $this->isAuthenticate())));
     }
 }
 

@@ -184,6 +184,87 @@ let App_Anime = new (function () {
         });
     }
 
+    function _getAuthentication(callback){
+        $.ajax({
+            type : 'GET',
+            url  : '/anime/checkAuthentication',
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data.authenticated);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+    function _loginUser(data, callback){
+
+        $.ajax({
+            type : 'POST',
+            url  :'/anime/login',
+            data: data,
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+    function _logoutUser(callback){
+
+        $.ajax({
+            type : 'GET',
+            url  : '/anime/logout',
+            success: function(response){
+
+                if(typeof(callback) === 'function'){
+                    callback(response);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+    }
+
+
+    function _sendEmailRecovery(email, callback){
+
+        $.ajax({
+            type : 'POST',
+            url  :'/anime/recover',
+            data: {'user_email' : email},
+            success: function(response){
+
+                let data = JSON.parse(response);
+
+                if(typeof(callback) === 'function'){
+                    callback(data);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+
+    }
+
     return {
         getAnime : _getAnime,
         getAnimes : _getAnimes,
@@ -193,7 +274,12 @@ let App_Anime = new (function () {
         getGenres : _getGenres,
         getAuthors : _getAuthors,
         saveAnime : _saveAnime,
-        saveClientList : _saveClientList
+        saveClientList : _saveClientList,
+        getAuthentication : _getAuthentication,
+        loginUser : _loginUser,
+        logoutUser : _logoutUser,
+        sendEmailRecovery : _sendEmailRecovery,
+
 
     }
 

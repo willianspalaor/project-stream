@@ -26,14 +26,32 @@ $this->headTitle($title);
     $open_start = $form->get('open_start');
     $open_start->setAttribute('class', 'form-control');
     $open_start->setAttribute('placeholder', 'Opening start');
+    $open_start->setAttribute('data-toggle', 'tooltip');
+    $open_start->setAttribute('title', 'open_start');
 
     $open_end = $form->get('open_end');
     $open_end->setAttribute('class', 'form-control');
     $open_end->setAttribute('placeholder', 'Opening end');
+    $open_end->setAttribute('data-toggle', 'tooltip');
+    $open_end->setAttribute('title', 'open_end');
+
+    $resume_start = $form->get('resume_start');
+    $resume_start->setAttribute('class', 'form-control');
+    $resume_start->setAttribute('placeholder', 'Resume start');
+    $resume_start->setAttribute('data-toggle', 'tooltip');
+    $resume_start->setAttribute('title', 'resume_start');
+
+    $resume_end = $form->get('resume_end');
+    $resume_end->setAttribute('class', 'form-control');
+    $resume_end->setAttribute('placeholder', 'Resume end');
+    $resume_end->setAttribute('data-toggle', 'tooltip');
+    $resume_end->setAttribute('title', 'resume_end');
 
     $end_start = $form->get('end_start');
     $end_start->setAttribute('class', 'form-control');
     $end_start->setAttribute('placeholder', 'Ending start');
+    $end_start->setAttribute('data-toggle', 'tooltip');
+    $end_start->setAttribute('title', 'end_start');
 
     $key = $form->get('key');
     $key->setAttribute('class', 'form-control');
@@ -81,6 +99,12 @@ $this->headTitle($title);
 
         <?= $this->formElement($open_end) ?>
         <?= $this->formElementErrors()->render($open_end, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($resume_start) ?>
+        <?= $this->formElementErrors()->render($resume_start, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($resume_end) ?>
+        <?= $this->formElementErrors()->render($resume_end, ['class' => 'help-block']) ?>
 
         <?= $this->formElement($end_start) ?>
         <?= $this->formElementErrors()->render($end_start, ['class' => 'help-block']) ?>

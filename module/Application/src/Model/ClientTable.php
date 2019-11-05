@@ -26,12 +26,14 @@ class ClientTable
         return $resultSet;
     }
 
-    public function getClient($id = null, $ip = null)
+    public function getClient($id = null, $ip = null, $email = null)
     {
         if($id){
             $rowset = $this->tableGateway->select(['id_client' => $id]);
-        }else{
+        }else if($ip){
             $rowset = $this->tableGateway->select(['ip_address' => $ip]);
+        }else{
+            $rowset = $this->tableGateway->select(['user_email' => (string)$email]);
         }
 
         return $rowset->current();
@@ -76,7 +78,7 @@ class ClientTable
 
         if ($id === 0) {
             $this->tableGateway->insert($data);
-            return;
+            return $this->tableGateway->lastInsertValue;
         }
 
         if (! $this->getClient($id)) {
@@ -86,12 +88,30 @@ class ClientTable
             ));
         }
 
-        $this->tableGateway->update($data, ['id' => $id]);
+        $this->tableGateway->update($client->getData(), ['id_client' => $id]);
     }
 
     public function deleteClient($id)
     {
         $this->tableGateway->delete(['id_client' => (int) $id]);
     }
+
+    public function authenticate($user, $pass)
+    {
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->columns(array('*'));
+        $sqlSelect->where(array('user_email' => $user));
+        $sqlSelect->where(array('user_pass' => $pass));
+
+        $rowset = $this->tableGateway->selectWith($sqlSelect);
+        $row = $rowset->current();
+
+        if($row){
+            return true;
+        }
+
+        return false;
+    }
+
 
 }

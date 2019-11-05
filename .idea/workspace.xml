@@ -2,31 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="666ab712-9470-4415-8434-a75ca088e606" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/project-stream.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project-stream.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/development.local.php.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/local.php.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/autoload/zend-developer-tools.local-development.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/development.config.php.dist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/VideoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/VideoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Form/VideoForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Form/VideoForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/Video.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/Video.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/video/add.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/video/add.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Admin/view/admin/video/edit.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/view/admin/video/edit.phtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/AnimeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/PlayerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/PlayerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/Video.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/Video.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/player/index.phtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/AbstractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Controller/EpisodeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Admin/src/Model/VideoTable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/AbstractController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Controller/IndexController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/src/Model/AnimeTable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml" beforeDir="false" afterPath="$PROJECT_DIR$/module/Application/view/application/index/carousel.phtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/index.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/index.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/mobile.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mobile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/mobile.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/mobile.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/player.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/img/Anime/utils/video_not_found.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/img/Anime/utils/video_not_found.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/player.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/player.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/App.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/App.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Index/Helper.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Helper.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/Player.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/Player.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/module/Application/Player/xhr/Anime.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/robots.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/robots.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/all.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/all.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap-slider.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/brands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/brands.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/fontawesome.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/fontawesome.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-3.1.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-3.3.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/jquery-ui.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/Helper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Index/xhr/Anime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/Helper.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/Player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/module/Application/Player/xhr/Anime.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/regular.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/regular.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/select2.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/select2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/solid.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/solid.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/v4-shims.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/video/js/v4-shims.min.js" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,6 +76,56 @@
         <option value="CSS File" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>showToolit</find>
+      <find>last_act</find>
+      <find>saveC</find>
+      <find>setCurrentData</find>
+      <find>setEpisodePro</find>
+      <find>setCurrentEpiso</find>
+      <find>showControls</find>
+      <find>getDateNow</find>
+      <find>setEpisodeProgress</find>
+      <find>btnNext</find>
+      <find>_btnNext</find>
+      <find>bindAction</find>
+      <find>_bindAc</find>
+      <find>bindActionEv</find>
+      <find>bindActionEvents</find>
+      <find>video-controls</find>
+      <find>saveANime</find>
+      <find>saveEp</find>
+      <find>Episode</find>
+      <find>beforeun</find>
+      <find>save</find>
+      <find>currentTIme</find>
+      <find>margin-left</find>
+      <find>showCOntrols</find>
+      <find>_sidebarLeftWrapper</find>
+      <find>wrapper-top</find>
+      <find>transi</find>
+      <find>_bindActionEvents</find>
+      <find>video</find>
+      <find>error</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>control</replace>
+      <replace>Anime_Player.</replace>
+      <replace>Player_Anime</replace>
+      <replace>Helper_Player</replace>
+      <replace>Player_Helper</replace>
+      <replace>% 6</replace>
+      <replace>i &gt; 5</replace>
+      <replace>i &gt; 6</replace>
+      <replace>sidebar-left-wrapper</replace>
+      <replace>#loader-lg::</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Projects\project-stream</dir>
+      <dir>C:\Projects\project-stream\module</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -106,6 +184,7 @@
       <path value="$PROJECT_DIR$/vendor/zendframework/zend-mime" />
     </include_path>
   </component>
+  <component name="ProjectId" id="1TD52YVqdwXIiSz742WGnDonW86" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
@@ -116,16 +195,16 @@
     <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Projects\project-stream" />
-      <recent name="C:\Projects\project-stream\module\Admin\src\Model" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Projects\project-stream\public\css" />
+      <recent name="C:\Projects\project-stream\public\css\fontawesome-free-5.5.0-web\css" />
       <recent name="C:\Projects\project-stream" />
       <recent name="C:\Projects\project-stream\public\video\Anime\trailers" />
       <recent name="C:\Projects\project-stream\module\Admin\view" />
-      <recent name="C:\Projects\project-stream\module\Application\view\application" />
-      <recent name="C:\Projects\project-stream\module\Application\view\application\index" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\project-stream\module\Admin\src\Model" />
+      <recent name="C:\Projects\project-stream" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -213,13 +292,37 @@
       <workItem from="1546361505293" duration="6694000" />
       <workItem from="1546457075629" duration="39098000" />
       <workItem from="1546536369686" duration="1255000" />
-      <workItem from="1546538302408" duration="10063000" />
+      <workItem from="1546538302408" duration="21833000" />
+      <workItem from="1546708257888" duration="73231000" />
+      <workItem from="1546908193233" duration="5513000" />
+      <workItem from="1546914591611" duration="13562000" />
+      <workItem from="1546986789375" duration="878000" />
+      <workItem from="1547063576623" duration="1168000" />
+      <workItem from="1547080948618" duration="10388000" />
+      <workItem from="1547140069616" duration="8183000" />
+      <workItem from="1547213124126" duration="34786000" />
+      <workItem from="1547406110747" duration="26177000" />
+      <workItem from="1547452507906" duration="1228000" />
+      <workItem from="1547483672012" duration="7787000" />
+      <workItem from="1547656015043" duration="5466000" />
+      <workItem from="1547864474630" duration="789000" />
+      <workItem from="1572981627524" duration="33000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>

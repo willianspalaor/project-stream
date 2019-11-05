@@ -3,17 +3,22 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('Animesflix')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle('Animesflix - Portal de Animes')->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        ->appendName('og:title', 'Animesflix - Assista animes online grátis')
         ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ->appendName('description', 'Assista animes online de forma fácil e com mais conforto, com o nosso player você não precisará ficar pulando aberturas ou relembrando constantemente em qual episódio parou, tudo é salvo para sua maior comodidade.')
     ?>
+
+    <meta property="og:title" content="The title" />
 
     <!-- Le styles -->
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/Anime/icons/logo.png'])
-        ->prependStylesheet($this->basePath('css/style.css'))
-        ->prependStylesheet($this->basePath('css/admin.css'))
+        ->prependStylesheet($this->basePath('css/style.min.css'))
+        ->prependStylesheet($this->basePath('css/admin.min.css'))
+        ->prependStylesheet($this->basePath('css/mobile.css'))
         ->prependStylesheet($this->basePath('css/select2.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
@@ -24,14 +29,14 @@
     <!-- Scripts -->
     <?= $this->headScript()
         ->prependFile('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js')
-        ->prependFile($this->basePath('js/module/Application/Player/Player.js'))
-        ->prependFile($this->basePath('js/module/Application/Index/App.js'))
+        ->prependFile($this->basePath('js/module/Application/Player/Player.min.js'))
+        ->prependFile($this->basePath('js/module/Application/Index/App.min.js'))
         ->prependFile($this->basePath('js/select2.min.js'))
         ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery-ui.min.js'))
         ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
-
     ?>
+
 
 </head>
 <body>

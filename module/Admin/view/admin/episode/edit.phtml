@@ -31,6 +31,14 @@ $this->headTitle($title);
     $open_end->setAttribute('class', 'form-control');
     $open_end->setAttribute('placeholder', 'Opening end');
 
+    $resume_start = $form->get('resume_start');
+    $resume_start->setAttribute('class', 'form-control');
+    $resume_start->setAttribute('placeholder', 'Resume start');
+
+    $resume_end = $form->get('resume_end');
+    $resume_end->setAttribute('class', 'form-control');
+    $resume_end->setAttribute('placeholder', 'Resume end');
+
     $end_start = $form->get('end_start');
     $end_start->setAttribute('class', 'form-control');
     $end_start->setAttribute('placeholder', 'Ending start');
@@ -88,6 +96,12 @@ $this->headTitle($title);
 
         <?= $this->formElement($open_end) ?>
         <?= $this->formElementErrors()->render($open_end, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($resume_start) ?>
+        <?= $this->formElementErrors()->render($resume_start, ['class' => 'help-block']) ?>
+
+        <?= $this->formElement($resume_end) ?>
+        <?= $this->formElementErrors()->render($resume_end, ['class' => 'help-block']) ?>
 
         <?= $this->formElement($end_start) ?>
         <?= $this->formElementErrors()->render($end_start, ['class' => 'help-block']) ?>

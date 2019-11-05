@@ -32,6 +32,8 @@ use Application\Model\Category;
 use Application\Model\EpisodeReportTable;
 use Application\Model\EpisodeReport;
 use Application\Utils\RemoteAddress;
+use Zend\Mail;
+use MatthiasMullie\Minify;
 
 class AbstractController extends AbstractActionController
 {
@@ -70,32 +72,58 @@ class AbstractController extends AbstractActionController
         $this->genreTable = $genreTable;
         $this->authorTable = $authorTable;
 
-        $this->setClient();
+        $this->startSession();
+
+        if(isset($_SESSION['user_email'])){
+            $this->setClient($_SESSION['user_email']);
+        }else{
+            if(isset($_COOKIE['user_email'])){
+                $this->setClient($_COOKIE['user_email']);
+            }else{
+                $this->setClient();
+            }
+        }
     }
 
-    public function setClient($client = null){
+    public function startSession(){
 
-        if(!$client)
+        if(!isset($_SESSION)){
+            session_start();
+        }
+    }
+
+    public function setClient($email = false){
+
+        if($email){
+            $this->_client = $this->getClient($email, true);
+        }else{
             $this->_client = $this->getClient();
-        else
-            $this->_client = $client;
+        }
     }
 
     public function getCurrentClient(){
         return $this->_client;
     }
 
-    public function getClient(){
+    public function getClient($email = false, $new = false){
 
-        $ip = $this->getIp();
-        $client = $this->clientTable->getClient(null, $ip);
+        if($email) {
+            $client = $this->clientTable->getClient(null, null, $email);
+        }else{
 
-        if(!$client){
+            $client = null;
+            $ip = $this->getIp();
 
-            $newClient = new Client();
-            $newClient->ip_address = $ip;
-            $this->clientTable->saveClient($newClient);
-            $client = $this->clientTable->getClient(null, $ip);
+            if(!$new){
+                $client = $this->clientTable->getClient(null, $ip);
+            }
+
+            if(!$client){
+                $newClient = new Client();
+                $newClient->ip_address = $ip;
+                $id = $this->clientTable->saveClient($newClient);
+                $client = $this->clientTable->getClient($id);
+            }
         }
 
         return $client;
@@ -115,6 +143,7 @@ class AbstractController extends AbstractActionController
 
             $clientAnime = new ClientAnime();
             $data['id_client_anime'] = $data['id'];
+            $data['last_activity'] = $this->getDateNow();
             $clientAnime->exchangeArray($data);
 
         }else{
@@ -128,6 +157,7 @@ class AbstractController extends AbstractActionController
                 $clientAnime->id_client = $id_client;
                 $clientAnime->current_season = 1;
                 $clientAnime->current_episode = 1;
+                $clientAnime->last_activity = $this->getDateNow();
 
             }
         }
@@ -227,8 +257,8 @@ class AbstractController extends AbstractActionController
         if(!$this->remoteAddress)
             $this->remoteAddress = new RemoteAddress();
 
-        return "191.242.50.78";
-      //  return $this->remoteAddress->getIpAddress();
+        //return "191.242.50.78";
+        return $this->remoteAddress->getIpAddress();
     }
 
     public function prepareAnimeData($anime, $seasons)
@@ -310,5 +340,244 @@ class AbstractController extends AbstractActionController
         return $preparedEpisodes;
     }
 
+    public function authenticate($email, $pass){
 
+        $auth = $this->clientTable->authenticate($email, $pass);
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if($auth){
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_authenticate']= true;
+            setcookie("user_authenticate",'true', time() + (10 * 365 * 24 * 60 * 60));
+            setcookie("user_email",$email, time() + (10 * 365 * 24 * 60 * 60));
+
+            return true;
+        }else{
+
+            $client = $this->getClient($email);
+
+            if($client){
+                return false;
+            }
+
+            $client = $this->getClient(false, false);
+            $client->user_email = $email;
+            $client->user_pass = $pass;
+            $this->clientTable->saveClient($client);
+
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_authenticate']= true;
+            setcookie("user_authenticate",'true', time() + (10 * 365 * 24 * 60 * 60));
+            setcookie("user_email",$email, time() + (10 * 365 * 24 * 60 * 60));
+            return true;
+        }
+    }
+
+    public function logoutClient()
+    {
+        session_unset();
+        session_destroy();
+        unset($_COOKIE["user_email"]);
+        unset($_COOKIE["user_authenticate"]);
+        setcookie("user_authenticate", 'false', 1);
+        setcookie("user_email", "", 1);
+
+        return true;
+    }
+
+    public function isAuthenticate()
+    {
+        if(isset($_COOKIE["user_authenticate"]) && isset($_COOKIE['user_email'])){
+
+            if($_COOKIE['user_authenticate'] === 'true'){
+
+                    $client = $this->clientTable->getClient(null, null, $_COOKIE['user_email']);
+
+                    if(!$client || empty($client)){
+                        return false;
+                    }
+
+                    return true;
+
+            }else{
+                return false;
+            }
+        }
+
+        if(!isset($_SESSION)){
+            session_start();
+        }
+
+        if(!isset($_SESSION['user_email'])){
+            return false;
+        }
+
+        $client = $this->clientTable->getClient(null, null, $_SESSION['user_email']);
+        if(!$client || empty($client)){
+            return false;
+        }
+    }
+
+    public function sendMail($email){
+
+        $client = $this->clientTable->getClient(null, null, $email);
+
+        if($client){
+
+         /*   $mail = new Mail\Message();
+            $mail->setBody('This is the text of the email.');
+            $mail->setFrom($email, "Sender's name");
+           // $mail->addTo($email, 'Name of recipient');
+            $mail->setSubject('TestSubject');
+
+            $transport = new Mail\Transport\Sendmail();
+            $transport->send($mail);*/
+
+
+            $mail = new Mail\Message();
+            $mail->setBody('This is the text of the email.');
+            $mail->setFrom('willianspalaor@gmail.com', 'Setfrom');
+            $mail->addTo('willianspalaor@gmail.com', 'Addto');
+            $mail->setSubject('TestSubject');
+
+            $transport = new Mail\Transport\Sendmail();
+            $transport->send($mail);
+
+        }else{
+            return false;
+        }
+
+        return true;
+    }
+
+    public function minifyCSS(){
+
+        $files = ['style', 'admin', 'index', 'jquery-ui-base', 'mobile', 'login-home', 'login-loader', 'player', 'mobile'];
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value . '.css';
+            $minifierCSS = new Minify\JS($sourcePath);
+            $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value . '.min.css';
+            $minifierCSS->minify($minifiedPath);
+        }
+    }
+
+    public function minifyJS(){
+
+        $allFiles = [
+            1 => ['Player' => 'Player', 'Index' => 'App'],
+            2 => ['Player/xhr' => 'Anime', 'Player' => 'Helper'],
+            3 => ['Index/xhr' => 'Anime', 'Index' => 'Helper']
+        ];
+
+        foreach($allFiles as $key => $files){
+
+            foreach($files as $key => $value){
+                $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $key . '/' . $value . '.js';
+                $minifierJS = new Minify\JS($sourcePath);
+                $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $key . '/' . $value . '.min.js';
+                $minifierJS->minify($minifiedPath);
+            }
+        }
+    }
+
+
+
+
+
+
+    public function minifyFiles()
+    {
+
+        /************************************ LAYOUT *************************************************/
+
+        /* App CSS */
+        $files = ['style.css', 'admin.css'];
+        $minifierCSS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value;
+
+            if($first){
+                $minifierCSS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierCSS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/app.min.css';
+        $minifierCSS->minify($minifiedPath);
+
+
+        /* App JS */
+        $files = ['Index/App.js', 'Index/Player.js'];
+        $minifierJS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $value;
+
+            if($first){
+                $minifierJS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierJS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/app.min.js';
+        $minifierJS->minify($minifiedPath);
+
+        /************************************ INDEX *************************************************/
+
+        /* App CSS */
+        $files = ['index.css', 'mobile.css', 'jquery-ui-base.css'];
+        $minifierCSS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/css/' . $value;
+
+            if($first){
+                $minifierCSS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierCSS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/css/index.min.css';
+        $minifierCSS->minify($minifiedPath);
+
+        /* Index JS */
+        $files = ['Index/xhr/Anime.js', 'Index/Helper.js'];
+        $minifierJS = null;
+        $first = true;
+
+        foreach($files as $key => $value){
+            $sourcePath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/' . $value;
+
+            if($first){
+                $minifierJS = new Minify\JS($sourcePath);
+                $first = false;
+            }else{
+                $minifierJS->add($sourcePath);
+            }
+        }
+
+        $minifiedPath = $_SERVER['DOCUMENT_ROOT'] . '/js/module/Application/index.min.js';
+        $minifierJS->minify($minifiedPath);
+
+    }
+
+    public function getDateNow(){
+
+        date_default_timezone_set('America/Sao_Paulo');
+        return date('Y-m-d H:i:s');
+    }
 }

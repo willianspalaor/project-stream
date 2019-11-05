@@ -3,11 +3,13 @@
 namespace Application\Model;
 
 use RuntimeException;
+use Zend\Cache\Storage\Adapter\ExtMongoDbOptions;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Sql\Select;
 use Zend\Db\TableGateway\TableGatewayInterface;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
+use Zend\Db\Sql\Expression;
 
 class AnimeTable
 {
@@ -173,29 +175,34 @@ class AnimeTable
         $select->where(array('anime.title LIKE ?' => '%' . $anime->title . '%'));
         $select->where(array('anime.id_anime != ?' => $anime->id));
         $select->limit(1);
-        $result = $this->fetchPaginatedResults($select);
+        $rowset = $this->tableGateway->selectWith($select);
+        $row = $rowset->toArray();
 
-
-        if($result->count() <= 0){
+        if(!$row || empty($row)){
             $select = $this->tableGateway->getSql()->select();
-            $select->columns(array('*'));
+            $select->columns(array('*'), array('COUNT(*)'));
             $select->join('anime_category', 'anime_category.id_anime = anime.id_anime', array(), 'inner');
             $select->join('category', 'anime_category.id_category = category.id_category', array(), 'inner');
-            $select->where(array('anime_category.id_anime' => $anime->id));
             $select->where(array('anime.id_anime != ?' => $anime->id));
+            $select->group('anime.title');
+            $select->having('COUNT(anime.title) > 1');
+            $select->order(new Expression("RAND()"));
             $select->limit(1);
-            $result = $this->fetchPaginatedResults($select);
+            $rowset = $this->tableGateway->selectWith($select);
+            $row = $rowset->toArray();
         }
 
-        if($result->count() <= 0){
+        if(!$row || empty($row)){
             $select = $this->tableGateway->getSql()->select();
             $select->columns(array('*'));
             $select->limit(1);
             $select->where(array('anime.id_anime != ?' => $anime->id));
-            $result = $this->fetchPaginatedResults($select);
+            $select->order(new Expression("RAND()"));
+            $rowset = $this->tableGateway->selectWith($select);
+            $row = $rowset->toArray();
         }
 
-        return $result;
+        return $row;
 
     }
 }
